@@ -107,6 +107,8 @@ ollama show qwen3:4b-reviewer
 
 Só avançar quando `ollama list` e o `show` confirmarem o modelo. O revisor usa `ollama/qwen3:4b-reviewer`. Não é necessário carregar os modelos ao mesmo tempo. Numa máquina com memória limitada, executar os papéis em sequência. Os pedidos reduzidos usam contexto de 8K, enquanto o perfil completo do implementador permite 64K.
 
+O Modelfile do revisor fecha o prefixo de thinking do template Qwen3 distribuído no registo. O percurso reduzido pede saída JSON limitada. No ensaio, isso permitiu concluir uma revisão em cerca de10 segundos. O modelo produziu falsos positivos que os testes refutaram, registados em [REVIEW.md](REVIEW.md). A licença e a proveniência do template constam de `workshop-config/NOTICE.md`.
+
 ORCA passa `--model` ao agente selecionado. A instalação local OpenCode já usa o prefixo `ollama/`; não usar apenas `qwen3.5:4b-orca` em comandos ORCA. Se o modelo não aparecer ou a sessão falhar, não trocar silenciosamente para uma conta cloud: verificar o servidor Ollama e o ID, e continuar manualmente com um único modelo local se necessário.
 
 ### Percurso reduzido para uma aula sem esperas

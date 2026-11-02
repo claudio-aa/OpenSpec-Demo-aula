@@ -1,0 +1,28 @@
+{
+  "model": "qwen3:4b-reviewer",
+  "model_id": "34c1b863b88f",
+  "method": "textual_review_without_tools",
+  "observed_input_tokens": 1805,
+  "observed_output_tokens": 173,
+  "observed_seconds": 9.854739833,
+  "accepted_as_approval": false,
+  "review": {
+    "findings": [
+      {
+        "scenario": "Saída exatamente no limite",
+        "problem": "900001ms é processado como válido (exigido 900000ms max) devido a erro de cálculo de `elapsedMs`"
+      },
+      {
+        "scenario": "Janela ultrapassada por um milissegundo",
+        "problem": "900001ms não é recusado como `EXPIRED` (deve ser `EXPIRED`)"
+      }
+    ],
+    "checked": [
+      "900000ms",
+      "900001ms",
+      "unpaid",
+      "invalid inputs"
+    ],
+    "limitations": "Revisão textual sem execução de testes"
+  }
+}
