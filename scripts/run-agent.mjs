@@ -1,5 +1,6 @@
 import { spawn } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 
 const roles = {
   analyst: { agent: 'workshop-analyst', model: 'ollama/qwen3.5:4b-orca', prompt: 'prompts/01-analysis.md' },
@@ -15,7 +16,12 @@ if (process.argv.includes('--dry-run')) {
   console.log(JSON.stringify(role, null, 2));
   process.exit(0);
 }
-const prompt = await readFile(role.prompt, 'utf8');
+const activeSpec = 'openspec/changes/validate-garage-exit/specs/garage-exit/spec.md';
+const resolvedSpec = existsSync(activeSpec) ? activeSpec : 'openspec/specs/garage-exit/spec.md';
+const context = process.argv[2] === 'reviewer'
+  ? `A spec desta sessão é ${resolvedSpec}. Lê esse caminho exato e server/exit-decision.js e test/exit-decision.test.js. Executa npm test. Não procures a spec noutro caminho. O diff de referência é git diff checkpoint/01-spec-approved..checkpoint/02-implemented -- server test.\n\n`
+  : '';
+const prompt = context + await readFile(role.prompt, 'utf8') + '\n/no_think\nNão narres o raciocínio. Usa as ferramentas necessárias e apresenta apenas o resultado breve.';
 const args = ['run', '--pure', '--agent', role.agent, '--model', role.model, '--format', 'json', prompt];
 console.error(`Papel: ${process.argv[2]}; agente: ${role.agent}; modelo: ${role.model}`);
 const child = spawn('opencode', args, {

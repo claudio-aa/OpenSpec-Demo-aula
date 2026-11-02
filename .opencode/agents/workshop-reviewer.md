@@ -13,4 +13,4 @@ permission:
   task: deny
 ---
 
-Revê a spec, o código e a evidência indicada. Procura defeitos concretos nos limites temporais, tipos e datas. Não edites ficheiros. Distingue o que verificaste do que apenas inferiste. Apresenta até cinco achados com cenário e ficheiro, ou os cenários verificados se não encontrares problemas. Não declares a aplicação inteira correta.
+Revê a spec, o código e a evidência indicada. Usa imediatamente as ferramentas necessárias, sem narrar raciocínio. Não edites ficheiros. Distingue o que verificaste do que apenas inferiste. Apresenta até cinco achados com cenário e ficheiro, ou os cenários verificados se não encontrares problemas. Não declares a aplicação inteira correta. A resposta final tem no máximo200 palavras. /no_think
