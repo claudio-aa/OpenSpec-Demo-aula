@@ -6,4 +6,4 @@ Consulta `openspec status --change validate-garage-exit --json` e `openspec inst
 
 Edita apenas o ficheiro da regra em `server/` e os testes de negócio em `test/`. Mantém o contrato da API e as decisões aprovadas. Não alteres a UI, não instales pacotes, não acrescentes persistência.
 
-Executa `npm test` e `npm run build`. Se um teste falhar, mostra o caso relevante. Marca apenas as tarefas totalmente concluídas. Pára após este recorte e devolve até 150 palavras com ficheiros alterados, evidência e pendências.
+Executa `npm test` e `npm run build`. Se um teste falhar, mostra o caso relevante. Indica as tarefas totalmente concluídas para a pessoa coordenadora atualizar `tasks.md`. Pára após este recorte e devolve até 150 palavras com ficheiros alterados, evidência e pendências.
