@@ -6,30 +6,40 @@ Este guia usa ORCA como gestor de worktrees e sessões, OpenCode como agente e O
 
 - `orca` 1.4.237, OpenCode 1.19.5, OpenSpec 1.13 e Ollama estão instalados.
 - O agente instalado é `opencode`; confirmar no Orca com `orca agent-context` ou na lista de agentes da aplicação.
-- `qwen3.5:4b-orca` é o único modelo Qwen distinto instalado: ID local `86cc92158529`, 4.2B parâmetros, Q4_K_M, ferramentas e contexto efetivo de 65 536 tokens na configuração Ollama existente.
+- `qwen3.5:4b-orca` é o modelo de implementação: ID local `86cc92158529`, 4.2B parâmetros, Q4_K_M e contexto configurado de 65 536 tokens. A capacidade anunciada de ferramentas precisa de ensaio no cliente efetivo.
 - `qwen3.5:4b` e `qwen3.5:4b-q4_K_M` têm ambos o ID `d8b0f5e9760c`. São o mesmo modelo e não demonstram diversidade.
-- O ID de modelo que OpenCode/ORCA reconhecem nesta instalação é `ollama/qwen3.5:4b-orca`. A configuração global existente aponta para `http://127.0.0.1:11434/v1` e só ativa o fornecedor local Ollama. Não é necessário alterar essa configuração global para usar a instalação existente.
+- O segundo modelo do exercício é Qwen 3 4B, preparado com o alias `qwen3:4b-reviewer`. É uma geração e pesos diferentes de Qwen 3.5, embora pertença à mesma família de modelos. Isto permite comparar resultados, sem garantir erros independentes.
+- O projeto inclui `opencode.json` com o fornecedor local em `http://127.0.0.1:11434/v1`. Não altera a configuração global nem ativa fornecedores pagos.
 
 Este inventário é local e pode mudar. Antes da aula, repetir `ollama list`, `ollama show qwen3.5:4b-orca`, `opencode --version` e `orca --version`. A disponibilidade de um modelo no Ollama não garante que faça uma tarefa bem: executar primeiro um pedido pequeno com chamadas a ferramentas.
 
+Num computador novo, preparar também o modelo base e o alias do implementador. Na máquina do formador, o alias já existia e não foi substituído:
+
+```sh
+ollama pull qwen3.5:4b
+ollama create qwen3.5:4b-orca -f workshop-config/Modelfile.builder
+node scripts/preflight.mjs
+```
+
+O preflight só fica totalmente satisfeito depois de preparar o segundo modelo abaixo. Os ficheiros de configuração não descarregam modelos automaticamente.
+
 ## Configuração opcional no repositório
 
-Os exemplos estão em [`../workshop-config/`](../workshop-config/). São modelos para copiar ou adaptar, não alterações globais:
+O repositório já inclui a configuração de projeto e perfis em `.opencode/agents/workshop-*.md`. Os exemplos em [`../workshop-config/`](../workshop-config/) documentam a preparação, sem alterações globais:
 
 - `opencode.ollama.example.json`: configuração local OpenCode compatível com o formato instalado nesta máquina.
 - `prompts/analyst.md`, `prompts/builder.md` e `prompts/reviewer.md`: pedidos curtos com âmbito e entregáveis delimitados.
-- `prompts/reviewer-gemma3.md`: revisor para uma segunda família, apenas depois de instalar e confirmar `gemma3:4b`.
+- `Modelfile.reviewer`: preparação de Qwen 3 4B como segundo modelo local.
 
-OpenCode procura agentes de projeto em `.opencode/agents/`. Para ativar perfis Markdown no clone:
+Não é necessário copiar os exemplos para ativar os perfis do workshop. Confirmar o mapeamento sem chamar um modelo:
 
 ```sh
-mkdir -p .opencode/agents
-cp workshop-config/prompts/analyst.md .opencode/agents/analyst.md
-cp workshop-config/prompts/builder.md .opencode/agents/builder.md
-cp workshop-config/prompts/reviewer.md .opencode/agents/reviewer.md
+node scripts/run-agent.mjs analyst --dry-run
+node scripts/run-agent.mjs builder --dry-run
+node scripts/run-agent.mjs reviewer --dry-run
 ```
 
-Os perfis são primários para cada sessão. O perfil `reviewer-gemma3.md` pode ser copiado para `.opencode/agents/reviewer.md` quando Gemma 3 estiver disponível; não manter dois perfis com o mesmo nome. Se o projeto já tiver `opencode.json`, combinar as definições do exemplo com o ficheiro existente em vez de o substituir. O formato instalado neste computador usa `provider` e `enabled_providers`; a documentação de versões mais novas pode mostrar nomes diferentes.
+Os perfis são primários para sessões separadas. O revisor não pode editar ficheiros. O implementador só pode editar a regra e o teste de negócio. O formato instalado usa `provider` e `enabled_providers`; a documentação de versões mais novas pode mostrar nomes diferentes.
 
 Verificar Ollama, o agente e os modelos sem imprimir credenciais:
 
@@ -52,36 +62,65 @@ orca status --json
 orca repo list --json
 ```
 
-Para criar um worktree isolado com OpenCode e Qwen local:
+Registar o clone caso ainda não apareça na lista:
 
 ```sh
-orca worktree create \
-  --name analise-saida \
-  --agent opencode \
-  --model ollama/qwen3.5:4b-orca \
-  --surface terminal \
-  --setup skip \
-  --prompt "$(cat workshop-config/prompts/analyst.md)" \
-  --json
+orca repo add --path "$PWD" --json
 ```
 
-Para abrir uma sessão adicional noutro worktree, usar `orca agent launch --worktree path:<caminho> --agent opencode --model <provider/model> --prompt "..." --json`. Para modelos de chat com esforço configurável, ORCA aceita `--effort <nível>` quando `--model` também é indicado; Ollama não expõe níveis de esforço para este modelo.
+Nesta versão, o lançamento nativo com `--model ollama/...` foi recusado com `capability_unsupported`: o host não conseguiu verificar o lançamento desse modelo. O lançamento sem `--model` abriu OpenCode com o modelo local definido no `opencode.json`. Não apresentar o primeiro caminho como validado.
+
+```sh
+orca agent launch --agent opencode --surface terminal \
+  --prompt "Lê prompts/01-analysis.md e realiza apenas essa análise." --json
+```
+
+Para fixar explicitamente papel e modelo pela CLI do OpenCode, abrir o script num terminal ORCA:
+
+```sh
+orca terminal create --title "Analista local" \
+  --command "node scripts/run-agent.mjs analyst" --json
+orca terminal create --title "Implementador local" \
+  --command "node scripts/run-agent.mjs builder" --json
+orca terminal create --title "Revisor local" \
+  --command "node scripts/run-agent.mjs reviewer" --json
+```
+
+Estes três comandos mostram a sequência. Não os iniciar simultaneamente: a implementação espera pela aprovação e a revisão espera pelo diff. Para outras pastas, acrescentar `--worktree path:<caminho-absoluto>`. O script usa `--pure` e desativa descoberta de skills externas, downloads LSP e atualização remota do catálogo. Isto evita carregar instruções pessoais irrelevantes. [Variáveis de ambiente OpenCode](https://opencode.ai/docs/cli/).
+
+O ensaio inicial bloqueou na API compatível. Desativar thinking com `reasoningEffort: none` nas opções de cada modelo em `opencode.json` resolveu esse caso: OpenCode leu um ficheiro com a ferramenta `read` e concluiu o pedido em cerca de19 segundos. A API nativa usa `think: false`. Não basta escrever `/no_think` no texto do pedido. A configuração de fornecedor traduz a opção para `reasoning_effort: none`, suportada pela API compatível. [Controlo de thinking Ollama](https://docs.ollama.com/api/openai-compatibility).
+
+O ensaio de leitura não prova a qualidade da análise nem que qualquer implementação vá terminar no mesmo tempo. Usar o percurso reduzido abaixo se outra tarefa ultrapassar a janela da aula. O arranque do terminal por si só não prova que o agente terminou uma tarefa.
 
 As opções de lançamento são explícitas por sessão. Se forem criados três terminais com o mesmo `--model`, isso são três agentes/sessões, mas não três modelos diferentes. A tarefa da pessoa coordenadora tem de indicar qual agente corre primeiro, o que pode editar e como entregar a evidência.
 
-### Demonstração com dois modelos distintos
+### Preparação do segundo modelo
 
-O catálogo local atual só contém a família Qwen. Para ter um implementador e um revisor de famílias diferentes, instalar previamente outro modelo local, sem fornecedor cloud:
+Instalar antes da aula, sem fornecedor cloud:
 
 ```sh
-ollama pull gemma3:4b
+ollama pull qwen3:4b
+ollama create qwen3:4b-reviewer -f workshop-config/Modelfile.reviewer
 ollama list
-ollama show gemma3:4b
+ollama show qwen3:4b-reviewer
 ```
 
-Só avançar quando `ollama list` mostrar `gemma3:4b` e o `show` confirmar o modelo. O ficheiro `prompts/reviewer-gemma3.md` fixa o revisor nessa família com `ollama/gemma3:4b`. O ensaio deve executar implementação e revisão em sessões OpenCode separadas; não é necessário carregar ambos ao mesmo tempo. Uma máquina com memória limitada pode ter de descarregar o primeiro modelo antes de chamar o segundo.
+Só avançar quando `ollama list` e o `show` confirmarem o modelo. O revisor usa `ollama/qwen3:4b-reviewer`. Não é necessário carregar os modelos ao mesmo tempo. Numa máquina com memória limitada, executar os papéis em sequência. Os pedidos reduzidos usam contexto de 8K, enquanto o perfil completo do implementador permite 64K.
 
 ORCA passa `--model` ao agente selecionado. A instalação local OpenCode já usa o prefixo `ollama/`; não usar apenas `qwen3.5:4b-orca` em comandos ORCA. Se o modelo não aparecer ou a sessão falhar, não trocar silenciosamente para uma conta cloud: verificar o servidor Ollama e o ID, e continuar manualmente com um único modelo local se necessário.
+
+### Percurso reduzido para uma aula sem esperas
+
+```sh
+orca terminal create --title "Analista com pacote curto" \
+  --command "node scripts/local-packet.mjs analyst" --json
+orca terminal create --title "Decisão com Qwen 3.5" \
+  --command "node scripts/local-packet.mjs builder" --json
+orca terminal create --title "Revisão com Qwen 3" \
+  --command "node scripts/local-packet.mjs reviewer" --json
+```
+
+São pedidos a modelos com entrada selecionada, sem ferramentas nem edição automática. A pessoa inspeciona a proposta, aplica-a e executa os testes no terminal. Não apresentar este percurso como um agente autónomo a editar o repositório. ORCA continua a organizar as sessões e os ficheiros OpenSpec conservam as decisões. Ver [ensaio observado](LOCAL-TRIAL.md).
 
 ## Papéis, sequência e controlo
 

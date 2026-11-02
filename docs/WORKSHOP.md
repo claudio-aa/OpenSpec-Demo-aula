@@ -12,12 +12,12 @@ Usar o PPTX em `presentation/` na primeira meia hora. Ter uma cópia local, as b
 
 | Minutos | Atividade | Evidência visível |
 | --- | --- | --- |
-| 0–4 | Objetivo, orçamento zero e caso de estudo | Uma regra concreta do processo |
-| 4–10 | Conversa e agente: objetivo, ferramentas, observação, ação e verificação | Um agente lê um ficheiro e executa um teste |
-| 10–16 | Escrever uma tarefa com contexto suficiente e limites | Prompt curto com ficheiros permitidos e conclusão |
-| 16–22 | ORCA e divisão de trabalho por modelos | Analista propõe, humano decide, implementador executa, revisor verifica |
-| 22–27 | OpenSpec como memória persistente | Proposal, spec, design e tasks da mesma alteração |
-| 27–30 | Limite de quota e handoff | Nova sessão retoma a partir dos ficheiros |
+| 0–3 | Objetivo, orçamento zero e plano da aula | Resultado esperado e preparação |
+| 3–9 | Conversa e agente: objetivo, ferramentas, observação, ação e verificação | Um pedido delimitado e evidência do terminal |
+| 9–15 | Caso de estudo e decisão na fronteira de 15 minutos | Cenários e decisão humana |
+| 15–21 | OpenSpec como memória persistente | Proposal, spec, design e tasks da mesma alteração |
+| 21–27 | ORCA e divisão de trabalho por modelos | Analista propõe, humano decide, implementador executa, revisor verifica |
+| 27–30 | Contexto, limite de quota e handoff | Nova sessão retoma a partir dos ficheiros |
 
 A demonstração dos papéis usa pedidos sequenciais quando há dependências. Só o trabalho independente corre em paralelo. A análise de ambiguidades e a preparação de uma lista de testes podem correr ao mesmo tempo, em ficheiros distintos. O implementador aguarda as decisões aprovadas. O revisor recebe a spec e o diff depois da implementação.
 
