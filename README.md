@@ -14,6 +14,7 @@ O ambiente usa ORCA, OpenSpec e modelos locais através de Ollama. OpenCode fica
 - [Prompts pequenos por tarefa](prompts/)
 - [Apresentação inicial](presentation/)
 - [Estado para retomar o trabalho](HANDOFF.md)
+- [Ensaio local e exemplo de uma tarefa demasiado ampla](docs/LOCAL-TRIAL.md)
 
 ## Exercício
 
@@ -31,6 +32,8 @@ npm test
 npm run build
 npm start
 ```
+
+Para os modelos e ferramentas do workshop, seguir [orca-setup.md](docs/orca-setup.md) e executar `node scripts/preflight.mjs`.
 
 Abrir `http://127.0.0.1:3000`. O servidor serve a interface compilada e a API. Após editar a interface, repetir o build. Para desenvolvimento com atualização da interface, consultar os scripts em `package.json`.
 

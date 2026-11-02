@@ -1,6 +1,6 @@
 # Apresentação do workshop
 
-[Abrir a apresentação PowerPoint](output/workshop-agentes-openspec-v2.pptx)
+[Abrir a apresentação PowerPoint](output/workshop-agentes-openspec.pptx)
 
 16 slides editáveis, em português europeu, para uma sessão de 60 minutos com estudantes do 3.º ano de Análise de Sistemas. Os slides 1 a 11 apoiam os primeiros 30 minutos de explicação e demonstrações. Os slides 12 a 16 orientam a prática nos últimos 30 minutos.
 

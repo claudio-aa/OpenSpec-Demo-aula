@@ -23,3 +23,7 @@ node scripts/local-packet.mjs builder
 ```
 
 Se o agente completo bloquear, usar este percurso reduzido ou o checkpoint. Não ocupar a aula a repetir pedidos extensos. Registar sempre o que o modelo fez e o que a pessoa ou outro agente corrigiu.
+
+## Agente com ferramenta
+
+Os primeiros pedidos OpenCode não terminaram dentro do limite de espera. Após configurar `reasoningEffort: none`, um pedido pequeno concluiu em cerca de19 segundos: o agente Qwen 3.5 chamou a ferramenta `read` para ler `server/exit-decision.js` e respondeu. A explicação confundiu ausência de pagamento com prazo expirado, apesar de o ficheiro distinguir os dois casos. Este ensaio demonstra o funcionamento da ferramenta e a necessidade de rever a interpretação do modelo.
