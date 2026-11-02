@@ -12,13 +12,12 @@ Usar o PPTX em `presentation/` na primeira meia hora. Ter uma cópia local, as b
 
 | Minutos | Atividade | Evidência visível |
 | --- | --- | --- |
-| 0–3 | Objetivo, orçamento zero e plano da aula | Resultado esperado e preparação |
-| 3–9 | Conversa e agente: objetivo, ferramentas, observação, ação e verificação | Um pedido delimitado e evidência do terminal |
-| 9–13 | Caso de estudo e decisão na fronteira de 15 minutos | Cenários e decisão humana |
-| 13–17 | OpenSpec como memória persistente | Proposal, spec, design e tasks da mesma alteração |
-| 17–22 | ORCA e divisão de trabalho por modelos | Analista propõe, humano decide, implementador executa, revisor verifica |
-| 22–24 | Contexto, limite de quota e handoff | Nova sessão retoma a partir dos ficheiros |
-| 24–30 | Estado do protótipo e contributos reais dos modelos | Código integrado, tentativa rejeitada e falso positivo reproduzido |
+| 0–2 | Visão geral do exemplo e das três peças | Pessoa, agentes, OpenSpec e resultado verificado |
+| 2–10 | Ciclo de desenvolvimento, cinco slides | Análise, decisão, rastreabilidade, iteração e propagação de mudanças |
+| 10–20 | Agentes, cinco slides | Ciclo de ferramentas, entregas por papel, dependências, contexto e revisão |
+| 20–30 | OpenSpec, cinco slides | Estado vigente, proposta, cenários, apply e arquivo |
+
+O [mapa pedagógico](TEACHING-FLOW.md) detalha o que explicar em cada esquema. A estrutura segue o mesmo caso durante os três blocos, permitindo relacionar cada decisão com o artefacto que a conserva e com a tarefa que o agente executa.
 
 A demonstração dos papéis usa pedidos sequenciais quando há dependências. Só o trabalho independente corre em paralelo. A análise de ambiguidades e a preparação de uma lista de testes podem correr ao mesmo tempo, em ficheiros distintos. O implementador aguarda as decisões aprovadas. O revisor recebe a spec e o diff depois da implementação.
 
