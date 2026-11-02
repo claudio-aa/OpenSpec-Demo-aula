@@ -6,12 +6,12 @@ Objetivo: avaliar a saída de um parque até 15 minutos após pagamento. O enunc
 
 Implementado: regra, validação de entradas, API e interface de simulação. A fronteira de 900 000 ms é inclusiva. Um milissegundo adicional devolve `EXPIRED`.
 
-Revisão concluída: Qwen3 4B produziu uma revisão textual. As suspeitas sobre900001ms foram refutadas pela reprodução do cenário. Ver `docs/REVIEW.md`. Não alterar uma regra correta apenas para satisfazer a crítica do modelo.
+Revisão concluída: Qwen3 4B produziu uma revisão textual. As suspeitas sobre 900001 ms foram refutadas pela reprodução do cenário. Ver `docs/REVIEW.md`. Não alterar uma regra correta apenas para satisfazer a crítica do modelo.
 
-Evidência executada: `npm test` passou26 testes, `npm run build` passou e a validação OpenSpec estrita passou. O relatório do ensaio local está em `docs/LOCAL-TRIAL.md`. Confirmar os resultados na nova sessão.
+Evidência executada: `npm test` passou 26 testes, `npm run build` passou e a validação OpenSpec estrita passou. O relatório do ensaio local está em `docs/LOCAL-TRIAL.md`. Confirmar os resultados na nova sessão.
 
 A spec canónica está em `openspec/specs/garage-exit/spec.md`. A alteração foi arquivada em `openspec/changes/archive/2026-11-02-validate-garage-exit/`. A validação da spec e das tarefas arquivadas passou. O workflow deste recorte está concluído.
 
-Materiais atualizados: PPTX com19 slides, mantendo30 minutos de introdução e30 de prática. Os slides12 a14 e `docs/CONTRIBUTIONS.md` distinguem a preparação cloud, o código local integrado e os erros observados.
+Materiais atualizados: `presentation/output/workshop-agentes-openspec-reestruturado.pptx`, com 22 slides e 30 minutos de introdução mais 30 de prática. Existem cinco slides sobre o ciclo de desenvolvimento, cinco sobre agentes e cinco sobre OpenSpec, com esquemas nativos editáveis e um gráfico dos ensaios. `docs/TEACHING-FLOW.md` explica as passagens e implicações. A versão anterior foi preservada porque estava aberta no PowerPoint. Verificação desta revisão: renders inspecionados, validação estrutural e de layout sem ocorrências, 22 notas e gráfico nativo com dados incorporados. Esta revisão alterou apenas materiais; não repetiu os testes da aplicação.
 
-Próxima tarefa de preparação da aula: ensaiar os60 minutos com o docente e confirmar as decisões didáticas. Como exercício posterior opcional, analisar como confirmar passagem física sem confundir autorização com saída efetiva, antes de propor uma nova alteração.
+Próxima tarefa de preparação da aula: ensaiar os 60 minutos com o docente e confirmar as decisões didáticas. Como exercício posterior opcional, analisar como confirmar passagem física sem confundir autorização com saída efetiva, antes de propor uma nova alteração.
