@@ -27,3 +27,7 @@ Se o agente completo bloquear, usar este percurso reduzido ou o checkpoint. Não
 ## Agente com ferramenta
 
 Os primeiros pedidos OpenCode não terminaram dentro do limite de espera. Após configurar `reasoningEffort: none`, um pedido pequeno concluiu em cerca de19 segundos: o agente Qwen 3.5 chamou a ferramenta `read` para ler `server/exit-decision.js` e respondeu. A explicação confundiu ausência de pagamento com prazo expirado, apesar de o ficheiro distinguir os dois casos. Este ensaio demonstra o funcionamento da ferramenta e a necessidade de rever a interpretação do modelo.
+
+## Segundo modelo e revisão
+
+Qwen3 4B foi instalado para o papel de revisor. Os primeiros pedidos extensos atingiram o limite de saída e foram marcados como incompletos, sem aceitar uma conclusão parcial. O perfil reduzido com JSON concluiu em cerca de9,85 segundos, com1805 tokens de entrada e173 de saída. O revisor alegou um erro na fronteira de900001ms. A execução do cenário refutou a alegação, conforme [REVIEW.md](REVIEW.md). Este exemplo permite discutir falsos positivos e a diferença entre uma crítica plausível e evidência reproduzível.
