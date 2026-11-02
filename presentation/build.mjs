@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { pathToFileURL, fileURLToPath } from 'node:url';
+import { drawDiagram, drawTrialChart } from './diagrams.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const runtime = process.env.RUNTIME_ROOT || path.join(os.homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies');
@@ -12,7 +13,7 @@ const { Presentation, PresentationFile } = await import(pathToFileURL(path.join(
   const require = createRequire(path.join(process.env.RUNTIME_NODE_MODULES, '__runtime__.cjs'));
   return import(pathToFileURL(require.resolve('@oai/artifact-tool')).href);
 });
-const { resolvePresentationFont, finalizePresentation } = await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')).href);
+const { resolvePresentationFont, finalizePresentation, applyPresentationChartFont } = await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')).href);
 const font = resolvePresentationFont();
 const build = path.join(here,'.build');
 await fs.mkdir(build,{recursive:true});
@@ -28,6 +29,7 @@ function text(s,value,x,y,w,h,size=28,color=C.ink,bold=false){
 }
 function header(s,d,i,dark=false){
   const fg=dark?C.white:C.ink;
+  if(d.block) text(s,d.block,70,30,1130,25,18,dark?C.light:C.teal,true);
   text(s,d.title,70,60,1130,110,44,fg,true);
   text(s,String(i+1).padStart(2,'0'),70,664,70,22,17,dark?C.light:C.muted);
   text(s,d.time,1050,664,170,24,17,dark?C.light:C.muted);
@@ -59,7 +61,11 @@ for(const [i,d] of data.entries()){
     text(s,'Workshop guiado de 60 minutos',70,650,600,28,22,C.light);
   }else{
     header(s,d,i,dark);
-    if(d.kind==='split'){
+    if(d.kind==='diagram'){
+      drawDiagram(s,d.diagram,{font,text,colors:C});bottom(s,d.bottom);
+    }else if(d.kind==='trial-chart'){
+      drawTrialChart(s,d,{font,text,colors:C,applyChartFont:applyPresentationChartFont});bottom(s,d.bottom);
+    }else if(d.kind==='split'){
       text(s,d.leftTitle,70,212,540,85,d.leftTitle==='30 min'?68:36,C.teal,true);
       text(s,d.rightTitle,690,212,520,85,d.rightTitle==='30 min'?68:36,C.teal,true);
       text(s,d.left,70,310,520,300,30,C.ink);
@@ -103,7 +109,7 @@ for(const [i,s] of deck.slides.items.entries()){
 }
 const candidate=path.join(build,'candidate.pptx');
 await(await PresentationFile.exportPptx(deck)).save(candidate);
-const final=path.join(here,'output',process.env.PPTX_FILENAME||'workshop-agentes-openspec.pptx');
-const result=await finalizePresentation({workspaceDir:here,candidatePath:candidate,finalPath:final,pythonExecutable:path.join(runtime,'python/bin/python3'),integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit','--require-native-table-slide','6','--require-native-table-slide','9'],explicitTotalSlideCount:data.length,requiredNativeTableOwnerSlides:[6,9],fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(final)}.validation.json`)});
+const final=path.join(here,'output',process.env.PPTX_FILENAME||'workshop-agentes-openspec-reestruturado.pptx');
+const result=await finalizePresentation({workspaceDir:here,candidatePath:candidate,finalPath:final,pythonExecutable:path.join(runtime,'python/bin/python3'),integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit'],explicitTotalSlideCount:data.length,requiredNativeChartOwnerSlides:[11],materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(final)}.validation.json`)});
 await fs.writeFile(path.join(build,'result.json'),JSON.stringify(result,null,2));
 console.log(JSON.stringify({final,slides:data.length,font}));
