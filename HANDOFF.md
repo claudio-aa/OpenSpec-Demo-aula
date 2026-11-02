@@ -1,17 +1,17 @@
 # Estado para retoma
 
-Checkpoint final: `checkpoint/03-complete`.
+## Código e materiais de referência
 
-Objetivo: avaliar a saída de um parque até 15 minutos após pagamento. O enunciado não resolve a fronteira exata. `docs/BRIEF.md` identifica decisões didáticas para aprovação.
+`main` contém a solução do simulador de autorização de saída, arquivada em `openspec/changes/archive/2026-11-02-validate-garage-exit/`; spec vigente em `openspec/specs/garage-exit/spec.md`. D1 aceita 900 000 ms inclusive; 900 001 ms devolve EXPIRED. D1–D6 são decisões didáticas a confirmar pelo responsável, não factos adicionais do enunciado.
 
-Implementado: regra, validação de entradas, API e interface de simulação. A fronteira de 900 000 ms é inclusiva. Um milissegundo adicional devolve `EXPIRED`.
+Evidência anterior registada: 26 testes, build e validação OpenSpec passaram. Não foram repetidos neste ciclo documental. Qwen3 apresentou uma crítica falsa, refutada por reprodução; ver `docs/REVIEW.md` e `docs/CONTRIBUTIONS.md`.
 
-Revisão concluída: Qwen3 4B produziu uma revisão textual. As suspeitas sobre 900001 ms foram refutadas pela reprodução do cenário. Ver `docs/REVIEW.md`. Não alterar uma regra correta apenas para satisfazer a crítica do modelo.
+O PPTX atual tem 22 slides e permanece inalterado: `presentation/output/workshop-agentes-openspec-reestruturado.pptx`. SHA-256: `cbc150a08224f3f1b32f68c7f30ec6e46b7aec3a1c0ac87e316c34c5361d5efd`.
 
-Evidência executada: `npm test` passou 26 testes, `npm run build` passou e a validação OpenSpec estrita passou. O relatório do ensaio local está em `docs/LOCAL-TRIAL.md`. Confirmar os resultados na nova sessão.
+## Primeiro ciclo de revisão concluído
 
-A spec canónica está em `openspec/specs/garage-exit/spec.md`. A alteração foi arquivada em `openspec/changes/archive/2026-11-02-validate-garage-exit/`. A validação da spec e das tarefas arquivadas passou. O workflow deste recorte está concluído.
+Ler `docs/reviews/cycle-01/README.md` e os três pareceres independentes com suplementos: aluno sem contexto, docente de Análise de Sistemas e metodologista. O agente principal assume o papel de escritor. São perspetivas simuladas por IA; falta ensaio com pessoas reais.
 
-Materiais atualizados: `presentation/output/workshop-agentes-openspec-reestruturado.pptx`, com 22 slides e 30 minutos de introdução mais 30 de prática. Existem cinco slides sobre o ciclo de desenvolvimento, cinco sobre agentes e cinco sobre OpenSpec, com esquemas nativos editáveis e um gráfico dos ensaios. `docs/TEACHING-FLOW.md` explica as passagens e implicações. A versão anterior foi preservada porque estava aberta no PowerPoint. Verificação desta revisão: renders inspecionados, validação estrutural e de layout sem ocorrências, 22 notas e gráfico nativo com dados incorporados. Esta revisão alterou apenas materiais; não repetiu os testes da aplicação.
+Requisito explícito do utilizador: slides auto contidos; notas do docente secundárias. Faltam definição/propósito de OpenSpec, commands/skills/agents e exemplo completo com interfaces, permissões e evidência. A prática tem uma lacuna análise textual → artefactos OpenSpec. Há também um risco estático nas permissões bash do builder, ainda sem reprodução. Este ciclo não alterou PPTX, código, configuração ou checkpoints.
 
-Próxima tarefa de preparação da aula: ensaiar os 60 minutos com o docente e confirmar as decisões didáticas. Como exercício posterior opcional, analisar como confirmar passagem física sem confundir autorização com saída efetiva, antes de propor uma nova alteração.
+Próxima tarefa: escritor criar storyboard que resolva as correções consolidadas, com tamanho livre e 30+30 minutos; produzir nova versão sem esconder passos essenciais nas notas. Depois repetir as três revisões e ensaiar o percurso. Preservar o trabalho do utilizador e a versão anterior. O protocolo de revisores/escritor está em `docs/reviews/cycle-01/PROTOCOL.md`.
