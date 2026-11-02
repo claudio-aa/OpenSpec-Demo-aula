@@ -34,7 +34,7 @@ O sistema SHALL recusar uma tentativa com dados válidos e sem pagamento com `al
 
 ### Requirement: Rejeitar entradas inválidas
 
-A API SHALL receber um objeto com `paid` booleano e `exitAt` num timestamp ISO 8601 com timezone explícito. `paidAt` SHALL ser `null` ou um timestamp válido com timezone, sendo obrigatório um timestamp quando `paid` é `true`. Datas de calendário inexistentes, campos obrigatórios em falta, tipos incorretos e saída anterior ao pagamento confirmado SHALL produzir HTTP 400, `allowed: false` e `reason: INVALID_INPUT`. Um valor não nulo de `paidAt` SHALL ser validado mesmo sem pagamento confirmado.
+A API SHALL receber um objeto com `paid` booleano e `exitAt` num timestamp ISO 8601 com timezone explícito. O formato aceite SHALL ser `YYYY-MM-DDTHH:mm:ss`, seguido opcionalmente de uma fração de 1 a 3 dígitos e obrigatoriamente de `Z` ou offset `±HH:mm`. As horas SHALL estar entre 00 e 23, e minutos e segundos entre 00 e 59. `paidAt` SHALL ser `null` ou um timestamp válido com timezone, sendo obrigatório um timestamp quando `paid` é `true`. Datas de calendário inexistentes, campos obrigatórios em falta, tipos incorretos e saída anterior ao pagamento confirmado SHALL produzir HTTP 400, `allowed: false` e `reason: INVALID_INPUT`. Um valor não nulo de `paidAt` SHALL ser validado mesmo sem pagamento confirmado.
 
 #### Scenario: Booleano incorreto
 - **WHEN** `paid` é a string `"true"`

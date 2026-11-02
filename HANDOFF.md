@@ -1,11 +1,11 @@
 # Estado para retoma
 
-Checkpoint inicial: `checkpoint/00-starter`.
+Checkpoint: `checkpoint/02-implemented`.
 
 Objetivo: avaliar a saída de um parque até 15 minutos após pagamento. O enunciado não resolve a fronteira exata. `docs/BRIEF.md` identifica decisões didáticas para aprovação.
 
-Implementado: estrutura da app, interface de simulação, servidor e testes de infraestrutura. A regra devolve `NOT_IMPLEMENTED` neste checkpoint.
+Implementado: regra, validação de entradas, API e interface de simulação. A fronteira de 900 000 ms é inclusiva. Um milissegundo adicional devolve `EXPIRED`.
 
-Próxima tarefa: aprovar as decisões e criar a alteração OpenSpec `validate-garage-exit`. Usar `prompts/01-analysis.md`. Não implementar antes de aprovar os cenários.
+Próxima tarefa: revisão independente da alteração OpenSpec `validate-garage-exit`, registo da evidência e arquivo. Usar `prompts/03-review.md`. Não alterar as decisões aprovadas para fazer passar testes.
 
-Evidência a confirmar na nova sessão: `npm test` e `npm run build`. O modelo usado e os resultados reais devem ficar registados na entrega do grupo.
+Evidência executada: `npm test` passou 26 testes, `npm run build` passou e a validação OpenSpec estrita passou. O relatório do ensaio local está em `docs/LOCAL-TRIAL.md`. Confirmar os resultados na nova sessão.
