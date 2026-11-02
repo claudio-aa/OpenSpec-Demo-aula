@@ -12,4 +12,6 @@ Evidência executada: `npm test` passou26 testes, `npm run build` passou e a val
 
 A spec canónica está em `openspec/specs/garage-exit/spec.md`. A alteração foi arquivada em `openspec/changes/archive/2026-11-02-validate-garage-exit/`. A validação da spec e das tarefas arquivadas passou. O workflow deste recorte está concluído.
 
-Próximo exercício opcional: analisar como confirmar passagem física sem confundir autorização com saída efetiva, antes de propor uma nova alteração.
+Materiais atualizados: PPTX com19 slides, mantendo30 minutos de introdução e30 de prática. Os slides12 a14 e `docs/CONTRIBUTIONS.md` distinguem a preparação cloud, o código local integrado e os erros observados.
+
+Próxima tarefa de preparação da aula: ensaiar os60 minutos com o docente e confirmar as decisões didáticas. Como exercício posterior opcional, analisar como confirmar passagem física sem confundir autorização com saída efetiva, antes de propor uma nova alteração.
