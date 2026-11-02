@@ -19,7 +19,17 @@ const jobs = {
   reviewer: {
     model: 'qwen3:4b-reviewer',
     files: [spec, 'server/exit-decision.js'],
-    instruction: 'Revê a função segundo a spec fornecida. Não executaste testes nem leste outros ficheiros. Procura até3 falhas concretas com cenário reproduzível. Verifica exatamente900000ms,900001ms,ausência de pagamento,tipos e datas. Não inventes execução de ferramentas. Até200 palavras. Se não encontrares falhas, declara os limites desta revisão textual.'
+    instruction: 'Review the supplied spec and source. Return ONLY the required JSON, in Portuguese, up to150 words total. findings lists only concrete reproducible defects, otherwise empty. checked names cases inspected:900000ms,900001ms,unpaid,invalid inputs. limitations states this is textual review and no tests were executed. Do not narrate analysis or invent tool execution.',
+    format: {
+      type: 'object',
+      properties: {
+        findings: { type: 'array', maxItems: 3, items: { type: 'object', properties: { scenario: { type: 'string' }, problem: { type: 'string' } }, required: ['scenario', 'problem'], additionalProperties: false } },
+        checked: { type: 'array', maxItems: 5, items: { type: 'string' } },
+        limitations: { type: 'string' }
+      },
+      required: ['findings', 'checked', 'limitations'],
+      additionalProperties: false
+    }
   }
 };
 const job = jobs[role];
@@ -32,7 +42,7 @@ if (process.argv.includes('--dry-run')) {
   process.exit(0);
 }
 const blocks = await Promise.all(job.files.map(async file => `FICHEIRO ${file}\n${await readFile(file, 'utf8')}`));
-const prompt = [job.instruction, ...blocks].join('\n\n');
+const prompt = [job.instruction, ...blocks, '/no_think'].join('\n\n');
 console.error(`Papel: ${role}; modelo local: ${job.model}; ficheiros: ${job.files.join(', ') || 'nenhum'}`);
 try {
   const response = await fetch('http://127.0.0.1:11434/api/chat', {
@@ -43,6 +53,7 @@ try {
       model: job.model,
       stream: false,
       think: false,
+      format: job.format,
       messages: [{ role: 'user', content: prompt }],
       options: { num_ctx: 8192, num_predict: 768, temperature: 0.1 }
     })
