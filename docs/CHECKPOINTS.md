@@ -1,6 +1,6 @@
 # Checkpoints e recuperação
 
-Cada checkpoint é um commit com uma branch de referência. O histórico é linear, permitindo comparar o que mudou entre etapas. As branches de referência permanecem como pontos de partida. O trabalho de cada estudante fica numa branch própria.
+Cada checkpoint tem uma branch de referência. Os commits principais 00 a03 seguem a evolução do exercício. As branches podem incluir commits adicionais de manutenção dos materiais e da configuração, preservando o estado funcional de cada etapa. O trabalho de cada estudante fica numa branch própria.
 
 ## Início da prática
 

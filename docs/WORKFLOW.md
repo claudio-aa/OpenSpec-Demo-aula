@@ -19,7 +19,7 @@ O modelo não toma decisões de negócio em nome do cliente. OpenSpec também n�
 
 O modelo `qwen3.5:4b-orca` é a referência local instalada. Os nomes `qwen3.5:4b` e `qwen3.5:4b-q4_K_M` têm o mesmo identificador local e não contam como dois modelos independentes. Uma configuração diferente do mesmo modelo também não prova diversidade de raciocínio.
 
-Para demonstrar modelos distintos, combinar o implementador local com um analista ou revisor gratuito disponível e previamente ensaiado. A troca pode ser manual entre aplicações. Não pressupor que uma sessão gratuita de navegador fornece uma API para ORCA. A configuração concreta e os limites ficam em [orca-setup.md](orca-setup.md).
+Para demonstrar modelos distintos, o revisor usa Qwen 3 4B (`qwen3:4b-reviewer`) e o implementador usa Qwen 3.5 4B. São gerações e pesos diferentes, ainda da família Qwen. Uma família diferente pode fornecer outra perspetiva, sem garantir que a revisão encontra todos os erros. Um analista ou revisor gratuito na cloud é uma extensão opcional. Não pressupor que uma sessão gratuita de navegador fornece uma API para ORCA. A configuração concreta e os limites ficam em [orca-setup.md](orca-setup.md).
 
 Evitar quatro agentes a gerar planos completos para a mesma tarefa. Neste recorte, basta um analista, um implementador e uma revisão curta. A análise e o esboço independente dos testes podem decorrer em paralelo. A implementação depende das decisões, e a revisão depende do diff.
 
