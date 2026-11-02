@@ -7,6 +7,7 @@ O ambiente usa ORCA, OpenSpec e modelos locais através de Ollama. OpenCode fica
 ## Materiais
 
 - [Guião dos 60 minutos](docs/WORKSHOP.md)
+- [Ciclo, agentes e OpenSpec explicados passo a passo](docs/TEACHING-FLOW.md)
 - [Caso de estudo e decisões em aberto](docs/BRIEF.md)
 - [Workflow, papéis e consumo de contexto](docs/WORKFLOW.md)
 - [Configuração ORCA e modelos](docs/orca-setup.md)

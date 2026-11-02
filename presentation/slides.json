@@ -1,225 +1,1718 @@
 [
   {
     "kind": "cover",
-    "title": "Workflows com agentes",
-    "subtitle": "Análise de Sistemas\nOpenSpec, ORCA e modelos locais",
+    "title": "Desenvolvimento com agentes",
+    "subtitle": "Ciclo de trabalho, ORCA e OpenSpec\nAnálise de Sistemas",
     "time": "00–01 min",
     "minutes": 1,
     "notes": "Abertura (1 min). Público: 3.º ano de Engenharia Informática. Objetivo: transformar uma regra de negócio ambígua numa alteração pequena, testada e revista. A imagem é uma ilustração do enunciado fornecido, não uma fotografia do parque de Gafanhápolis. Fonte da imagem: CE4-Estacionamento em Gafanhapolis.docx, imagem extraída do documento fornecido."
   },
   {
-    "kind": "split",
-    "title": "Uma hora, uma regra de negócio",
-    "time": "01–03 min",
+    "kind": "diagram",
+    "title": "Como as três peças se ligam",
+    "block": "Visão geral",
+    "minutes": 1,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "p",
+          "label": "Problema:\nestacionamento",
+          "x": 70,
+          "y": 230,
+          "w": 230,
+          "h": 105,
+          "role": "source",
+          "size": 26
+        },
+        {
+          "id": "h",
+          "label": "Pessoa\naprova decisões",
+          "x": 380,
+          "y": 230,
+          "w": 230,
+          "h": 105,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "a",
+          "label": "Agentes\nexecutam tarefas",
+          "x": 690,
+          "y": 230,
+          "w": 230,
+          "h": 105,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "v",
+          "label": "Resultado\nverificado",
+          "x": 1000,
+          "y": 230,
+          "w": 210,
+          "h": 105,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "os",
+          "label": "OpenSpec: decisões, cenários e tarefas em ficheiros",
+          "x": 220,
+          "y": 430,
+          "w": 840,
+          "h": 90,
+          "role": "artifact",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "p",
+          "target": "h",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "h",
+          "target": "a",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "a",
+          "target": "v",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "h",
+          "target": "os",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "os",
+          "target": "a",
+          "fromSide": "top",
+          "toSide": "bottom"
+        }
+      ],
+      "labels": [
+        {
+          "text": "1  Ciclo de desenvolvimento",
+          "x": 70,
+          "y": 170,
+          "w": 370,
+          "h": 46,
+          "size": 24
+        },
+        {
+          "text": "2  Agentes e ferramentas",
+          "x": 470,
+          "y": 170,
+          "w": 370,
+          "h": 46,
+          "size": 24
+        },
+        {
+          "text": "3  OpenSpec e artefactos",
+          "x": 870,
+          "y": 170,
+          "w": 370,
+          "h": 46,
+          "size": 24
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "Ciclo = ordem do trabalho. Agentes = execução. OpenSpec = estado partilhado.",
+    "notes": "Mapa da aula. A pessoa define o problema e aprova decisões. Os agentes recebem tarefas limitadas, usam ferramentas quando o cliente as disponibiliza e entregam resultados. OpenSpec conserva decisões e contratos. Git guarda os snapshots. Nos primeiros30 minutos explorar estas três peças em cinco slides cada. Nos últimos30 aplicar a uma regra do parque. Uma seta liga uma decisão à tarefa que a consome, e outra liga os artefactos ao contexto do agente. Estes papéis são uma proposta pedagógica do workshop. Fontes: docs/WORKFLOW.md e docs/BRIEF.md.",
+    "time": "01–02 min"
+  },
+  {
+    "kind": "diagram",
+    "title": "O ciclo de uma alteração pequena",
+    "block": "Ciclo de desenvolvimento 1/5",
     "minutes": 2,
-    "leftTitle": "30 min",
-    "left": "Conceitos e demonstrações\n\nCiclo do agente\nDecisões e especificação\nPapéis e custo de contexto",
-    "rightTitle": "30 min",
-    "right": "Laboratório guiado\n\nEspecificar a regra de saída\nImplementar e testar\nRever com evidência",
-    "notes": "Plano (2 min). As instalações e downloads fazem parte da preparação anterior à aula. Nesta primeira metade mostrar exemplos curtos, com os prompts visíveis. Na segunda metade os pares trabalham no repositório. Um aluno conduz o agente e o outro verifica requisitos e testes. Trocar os papéis a meio. Resultado esperado: decisão explícita para os 15 minutos, implementação no servidor, testes de fronteira e revisão.",
-    "bottom": "Fluxo local sem API paga, subscrição ou cartão."
+    "diagram": {
+      "nodes": [
+        {
+          "id": "a",
+          "label": "Analisar\no problema",
+          "x": 70,
+          "y": 255,
+          "w": 180,
+          "h": 125,
+          "role": "source",
+          "size": 26
+        },
+        {
+          "id": "b",
+          "label": "Especificar\no resultado",
+          "x": 310,
+          "y": 255,
+          "w": 180,
+          "h": 125,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "c",
+          "label": "Dividir em\ntarefas",
+          "x": 550,
+          "y": 255,
+          "w": 180,
+          "h": 125,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "d",
+          "label": "Implementar\ne testar",
+          "x": 790,
+          "y": 255,
+          "w": 180,
+          "h": 125,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "f",
+          "label": "Rever\ne integrar",
+          "x": 1030,
+          "y": 255,
+          "w": 180,
+          "h": 125,
+          "role": "tool",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "d",
+          "target": "f",
+          "fromSide": "right",
+          "toSide": "left"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Questão e decisão",
+          "x": 65,
+          "y": 395,
+          "w": 200,
+          "h": 45,
+          "size": 23
+        },
+        {
+          "text": "Cenários de aceitação",
+          "x": 295,
+          "y": 395,
+          "w": 215,
+          "h": 45,
+          "size": 23
+        },
+        {
+          "text": "Ficheiros e conclusão",
+          "x": 535,
+          "y": 395,
+          "w": 215,
+          "h": 45,
+          "size": 23
+        },
+        {
+          "text": "Diff e testes",
+          "x": 795,
+          "y": 395,
+          "w": 180,
+          "h": 45,
+          "size": 23
+        },
+        {
+          "text": "Evidência aceite",
+          "x": 1015,
+          "y": 395,
+          "w": 210,
+          "h": 45,
+          "size": 23
+        }
+      ],
+      "routes": [
+        {
+          "source": "f",
+          "target": "a",
+          "via": [
+            [
+              1240,
+              317
+            ],
+            [
+              1240,
+              510
+            ],
+            [
+              40,
+              510
+            ],
+            [
+              40,
+              317
+            ]
+          ],
+          "fromSide": "right",
+          "toSide": "left",
+          "label": {
+            "text": "correção ou nova informação",
+            "x": 420,
+            "y": 465,
+            "w": 470,
+            "h": 32,
+            "size": 24
+          },
+          "dash": true
+        }
+      ],
+      "bands": []
+    },
+    "bottom": "Uma falha no teste regressa ao código. Uma dúvida de negócio regressa à análise.",
+    "notes": "Percorrer uma alteração concreta: autorização de saída do parque. A análise identifica a dúvida no limite. A especificação transforma a decisão em cenários. As tarefas delimitam o diff. A implementação inclui testes. A revisão compara a evidência com o contrato. O ciclo de desenvolvimento pertence à equipa, mesmo quando um agente executa passos. O retorno desenhado existe para evitar tratar uma geração de código como conclusão automática. Fontes: docs/WORKFLOW.md e docs/WORKSHOP.md.",
+    "time": "02–04 min"
   },
   {
-    "kind": "split",
-    "title": "Conversa e execução com ferramentas",
-    "time": "03–06 min",
-    "minutes": 3,
-    "leftTitle": "Chat",
-    "left": "Recebe uma pergunta\nProduz uma resposta\n\nO aluno executa os passos\ne confirma o resultado.",
-    "rightTitle": "Agente",
-    "right": "Recebe um objetivo\nConsulta ficheiros e usa ferramentas\n\nObserva resultados e ajusta\no passo seguinte.",
-    "notes": "Conceito (3 min). Um agente combina modelo, contexto, ferramentas e um ciclo de controlo. O modelo propõe ações, mas a aplicação controla as ferramentas e as permissões. Dizer ‘corri os testes’ é apenas texto até existir uma chamada de ferramenta e uma saída observável. Mini demonstração: pedir apenas ‘explica esta função’ e contrastar com ‘lê a função, executa npm test e relata a saída’. Mostrar uma leitura e o resultado de uma ferramenta. O aluno continua responsável por avaliar a resposta e autorizar o âmbito."
+    "kind": "diagram",
+    "title": "Da frase ambígua à decisão explícita",
+    "block": "Ciclo de desenvolvimento 2/5",
+    "minutes": 2,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "brief",
+          "label": "Enunciado\n15 minutos após pagar",
+          "x": 70,
+          "y": 255,
+          "w": 300,
+          "h": 100,
+          "role": "source",
+          "size": 26
+        },
+        {
+          "id": "q",
+          "label": "E exatamente\naos 15:00?",
+          "x": 490,
+          "y": 225,
+          "w": 290,
+          "h": 105,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "decision",
+          "label": "Pessoa escolhe D1\nlimite inclusivo",
+          "x": 900,
+          "y": 255,
+          "w": 310,
+          "h": 100,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "rule",
+          "label": "Critério aprovado\n0 ≤ tempo ≤ 900000 ms",
+          "x": 490,
+          "y": 430,
+          "w": 380,
+          "h": 90,
+          "role": "artifact",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "brief",
+          "target": "q",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "q",
+          "target": "decision",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "decision",
+          "target": "rule",
+          "fromSide": "bottom",
+          "toSide": "right"
+        }
+      ],
+      "labels": [
+        {
+          "text": "facto da fonte",
+          "x": 90,
+          "y": 370,
+          "w": 260,
+          "h": 46,
+          "size": 24
+        },
+        {
+          "text": "ambiguidade identificada",
+          "x": 485,
+          "y": 345,
+          "w": 335,
+          "h": 46,
+          "size": 24
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "O agente propõe interpretações. A pessoa responsável escolhe a regra.",
+    "notes": "A frase dos15 minutos vem do enunciado. A inclusão do instante exato é uma decisão didática, D1, que o docente deve confirmar. O agente pode produzir duas interpretações plausíveis: menos de15 minutos ou até15 minutos inclusive. Isso muda o comportamento no limite. Só depois da escolha se fixa o critério e se escreve a spec. Não acrescentar novas cobranças ou ações físicas. Fonte: docs/BRIEF.md e o enunciado fornecido.",
+    "time": "04–06 min"
   },
   {
-    "kind": "sequence",
-    "title": "O ciclo de trabalho do agente",
-    "time": "06–09 min",
-    "minutes": 3,
-    "items": [
-      [
-        "01",
-        "Observar",
-        "Ler a regra, o código e os testes."
+    "kind": "diagram",
+    "title": "A decisão liga requisito, código e teste",
+    "block": "Ciclo de desenvolvimento 3/5",
+    "minutes": 1,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "d",
+          "label": "D1\n15:00 é aceite",
+          "x": 70,
+          "y": 235,
+          "w": 230,
+          "h": 105,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "s",
+          "label": "Spec\naté 900000 ms",
+          "x": 385,
+          "y": 235,
+          "w": 230,
+          "h": 105,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "c",
+          "label": "Código\ncomparar duração",
+          "x": 700,
+          "y": 235,
+          "w": 230,
+          "h": 105,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "t",
+          "label": "Teste\n900000 dá VALID",
+          "x": 1010,
+          "y": 235,
+          "w": 200,
+          "h": 105,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "edge",
+          "label": "Teste vizinho\n900001 dá EXPIRED",
+          "x": 850,
+          "y": 450,
+          "w": 360,
+          "h": 85,
+          "role": "tool",
+          "size": 26
+        }
       ],
-      [
-        "02",
-        "Planear",
-        "Escolher a próxima ação limitada."
+      "edges": [
+        {
+          "source": "d",
+          "target": "s",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "s",
+          "target": "c",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "c",
+          "target": "t",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "s",
+          "target": "edge",
+          "fromSide": "bottom",
+          "toSide": "left"
+        }
       ],
-      [
-        "03",
-        "Agir",
-        "Editar ou executar uma ferramenta."
+      "labels": [
+        {
+          "text": "de onde vem a expectativa?",
+          "x": 140,
+          "y": 445,
+          "w": 560,
+          "h": 50,
+          "size": 28
+        }
       ],
-      [
-        "04",
-        "Verificar",
-        "Comparar o resultado com o requisito."
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "Cada teste tem uma origem no requisito e uma expectativa definida antes do resultado.",
+    "notes": "Explicar rastreabilidade através da mesma decisão. A spec define resultado observável. O código concretiza o cálculo. O teste compara o resultado com uma expectativa que vem da decisão aprovada. Se o código usar < em vez de <=, o teste do limite deve falhar. A decisão não se ajusta silenciosamente para fazer um teste passar. Fontes: openspec/specs/garage-exit/spec.md e test/exit-decision.test.js.",
+    "time": "06–07 min"
+  },
+  {
+    "kind": "diagram",
+    "title": "O teste controla a iteração de implementação",
+    "block": "Ciclo de desenvolvimento 4/5",
+    "minutes": 1,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "read",
+          "label": "Ler spec\ne tarefa 1.1",
+          "x": 70,
+          "y": 235,
+          "w": 230,
+          "h": 95,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "edit",
+          "label": "Editar\numa função",
+          "x": 380,
+          "y": 235,
+          "w": 230,
+          "h": 95,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "test",
+          "label": "Executar\nnpm test",
+          "x": 690,
+          "y": 235,
+          "w": 230,
+          "h": 95,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "gate",
+          "label": "Resultado\ncoerente?",
+          "x": 1000,
+          "y": 235,
+          "w": 210,
+          "h": 95,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "fail",
+          "label": "Falha\nreproduzir e corrigir",
+          "x": 380,
+          "y": 445,
+          "w": 340,
+          "h": 90,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "pass",
+          "label": "Passa\nrever o diff",
+          "x": 900,
+          "y": 445,
+          "w": 310,
+          "h": 90,
+          "role": "human",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "read",
+          "target": "edit",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "edit",
+          "target": "test",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "test",
+          "target": "gate",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "gate",
+          "target": "pass",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "fail",
+          "target": "edit",
+          "fromSide": "top",
+          "toSide": "bottom"
+        }
+      ],
+      "labels": [
+        {
+          "text": "passa",
+          "x": 1130,
+          "y": 395,
+          "w": 100,
+          "h": 35,
+          "size": 24
+        }
+      ],
+      "routes": [
+        {
+          "source": "gate",
+          "target": "fail",
+          "fromSide": "bottom",
+          "toSide": "right",
+          "via": [
+            [
+              1105,
+              385
+            ],
+            [
+              770,
+              385
+            ],
+            [
+              770,
+              490
+            ]
+          ],
+          "label": {
+            "text": "falha",
+            "x": 760,
+            "y": 345,
+            "w": 150,
+            "h": 35,
+            "size": 24
+          }
+        }
+      ],
+      "bands": []
+    },
+    "bottom": "O agente observa a saída real. Após duas tentativas sem progresso, reduzir a tarefa.",
+    "notes": "Mostrar a diferença entre uma afirmação textual e a saída do terminal. O teste pode revelar uma implementação incorreta, um teste incorreto ou uma decisão mal especificada. Reproduzir a falha antes de editar. Uma dúvida de negócio regressa à pessoa, enquanto uma correção técnica dentro do contrato pode continuar. A política de duas tentativas é uma escolha de gestão de tempo desta aula. Fonte: docs/WORKFLOW.md.",
+    "time": "07–08 min"
+  },
+  {
+    "kind": "diagram",
+    "title": "Uma mudança de regra propaga-se pelo ciclo",
+    "block": "Ciclo de desenvolvimento 5/5",
+    "minutes": 2,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "req",
+          "label": "Hipótese nova\nprazo de 10 minutos",
+          "x": 70,
+          "y": 220,
+          "w": 300,
+          "h": 100,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "spec",
+          "label": "Rever a spec\ne os cenários",
+          "x": 455,
+          "y": 220,
+          "w": 300,
+          "h": 100,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "code",
+          "label": "Adaptar código\ne testes",
+          "x": 850,
+          "y": 220,
+          "w": 360,
+          "h": 100,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "c0",
+          "label": "00\nstarter",
+          "x": 70,
+          "y": 455,
+          "w": 210,
+          "h": 85,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "c1",
+          "label": "01\nspec aprovada",
+          "x": 380,
+          "y": 455,
+          "w": 230,
+          "h": 85,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "c2",
+          "label": "02\nimplementação",
+          "x": 700,
+          "y": 455,
+          "w": 230,
+          "h": 85,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "c3",
+          "label": "03\nconsolidação",
+          "x": 1010,
+          "y": 455,
+          "w": 200,
+          "h": 85,
+          "role": "tool",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "req",
+          "target": "spec",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "spec",
+          "target": "code",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "c0",
+          "target": "c1",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "c1",
+          "target": "c2",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "c2",
+          "target": "c3",
+          "fromSide": "right",
+          "toSide": "left"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Exemplo de mudança futura, não aplicada",
+          "x": 70,
+          "y": 350,
+          "w": 1000,
+          "h": 45,
+          "size": 25
+        },
+        {
+          "text": "Checkpoints do exercício atual",
+          "x": 70,
+          "y": 405,
+          "w": 700,
+          "h": 40,
+          "size": 25
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "Alterar o comportamento exige atualizar o contrato e a evidência, além do código.",
+    "notes": "O prazo de10 minutos é uma hipótese para explicar propagação, não um requisito do enunciado nem uma alteração aplicada. Se o responsável mudar o prazo, atualizar a spec e os cenários, depois implementar e verificar. As branches00 a03 permitem recuperar fases do exercício. Um commit guarda o estado, mas não substitui aprovação ou testes. Fontes: docs/CHECKPOINTS.md e docs/BRIEF.md.",
+    "time": "08–10 min"
+  },
+  {
+    "kind": "diagram",
+    "title": "Como um agente escolhe e executa ações",
+    "block": "Agentes 1/5",
+    "minutes": 2,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "context",
+          "label": "Contexto selecionado\nspec e ficheiros",
+          "x": 70,
+          "y": 220,
+          "w": 300,
+          "h": 100,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "model",
+          "label": "Modelo em Ollama\npropõe a ação",
+          "x": 490,
+          "y": 220,
+          "w": 300,
+          "h": 100,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "dispatch",
+          "label": "OpenCode\nverifica permissões",
+          "x": 910,
+          "y": 220,
+          "w": 300,
+          "h": 100,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "obs",
+          "label": "Observação\nconteúdo ou erro",
+          "x": 490,
+          "y": 435,
+          "w": 300,
+          "h": 100,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "tools",
+          "label": "Ferramenta\nread, edit ou bash",
+          "x": 910,
+          "y": 435,
+          "w": 300,
+          "h": 100,
+          "role": "tool",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "context",
+          "target": "model",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "model",
+          "target": "dispatch",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "dispatch",
+          "target": "tools",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "tools",
+          "target": "obs",
+          "fromSide": "left",
+          "toSide": "right"
+        },
+        {
+          "source": "obs",
+          "target": "model",
+          "fromSide": "top",
+          "toSide": "bottom"
+        }
+      ],
+      "labels": [
+        {
+          "text": "ORCA: sessões e worktrees do projeto",
+          "x": 70,
+          "y": 165,
+          "w": 1100,
+          "h": 40,
+          "size": 25
+        },
+        {
+          "text": "Objetivo e limites definidos pela pessoa",
+          "x": 70,
+          "y": 440,
+          "w": 330,
+          "h": 100,
+          "size": 25
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "ORCA organiza as sessões. OpenCode controla ferramentas. Ollama executa o modelo.",
+    "notes": "Um agente combina modelo, contexto, ferramentas e ciclo de controlo. O modelo devolve uma ação proposta, como read ou bash. O cliente verifica permissões e executa a ferramenta. A observação volta ao modelo para o passo seguinte. O ciclo termina numa resposta, numa conclusão verificável ou num bloqueio. ORCA abre e organiza as sessões e worktrees. O modelo não recebe acesso irrestrito só porque consegue escrever o nome de um comando. Referências: https://opencode.ai/docs/agents/ e https://www.onorca.dev/docs/cli/reference .",
+    "time": "10–12 min"
+  },
+  {
+    "kind": "diagram",
+    "title": "Cada papel recebe e entrega algo diferente",
+    "block": "Agentes 2/5",
+    "minutes": 2,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "a",
+          "label": "Analista\nQwen 3.5",
+          "x": 70,
+          "y": 220,
+          "w": 230,
+          "h": 90,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "owner",
+          "label": "Pessoa\naprova D1",
+          "x": 380,
+          "y": 220,
+          "w": 230,
+          "h": 90,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "b",
+          "label": "Implementador\nQwen 3.5",
+          "x": 690,
+          "y": 220,
+          "w": 230,
+          "h": 90,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "r",
+          "label": "Qwen 3 revisor\nsaída em JSON",
+          "x": 980,
+          "y": 220,
+          "w": 230,
+          "h": 90,
+          "role": "agent",
+          "size": 25
+        },
+        {
+          "id": "qa",
+          "label": "Ambiguidades\ne cenários",
+          "x": 70,
+          "y": 420,
+          "w": 230,
+          "h": 95,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "contract",
+          "label": "Spec e tarefa\naprovadas",
+          "x": 380,
+          "y": 420,
+          "w": 230,
+          "h": 95,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "diff",
+          "label": "Diff e saída\ndos testes",
+          "x": 690,
+          "y": 420,
+          "w": 230,
+          "h": 95,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "findings",
+          "label": "Suspeitas\ne cenários",
+          "x": 1000,
+          "y": 420,
+          "w": 210,
+          "h": 95,
+          "role": "artifact",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "owner",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "owner",
+          "target": "b",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "b",
+          "target": "r",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "a",
+          "target": "qa",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "owner",
+          "target": "contract",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "b",
+          "target": "diff",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "r",
+          "target": "findings",
+          "fromSide": "bottom",
+          "toSide": "top"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Entrega observável de cada papel",
+          "x": 70,
+          "y": 165,
+          "w": 1100,
+          "h": 45,
+          "size": 25
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "A pessoa aprova a spec e reproduz os achados antes de aceitar uma alteração.",
+    "notes": "O analista lê o brief e devolve ambiguidades. A pessoa escolhe D1. O implementador recebe o contrato e altera ficheiros delimitados. O revisor recebe a spec, o diff e os resultados. O revisor não edita o código durante a avaliação. Qwen3 e Qwen3.5 têm pesos e gerações diferentes, ainda da mesma família. No percurso cronometrado, a revisão Qwen3 usa um pacote JSON sem ferramentas e a pessoa reproduz os achados. Separadamente demonstrou-se execução de npm test por uma ferramenta. Uma sessão diferente com o mesmo modelo muda o contexto, não o modelo. Fontes: docs/orca-setup.md, docs/CONTRIBUTIONS.md e prompts/.",
+    "time": "12–14 min"
+  },
+  {
+    "kind": "diagram",
+    "title": "Paralelismo e dependências entre tarefas",
+    "block": "Agentes 3/5",
+    "minutes": 2,
+    "diagram": {
+      "nodes": [
+        {
+          "id": "coord",
+          "label": "Pessoa\ncoordena o âmbito",
+          "x": 70,
+          "y": 320,
+          "w": 230,
+          "h": 100,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "a",
+          "label": "A: analisar\nambiguidades",
+          "x": 420,
+          "y": 210,
+          "w": 300,
+          "h": 95,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "b",
+          "label": "B: propor\ncasos de fronteira",
+          "x": 420,
+          "y": 440,
+          "w": 300,
+          "h": 95,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "gate",
+          "label": "Pessoa consolida\ne aprova a spec",
+          "x": 900,
+          "y": 320,
+          "w": 310,
+          "h": 100,
+          "role": "human",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "coord",
+          "target": "a",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "coord",
+          "target": "b",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "a",
+          "target": "gate",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "b",
+          "target": "gate",
+          "fromSide": "right",
+          "toSide": "left"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Ficheiros distintos ou worktrees separados",
+          "x": 390,
+          "y": 165,
+          "w": 700,
+          "h": 40,
+          "size": 24
+        },
+        {
+          "text": "Implementar e rever vêm depois desta decisão",
+          "x": 800,
+          "y": 475,
+          "w": 410,
+          "h": 70,
+          "size": 24
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "Só tarefas independentes correm em paralelo. Implementação espera pela spec aprovada.",
+    "notes": "As duas tarefas ilustradas podem decorrer em paralelo porque produzem entregas separadas e não alteram o mesmo ficheiro. O exemplo é um modo de trabalho proposto, não uma afirmação de que ambas foram medidas em paralelo na preparação. Worktrees isolam alterações, mas a integração e os conflitos continuam a exigir revisão. Numa máquina com16GB, a opção base é executar os modelos locais em sequência para controlar memória. Quando a quota cloud termina, um agente local pode retomar com a spec, a tarefa e um handoff curto. Fontes: docs/WORKFLOW.md, docs/orca-setup.md e docs/CHECKPOINTS.md.",
+    "time": "14–16 min"
+  },
+  {
+    "kind": "trial-chart",
+    "title": "Uma tarefa menor cabe melhor no contexto",
+    "block": "Agentes 4/5",
+    "minutes": 2,
+    "bottom": "Escopos diferentes: a decisão reduzida recebeu entradas já validadas.",
+    "notes": "Dados de uma execução local Qwen3.5 4B: pedido da função completa,1052 tokens de entrada e1607 de saída,64,6s, resposta rejeitada por falhas básicas. Pedido apenas de decide,100 tokens de entrada e87 de saída,6,35s, função integrada. A validação de entradas, os testes e a integração foram preparados pelo assistente principal na cloud. O gráfico mostra tokens processados por duas tarefas diferentes, não uma medição de aceleração para trabalho equivalente. As regras de contexto mantêm o critério de aceitação e reduzem âmbito, leituras e logs. Fonte: docs/LOCAL-TRIAL.md e docs/CONTRIBUTIONS.md.",
+    "chart": {
+      "categories": [
+        "Função completa",
+        "Apenas decisão"
+      ],
+      "series": [
+        {
+          "name": "Entrada",
+          "values": [
+            1052,
+            100
+          ],
+          "fill": "#007A79"
+        },
+        {
+          "name": "Saída",
+          "values": [
+            1607,
+            87
+          ],
+          "fill": "#93B7B4"
+        }
       ]
-    ],
-    "bottom": "Um erro no teste alimenta a próxima observação.",
-    "notes": "Ciclo (3 min). Percorrer os quatro passos com o exemplo do parque. Observação: encontrar a função de decisão. Plano: acrescentar um teste de fronteira. Ação: executar o teste. Verificação: ler a falha real. Repetir apenas quando a falha ou nova evidência o justificar. O agente deve parar perante uma decisão de negócio por esclarecer. O ciclo não garante correção e a passagem no teste só cobre os casos que o teste representa."
+    },
+    "time": "16–18 min"
   },
   {
-    "kind": "statement",
-    "title": "Gafanhápolis: a regra de saída",
-    "time": "09–11 min",
+    "kind": "diagram",
+    "title": "O revisor também pode apresentar um erro",
+    "block": "Agentes 5/5",
     "minutes": 2,
-    "big": "15 minutos",
-    "body": "O condutor tem 15 minutos para sair\napós o pagamento.",
-    "bottom": "O que acontece exatamente aos 15:00?",
-    "notes": "Caso e ambiguidade (2 min). Fonte: CE4-Estacionamento em Gafanhapolis.docx, fornecido pelo docente. Isolar uma pequena parte do caso original: a decisão de saída depois do pagamento. Fora de âmbito: faturação, tarifários, sensores, barreiras reais, autenticação e persistência. O texto natural não fixa sozinho a inclusão do instante exato. Solicitar duas interpretações: ‘até 15 min inclusive’ e ‘menos de 15 min’. Mostrar que ambas produzem código plausível. Registar a escolha humana antes de gerar código. O workshop adota <= 15 minutos como decisão explícita, sujeita à especificação do repositório."
+    "diagram": {
+      "nodes": [
+        {
+          "id": "claim",
+          "label": "Qwen 3 alega\n900001 ms é aceite",
+          "x": 70,
+          "y": 230,
+          "w": 320,
+          "h": 105,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "repro",
+          "label": "Reproduzir\no cenário",
+          "x": 480,
+          "y": 230,
+          "w": 290,
+          "h": 105,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "actual",
+          "label": "Resultado observado\nEXPIRED",
+          "x": 890,
+          "y": 230,
+          "w": 320,
+          "h": 105,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "keep",
+          "label": "Pessoa mantém\na regra correta",
+          "x": 480,
+          "y": 440,
+          "w": 340,
+          "h": 90,
+          "role": "human",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "claim",
+          "target": "repro",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "repro",
+          "target": "actual",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "actual",
+          "target": "keep",
+          "fromSide": "bottom",
+          "toSide": "right"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Spec: 900000 ms é VALID. Um milissegundo a mais é EXPIRED.",
+          "x": 70,
+          "y": 360,
+          "w": 1130,
+          "h": 50,
+          "size": 27
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "Um achado exige evidência. Uma resposta plausível pode ser um falso positivo.",
+    "notes": "A revisão textual em JSON do Qwen3 alegou duas vezes que900001ms seria aceite. O cenário executado refutou essa alegação. O código manteve a decisão D1. Noutro ensaio separado, Qwen3 executou npm test com bash e observou26 testes,0 falhas e exit0. Essa execução não equivale a ter escrito os testes nem transforma a revisão textual anterior numa revisão com ferramentas. A preparação principal da app, validação, testes e materiais foi feita pelos assistentes cloud. Fontes: docs/REVIEW.md, docs/CONTRIBUTIONS.md e examples/qwen3-review.json.",
+    "time": "18–20 min"
   },
   {
-    "kind": "table",
-    "title": "A decisão humana torna-se verificável",
-    "time": "11–13 min",
+    "kind": "diagram",
+    "title": "OpenSpec separa estado vigente e alteração",
+    "block": "OpenSpec 1/5",
     "minutes": 2,
-    "headers": [
-      "Situação",
-      "Decisão esperada"
-    ],
-    "rows": [
-      [
-        "Pagamento confirmado, 14:59",
-        "Autorizar saída"
+    "diagram": {
+      "nodes": [
+        {
+          "id": "stable",
+          "label": "Especificações vigentes\nopenspec/specs/",
+          "x": 70,
+          "y": 250,
+          "w": 320,
+          "h": 125,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "active",
+          "label": "Alteração em preparação\nopenspec/changes/<id>/",
+          "x": 475,
+          "y": 250,
+          "w": 350,
+          "h": 125,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "code",
+          "label": "Código e testes\nno mesmo repositório",
+          "x": 910,
+          "y": 250,
+          "w": 300,
+          "h": 125,
+          "role": "tool",
+          "size": 26
+        }
       ],
-      [
-        "Pagamento confirmado, 15:00",
-        "Autorizar saída*"
+      "edges": [
+        {
+          "source": "stable",
+          "target": "active",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "active",
+          "target": "code",
+          "fromSide": "right",
+          "toSide": "left"
+        }
       ],
-      [
-        "Pagamento confirmado, 15:00 + 1 ms",
-        "Recusar saída"
+      "labels": [
+        {
+          "text": "O que o sistema deve fazer hoje",
+          "x": 70,
+          "y": 405,
+          "w": 335,
+          "h": 75,
+          "size": 25
+        },
+        {
+          "text": "O que queremos acrescentar ou mudar",
+          "x": 475,
+          "y": 405,
+          "w": 350,
+          "h": 75,
+          "size": 25
+        },
+        {
+          "text": "Como verificar a alteração",
+          "x": 910,
+          "y": 405,
+          "w": 300,
+          "h": 75,
+          "size": 25
+        }
       ],
-      [
-        "Sem pagamento ou dados inválidos",
-        "Recusar saída"
-      ]
-    ],
-    "bottom": "* Convenção explícita do workshop: limite inclusivo.",
-    "notes": "Critérios (2 min). Comparar o comportamento nos dois lados da fronteira. Tratar a linha 15:00 como decisão do grupo, não como conclusão do modelo. Outras decisões: timestamps válidos, saída nunca anterior ao pagamento, cálculo no servidor. O aluno escolhe e aprova a política. O agente pode identificar conflitos e sugerir cenários. Demonstrar prompt: ‘Lê o enunciado. Enumera só as ambiguidades que mudam a decisão de saída. Não alteres código.’ Não deixar uma resposta eloquente substituir um critério testável. O teste técnico mais próximo da fronteira usa 900 001 ms, um milissegundo depois do limite. As decisões D1 a D6 constam de docs/BRIEF.md."
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "O assistente lê o estado atual e o delta proposto antes de alterar o comportamento.",
+    "notes": "OpenSpec organiza especificações e alterações em ficheiros. A pasta specs descreve o comportamento vigente, e changes contém uma proposta identificada. O modelo e o Git têm papéis diferentes: o modelo ajuda a escrever e implementar, e o Git guarda snapshots. No checkpoint00 desta demo ainda não existe uma spec canónica garage-exit. Ela nasce após a conclusão da primeira alteração. A figura descreve a estrutura geral, não afirma que todas as pastas já têm conteúdo no starter. Fontes: openspec/ e https://github.com/Fission-AI/OpenSpec/blob/main/docs/getting-started.md .",
+    "time": "20–22 min"
   },
   {
-    "kind": "files",
-    "title": "OpenSpec guarda a decisão no projeto",
-    "time": "13–15 min",
+    "kind": "diagram",
+    "title": "O planeamento produz quatro artefactos ligados",
+    "block": "OpenSpec 2/5",
     "minutes": 2,
-    "items": [
-      [
-        "proposal.md",
-        "Porquê e âmbito da alteração"
+    "diagram": {
+      "nodes": [
+        {
+          "id": "p",
+          "label": "proposal.md\nporquê e âmbito",
+          "x": 70,
+          "y": 310,
+          "w": 260,
+          "h": 110,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "spec",
+          "label": "specs/…/spec.md\ncenários de aceitação",
+          "x": 440,
+          "y": 210,
+          "w": 330,
+          "h": 105,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "design",
+          "label": "design.md\nescolhas técnicas",
+          "x": 440,
+          "y": 435,
+          "w": 330,
+          "h": 105,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "tasks",
+          "label": "tasks.md\ntarefas verificáveis",
+          "x": 900,
+          "y": 310,
+          "w": 310,
+          "h": 110,
+          "role": "artifact",
+          "size": 26
+        }
       ],
-      [
-        "specs/…/spec.md",
-        "Requisitos e cenários observáveis"
+      "edges": [
+        {
+          "source": "p",
+          "target": "spec",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "p",
+          "target": "design",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "spec",
+          "target": "tasks",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "design",
+          "target": "tasks",
+          "fromSide": "right",
+          "toSide": "left"
+        }
       ],
-      [
-        "design.md",
-        "Decisões técnicas relevantes"
+      "labels": [
+        {
+          "text": "openspec new change validate-garage-exit",
+          "x": 70,
+          "y": 165,
+          "w": 1100,
+          "h": 40,
+          "size": 25
+        }
       ],
-      [
-        "tasks.md",
-        "Trabalho e estado de execução"
-      ]
-    ],
-    "bottom": "Uma sessão nova lê os artefactos relevantes e o diff.",
-    "notes": "OpenSpec (2 min). OpenSpec organiza o trabalho em ficheiros persistentes. O schema spec-driven usa proposal, specs, design e tasks. Nem todos os schemas ou alterações exigem os mesmos artefactos. Fonte local: openspec/config.yaml e .opencode/commands/opsx-propose.md. Referência: https://github.com/Fission-AI/OpenSpec . Mostrar uma spec e um cenário. Estes ficheiros evitam depender da memória de uma conversa, mas o agente ainda precisa de os ler. Um estado ‘done’ de artefacto não demonstra correção do seu conteúdo. O aluno revê a fronteira e o âmbito antes de aprovar."
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "A CLI cria a estrutura. O agente redige. A pessoa aprova antes de implementar.",
+    "notes": "Explicar a dependência usada neste schema spec-driven: a proposta fundamenta specs e design. Ambos alimentam tarefas. O design é útil aqui para decidir timestamps, validação e função pura. Cada tarefa indica como verificar conclusão. O agente redige os artefactos a partir das decisões aprovadas. A CLI cria estrutura e fornece instruções, mas não resolve a ambiguidade do negócio. Em OpenCode, /opsx-propose validate-garage-exit pode preparar este conjunto. ORCA organiza o agente que usa a CLI. Os nomes de slash command são os gerados nesta instalação. Fontes: openspec/config.yaml, .opencode/commands/opsx-propose.md e os quatro artefactos arquivados.",
+    "time": "22–24 min"
   },
   {
-    "kind": "prompt",
-    "title": "Uma proposta curta, com uma paragem clara",
-    "time": "15–17 min",
+    "kind": "diagram",
+    "title": "Um cenário liga a spec ao teste de fronteira",
+    "block": "OpenSpec 3/5",
     "minutes": 2,
-    "code": "ORCA: tarefa do analista",
-    "prompt": "Lê docs/BRIEF.md e a regra de saída.\nRegista ambiguidades e cenários de fronteira.\nNão alteres código.\nApresenta a proposta para aprovação.",
-    "bottom": "Alternativa OpenCode: /opsx-propose validate-garage-exit",
-    "notes": "Mini demonstração (2 min). Em ORCA, apresentar o pedido limitado do slide ou prompts/01-analysis.md. O agente lê a fonte e propõe cenários, sem código. Para produzir artefactos OpenSpec, consultar a CLI: openspec status --change validate-garage-exit --json e openspec instructions proposal --change validate-garage-exit --json. Se a alteração ainda não existir, criar o scaffold com openspec new change validate-garage-exit e seguir as instruções dos artefactos. Mostrar uma spec já preparada, para não depender da velocidade do modelo. A aprovação humana precede uma nova tarefa de implementação. Alternativa em OpenCode: /opsx-propose validate-garage-exit. O comando gera planeamento e para. Só depois da aprovação iniciar /opsx-apply. Os slash commands não são comandos de terminal nem pressupostos do ORCA. Fontes: docs/WORKFLOW.md, prompts/ e .opencode/commands/. Guia: docs/orca-setup.md."
-  },
-  {
-    "kind": "table",
-    "title": "Papéis e modelos são escolhas diferentes",
-    "time": "17–19 min",
-    "minutes": 2,
-    "headers": [
-      "Papel",
-      "Trabalho",
-      "Modelo local"
-    ],
-    "rows": [
-      [
-        "Analista",
-        "Ambiguidades e cenários",
-        "qwen3.5:4b-orca"
+    "diagram": {
+      "nodes": [
+        {
+          "id": "decision",
+          "label": "D1 aprovada\nlimite inclusivo",
+          "x": 70,
+          "y": 215,
+          "w": 280,
+          "h": 95,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "scenario",
+          "label": "Scenario: saída no limite\nWHEN passaram 15 minutos\nTHEN allowed: true, VALID",
+          "x": 450,
+          "y": 210,
+          "w": 760,
+          "h": 135,
+          "role": "artifact",
+          "size": 26
+        },
+        {
+          "id": "test",
+          "label": "Teste correspondente\n900000 ms dá VALID",
+          "x": 450,
+          "y": 435,
+          "w": 350,
+          "h": 100,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "next",
+          "label": "Teste adjacente\n900001 ms dá EXPIRED",
+          "x": 860,
+          "y": 435,
+          "w": 350,
+          "h": 100,
+          "role": "tool",
+          "size": 26
+        }
       ],
-      [
-        "Implementador",
-        "Alteração pequena e testes",
-        "qwen3.5:4b-orca"
+      "edges": [
+        {
+          "source": "decision",
+          "target": "scenario",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "scenario",
+          "target": "test",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "test",
+          "target": "next",
+          "fromSide": "right",
+          "toSide": "left"
+        }
       ],
-      [
-        "Revisor",
-        "Diff, falhas e omissões",
-        "qwen3:4b-reviewer"
-      ]
-    ],
-    "bottom": "Mudar o prompt muda o papel. Mudar o modelo exige seleção explícita.",
-    "notes": "Papéis e modelos (2 min). O analista e o implementador usam Qwen 3.5 4B. O revisor usa Qwen 3 4B, preparado com o alias qwen3:4b-reviewer. São gerações e pesos distintos, ainda da família Qwen. A diversidade de modelos não prova independência dos erros nem substitui os testes. O alias qwen3.5:4b-orca ajusta o modelo Qwen 3.5 para o ambiente e não constitui outra família. Os nomes qwen3.5:4b e qwen3.5:4b-q4_K_M têm o mesmo ID local. Selecionar explicitamente o modelo e registar o identificador utilizado. Executar os modelos em sequência numa máquina com memória limitada. A cloud gratuita é uma extensão opcional e pode acabar por quota. Fontes: docs/orca-setup.md, opencode.json, workshop-config/Modelfile.reviewer, https://ollama.com/library/qwen3:4b."
-  },
-  {
-    "kind": "split",
-    "title": "ORCA coordena o trabalho no repositório",
-    "time": "19–22 min",
-    "minutes": 3,
-    "leftTitle": "Ambiente",
-    "left": "ORCA organiza sessões e worktrees\nOpenCode executa o agente\nOllama serve os modelos locais",
-    "rightTitle": "Coordenação",
-    "right": "Um responsável por tarefa\nFicheiros e conclusão explícitos\nRevisão depois da implementação",
-    "notes": "ORCA (3 min). Mostrar o repositório e os papéis em terminais separados. A CLI instalada aceita orca terminal create --command \"node scripts/run-agent.mjs analyst\" --json, usando o script de projeto para selecionar agente e modelo. Nesta instalação, orca agent launch com --model ollama/... recusou a verificação do modelo. Sem --model abriu OpenCode com o modelo local do opencode.json. Confirmar o resultado do ensaio antes da aula. Se a API compatível ou as ferramentas bloquearem, usar node scripts/local-packet.mjs analyst ou builder no terminal ORCA. Esse modo faz pedidos delimitados ao modelo sem ferramentas, e a pessoa aplica a proposta. Não o apresentar como edição autónoma. Trabalho paralelo só com tarefas independentes e ficheiros separados ou worktrees. A implementação espera por decisões aprovadas e a revisão espera pelo diff. Fontes: docs/orca-setup.md e https://www.onorca.dev/docs/cli/reference."
-  },
-  {
-    "kind": "split",
-    "title": "Tokens incluem mais do que o prompt",
-    "time": "22–24 min",
-    "minutes": 2,
-    "leftTitle": "Entrada",
-    "left": "Instruções do sistema\nDefinições de ferramentas\nHistórico e ficheiros lidos\nResultados das ferramentas",
-    "rightTitle": "Saída",
-    "right": "Resposta e ações do modelo\n\nMenos contexto irrelevante\nreduz trabalho repetido.",
-    "notes": "Custo (2 min). Nem todos os tokens visíveis são os únicos que o sistema processa. A medição depende do modelo e do fornecedor. No fluxo local não há cobrança de tokens por uma API paga, mas há custo de hardware, energia, memória e tempo. A janela de contexto é finita. Técnicas: restringir ficheiros, pesquisar antes de ler, evitar logs completos, guardar decisões curtas em ficheiros, pedir uma saída breve e reutilizar testes. Não prometer percentagens de poupança. OpenSpec torna o contexto selecionável e persistente, não reduz automaticamente o total. Se um modelo pequeno não cumprir o protocolo de ferramentas, usar o checkpoint e analisar a limitação. O ensaio local em docs/LOCAL-TRIAL.md mostra uma resposta extensa incorreta para a função completa e uma resposta correta para uma função de decisão muito menor. São tarefas diferentes, pelo que os números não são um benchmark equivalente. A pessoa inspeciona e integra a resposta reduzida, e os testes confirmam os cenários."
-  },
-  {
-    "kind": "split",
-    "title": "Estado do protótipo e autoria",
-    "minutes": 2,
-    "leftTitle": "Concluído",
-    "left": "App React e Node\n26 testes passam\nOpenSpec validado e arquivado\nQuatro checkpoints Git",
-    "rightTitle": "Contributos",
-    "right": "App, validação e testes:\nassistente principal na cloud.\n\nFunção de decisão pequena:\nQwen 3.5 local.",
-    "bottom": "Recorte simulado. Falta ensaiar os 60 minutos em contexto de aula.",
-    "notes": "Estado e autoria (2 min). A preparação produziu o simulador de autorização de saída, os quatro checkpoints, specs, prompts, handoff e materiais. O build e os26 testes passaram, e a alteração OpenSpec foi arquivada. O projeto cobre apenas este recorte do caso, sem pagamentos reais ou controlo de cancela. O assistente principal e os agentes cloud prepararam a estrutura React/Node, a validação de entradas, testes, artefactos OpenSpec e materiais. A função decide(paid, elapsedMs) veio de uma resposta local Qwen3.5 4B, inspecionada e integrada pelo assistente principal. Não atribuir a aplicação inteira aos modelos locais. As decisões didáticas continuam a exigir confirmação do docente responsável pelo processo. A preparação ainda não constitui um ensaio cronometrado com alunos. Fontes: README.md, HANDOFF.md, server/exit-decision.js e docs/CONTRIBUTIONS.md.",
+      "labels": [
+        {
+          "text": "decisão de negócio",
+          "x": 70,
+          "y": 335,
+          "w": 280,
+          "h": 45,
+          "size": 24
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "A spec define a expectativa. Os testes tornam a fronteira observável e repetível.",
+    "notes": "O requisito usa SHALL e cada cenário tem cabeçalho Scenario e condições WHEN/THEN. O excerto representa um caso concreto da spec garage-exit. O teste adjacente protege o outro lado do limite. A CLI validate verifica a estrutura dos artefactos. O significado da regra continua a exigir leitura e aprovação, e a execução exige npm test. Não apresentar validação documental como execução de cenários. Fontes: openspec/specs/garage-exit/spec.md e test/exit-decision.test.js.",
     "time": "24–26 min"
   },
   {
-    "kind": "split",
-    "title": "Contributo de Qwen 3.5 4B no código",
+    "kind": "diagram",
+    "title": "Apply usa o contrato para limitar a execução",
+    "block": "OpenSpec 4/5",
     "minutes": 2,
-    "leftTitle": "Função completa",
-    "left": "1 052 tokens de entrada\n1 607 tokens de saída\n64,6 segundos\n\nFalhou casos básicos.",
-    "rightTitle": "Apenas a decisão",
-    "right": "100 tokens de entrada\n87 tokens de saída\n6,35 segundos\n\nFunção decide integrada.",
-    "bottom": "Tarefas diferentes. A validação de entradas ficou fora do pedido reduzido.",
-    "notes": "Contributo no código (2 min). O primeiro pedido incluiu a spec e pediu uma função completa com validação de datas. O resultado rejeitou um caso válido de15 minutos, rejeitou um caso sem pagamento com o motivo errado e lançou TypeError para null. Não foi integrado. O segundo pedido assumiu entradas já validadas e pediu apenas decide(paid, elapsedMs). O modelo devolveu os ramos UNPAID, EXPIRED e VALID com o limite inclusivo de900000ms. Esse código integra a referência. A validação de datas e a integração ficaram a cargo do assistente principal. Os números são contagens e durações reportadas pela API local numa execução, não médias nem uma comparação equivalente do problema completo. Não calcular uma percentagem de aceleração para o mesmo trabalho, pois o âmbito mudou. Qwen3.5 também usou uma ferramenta read em OpenCode, mas a explicação que deu confundiu ausência de pagamento com prazo expirado. A chamada de ferramenta funcionar não prova interpretação correta. Fontes: docs/LOCAL-TRIAL.md e server/exit-decision.js.",
+    "diagram": {
+      "nodes": [
+        {
+          "id": "state",
+          "label": "CLI: status\nartefactos prontos?",
+          "x": 70,
+          "y": 215,
+          "w": 280,
+          "h": 95,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "context",
+          "label": "CLI: instructions apply\nficheiros e tarefas",
+          "x": 450,
+          "y": 215,
+          "w": 360,
+          "h": 95,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "agent",
+          "label": "Agente lê o contexto\ne executa a tarefa 1.1",
+          "x": 900,
+          "y": 215,
+          "w": 310,
+          "h": 95,
+          "role": "agent",
+          "size": 26
+        },
+        {
+          "id": "test",
+          "label": "npm test\ne revisão do diff",
+          "x": 900,
+          "y": 440,
+          "w": 310,
+          "h": 95,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "done",
+          "label": "Atualizar tasks.md\ncom evidência",
+          "x": 450,
+          "y": 440,
+          "w": 360,
+          "h": 95,
+          "role": "artifact",
+          "size": 26
+        }
+      ],
+      "edges": [
+        {
+          "source": "state",
+          "target": "context",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "context",
+          "target": "agent",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "agent",
+          "target": "test",
+          "fromSide": "bottom",
+          "toSide": "top"
+        },
+        {
+          "source": "test",
+          "target": "done",
+          "fromSide": "left",
+          "toSide": "right"
+        }
+      ],
+      "labels": [
+        {
+          "text": "Paragem se houver dúvidas de negócio ou artefactos em falta",
+          "x": 70,
+          "y": 365,
+          "w": 1130,
+          "h": 45,
+          "size": 26
+        },
+        {
+          "text": "openspec instructions apply --change validate-garage-exit",
+          "x": 70,
+          "y": 165,
+          "w": 1140,
+          "h": 40,
+          "size": 24
+        }
+      ],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "Na aula, pedir só a tarefa indicada e parar. O apply normal pode percorrer várias tarefas.",
+    "notes": "O pedido do implementador consulta openspec status --change validate-garage-exit --json e openspec instructions apply --change validate-garage-exit --json. O resultado identifica contextFiles, estado e tarefas. O agente deve ler todos os ficheiros necessários; para poupar contexto, reduzir a alteração em vez de omitir contratos. Se faltarem artefactos, não implementar. Na aula, delimitar a tarefa1.1 e os ficheiros server/exit-decision.js e test/exit-decision.test.js. O perfil limitado relata conclusão para a pessoa coordenadora atualizar tasks.md. Um checkbox marca trabalho efetivamente concluído com evidência. Fontes: prompts/02-build.md e .opencode/commands/opsx-apply.md.",
     "time": "26–28 min"
   },
   {
-    "kind": "exercise",
-    "title": "Falso positivo na revisão local",
+    "kind": "diagram",
+    "title": "O arquivo consolida o comportamento aprovado",
+    "block": "OpenSpec 5/5",
     "minutes": 2,
-    "code": "900000 ms   VALID\n900001 ms   EXPIRED",
-    "body": "Qwen 3 4B alegou que 900001 ms era aceite.\nA execução refutou essa crítica.\nO código manteve a regra aprovada.",
-    "bottom": "Uma crítica é uma hipótese. A reprodução confirma ou refuta.",
-    "notes": "Revisão e reprodução (2 min). O revisor Qwen3 4B, uma geração diferente ainda da família Qwen, recebeu a spec e o código num pedido JSON curto. Reportou em duas entradas o mesmo alegado erro de aceitar900001ms. O cenário executado devolveu EXPIRED, como previsto. Não se alterou código correto para satisfazer o modelo. Esta revisão textual demorou cerca de9,85s, com1805 tokens de entrada e173 de saída, e não executou testes. Noutro ensaio separado em ORCA/OpenCode, Qwen3 chamou bash com npm test e reportou26 testes, zero falhas e exit0. Executar os testes preparados por outro assistente é um contributo diferente de escrever os testes ou demonstrar a correção de todos os requisitos. Os pedidos de revisão extensos atingiram limites e não foram aceites como conclusões. Pedir aos alunos que relacionem a decisão D1, a spec e o teste que refuta a suspeita. Fontes: docs/REVIEW.md, docs/CONTRIBUTIONS.md, examples/qwen3-review.json e test/exit-decision.test.js.",
+    "diagram": {
+      "nodes": [
+        {
+          "id": "a",
+          "label": "Validar artefactos\nopenspec validate <id>",
+          "x": 70,
+          "y": 210,
+          "w": 320,
+          "h": 100,
+          "role": "tool",
+          "size": 25
+        },
+        {
+          "id": "b",
+          "label": "Código aceite\ntestes e revisão",
+          "x": 70,
+          "y": 440,
+          "w": 320,
+          "h": 100,
+          "role": "human",
+          "size": 26
+        },
+        {
+          "id": "gate",
+          "label": "Arquivar a alteração\nopenspec archive <id>",
+          "x": 510,
+          "y": 320,
+          "w": 330,
+          "h": 110,
+          "role": "tool",
+          "size": 26
+        },
+        {
+          "id": "current",
+          "label": "Spec vigente\nopenspec/specs/\ngarage-exit/",
+          "x": 930,
+          "y": 210,
+          "w": 280,
+          "h": 110,
+          "role": "artifact",
+          "size": 24
+        },
+        {
+          "id": "archive",
+          "label": "Histórico\nchanges/archive/\n<data-id>/",
+          "x": 930,
+          "y": 440,
+          "w": 280,
+          "h": 110,
+          "role": "artifact",
+          "size": 24
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "gate",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "b",
+          "target": "gate",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "gate",
+          "target": "current",
+          "fromSide": "right",
+          "toSide": "left"
+        },
+        {
+          "source": "gate",
+          "target": "archive",
+          "fromSide": "right",
+          "toSide": "left"
+        }
+      ],
+      "labels": [],
+      "routes": [],
+      "bands": []
+    },
+    "bottom": "Uma sessão nova retoma pelos artefactos e pelo checkpoint03, mesmo sem o chat anterior.",
+    "notes": "Há duas verificações diferentes antes de arquivar: estrutura documental e comportamento implementado. Neste exercício, a CLI archive atualiza a spec canónica e guarda os artefactos da alteração no arquivo. O Git checkpoint03 guarda o snapshot completo. HANDOFF.md indica a decisão, a evidência e a próxima tarefa. Se a revisão revelar um problema real, regressar ao ciclo antes de arquivar. Para uma nova necessidade de negócio, abrir uma nova alteração. Fontes: openspec/changes/archive/2026-11-02-validate-garage-exit/, HANDOFF.md e docs/CHECKPOINTS.md. Referência: https://github.com/Fission-AI/OpenSpec/blob/main/docs/getting-started.md .",
     "time": "28–30 min"
   },
   {
@@ -230,7 +1723,8 @@
     "code": "git switch -c grupo-01 origin/checkpoint/00-starter\nnpm test\nnpm run build && npm start",
     "body": "Dependências e modelo preparados antes da aula.\nORCA abre a pasta do projeto.\nO par confirma a interface e os testes iniciais.",
     "bottom": "Checkpoints são referências. O trabalho fica numa branch do grupo.",
-    "notes": "Laboratório, preparação (4 min). Antes da aula, preparar Node, ORCA, OpenCode, Ollama e o modelo. Usar os guias do repositório para instalação. Clonar o repositório enquanto ainda há acesso de rede. Ao iniciar, criar uma branch de trabalho a partir de checkpoint/00-starter: git switch -c grupo-01 checkpoint/00-starter. O comando do slide serve para inspecionar o checkpoint, não para acumular trabalho na branch de referência. Executar npm install, npm test e npm run dev. Mostrar a limitação esperada da função inicial. Manter o terminal do servidor aberto. Se o modelo falhar ou for demasiado lento, ler o artefacto do checkpoint seguinte e continuar o exercício de análise. Num clone novo, a branch de referência existe como origin/checkpoint/00-starter. O servidor Node serve a UI compilada e a API em localhost:3000. npm run build prepara essa UI e npm start inicia o servidor. npm run dev inicia apenas Vite e necessita do servidor Node separado para a API."
+    "notes": "Laboratório, preparação (4 min). Antes da aula, preparar Node, ORCA, OpenCode, Ollama e o modelo. Usar os guias do repositório para instalação. Clonar o repositório enquanto ainda há acesso de rede. Ao iniciar, criar uma branch de trabalho a partir de checkpoint/00-starter: git switch -c grupo-01 checkpoint/00-starter. O comando do slide serve para inspecionar o checkpoint, não para acumular trabalho na branch de referência. Executar npm install, npm test e npm run dev. Mostrar a limitação esperada da função inicial. Manter o terminal do servidor aberto. Se o modelo falhar ou for demasiado lento, ler o artefacto do checkpoint seguinte e continuar o exercício de análise. Num clone novo, a branch de referência existe como origin/checkpoint/00-starter. O servidor Node serve a UI compilada e a API em localhost:3000. npm run build prepara essa UI e npm start inicia o servidor. npm run dev inicia apenas Vite e necessita do servidor Node separado para a API.",
+    "block": "Prática guiada"
   },
   {
     "kind": "exercise",
@@ -240,7 +1734,8 @@
     "code": "ORCA: prompts/01-analysis.md",
     "body": "Lê docs/BRIEF.md e server/exit-decision.js.\nPropõe cenários para 14:59, 15:00 e 15:01.\nRegista o limite inclusivo como decisão humana.\nPara antes de implementar.",
     "bottom": "Checkpoint: checkpoint/01-spec-approved",
-    "notes": "Laboratório, especificação (6 min). 2 min: localizar a regra no resumo e relacioná-la com o enunciado. 2 min: observar a proposta do agente ou ler a versão preparada. 2 min: o par verifica se todos os cenários têm resultado observável, se a decisão dos 15 minutos está explícita e se não entrou âmbito extra. A aprovação é do aluno. Se a alteração já existir no checkpoint, rever e melhorar o artefacto em vez de duplicar. O checkpoint contém uma proposta aprovada de referência. Registar a aprovação num comentário de tarefa ou no diário do grupo, sem fingir que o modelo é o cliente. Usar prompts/01-analysis.md como pedido de leitura e análise limitado. A alteração do repositório chama-se validate-garage-exit. Em ORCA usar a tarefa do analista e instruções CLI de OpenSpec. Em OpenCode, a alternativa é /opsx-propose validate-garage-exit. Os slash commands são específicos da integração."
+    "notes": "Laboratório, especificação (6 min). 2 min: localizar a regra no resumo e relacioná-la com o enunciado. 2 min: observar a proposta do agente ou ler a versão preparada. 2 min: o par verifica se todos os cenários têm resultado observável, se a decisão dos 15 minutos está explícita e se não entrou âmbito extra. A aprovação é do aluno. Se a alteração já existir no checkpoint, rever e melhorar o artefacto em vez de duplicar. O checkpoint contém uma proposta aprovada de referência. Registar a aprovação num comentário de tarefa ou no diário do grupo, sem fingir que o modelo é o cliente. Usar prompts/01-analysis.md como pedido de leitura e análise limitado. A alteração do repositório chama-se validate-garage-exit. Em ORCA usar a tarefa do analista e instruções CLI de OpenSpec. Em OpenCode, a alternativa é /opsx-propose validate-garage-exit. Os slash commands são específicos da integração.",
+    "block": "Prática guiada"
   },
   {
     "kind": "exercise",
@@ -250,7 +1745,8 @@
     "code": "ORCA: prompts/02-build.md",
     "body": "Edita server/exit-decision.js e testes de negócio.\nMantém o contrato da API e a spec aprovada.\nExecuta npm test.\nRelata ficheiros alterados e resultado observado.",
     "bottom": "Checkpoint: checkpoint/02-implemented",
-    "notes": "Laboratório, implementação (8 min). 1 min: instrução explícita para apply depois da aprovação. 4 min: acompanhar a alteração do agente e o teste. 3 min: ler o diff e correr a interface. Exigir que o servidor tome a decisão, pois o cliente não é fonte de autoridade. Confirmar timestamps válidos e ordem temporal. Não aceitar ‘testes passaram’ sem saída de ferramenta. Se o agente alargar o âmbito, pedir um diff menor. O checkpoint 02 guarda a implementação para grupos que precisem de recuperar. Uma implementação preparada serve de objeto de análise mesmo quando a geração local exceder o tempo. O pedido completo e os limites de edição encontram-se em prompts/02-build.md. Em ORCA consultar openspec instructions apply --change validate-garage-exit --json e os contextFiles devolvidos. Em OpenCode, a alternativa é /opsx-apply validate-garage-exit. Não executar /opsx no terminal. Se o agente completo ultrapassar o tempo, recuperar checkpoint/02-implemented e pedir node scripts/local-packet.mjs builder para regenerar apenas a pequena função decide, assumindo entradas já validadas. Comparar com a implementação e executar os testes. O script não aplica código automaticamente."
+    "notes": "Laboratório, implementação (8 min). 1 min: instrução explícita para apply depois da aprovação. 4 min: acompanhar a alteração do agente e o teste. 3 min: ler o diff e correr a interface. Exigir que o servidor tome a decisão, pois o cliente não é fonte de autoridade. Confirmar timestamps válidos e ordem temporal. Não aceitar ‘testes passaram’ sem saída de ferramenta. Se o agente alargar o âmbito, pedir um diff menor. O checkpoint 02 guarda a implementação para grupos que precisem de recuperar. Uma implementação preparada serve de objeto de análise mesmo quando a geração local exceder o tempo. O pedido completo e os limites de edição encontram-se em prompts/02-build.md. Em ORCA consultar openspec instructions apply --change validate-garage-exit --json e os contextFiles devolvidos. Em OpenCode, a alternativa é /opsx-apply validate-garage-exit. Não executar /opsx no terminal. Se o agente completo ultrapassar o tempo, recuperar checkpoint/02-implemented e pedir node scripts/local-packet.mjs builder para regenerar apenas a pequena função decide, assumindo entradas já validadas. Comparar com a implementação e executar os testes. O script não aplica código automaticamente.",
+    "block": "Prática guiada"
   },
   {
     "kind": "exercise",
@@ -260,7 +1756,8 @@
     "code": "npm test\nnpm run build\ngit diff",
     "body": "48–53: rever spec, diff e testes numa nova sessão.\n53–57: atualizar HANDOFF.md e trocar de modelo.\nRegistar decisão, evidência, pendência e próximo passo.\nA nova sessão retoma só pelos ficheiros relevantes.",
     "bottom": "HANDOFF.md acompanha a passagem entre sessões.",
-    "notes": "Laboratório, revisão e handoff (9 min). Dos 48 aos 53 minutos, trocar o aluno que conduz. Abrir uma sessão nova com o papel de revisor e fornecer spec, diff e resultados necessários. O prompt é: «Revê o diff contra a spec sem alterar ficheiros. Indica ficheiro, problema e reprodução. Se não encontrares falhas, diz o que verificaste.» Reproduzir uma observação antes de corrigir. Dos 53 aos 57, preencher HANDOFF.md com decisão, ficheiros, testes executados, pendência, modelo usado e próximo passo. Fechar a sessão e pedir a outra: «Lê HANDOFF.md e os ficheiros indicados. Resume o estado em 5 linhas e executa apenas o próximo passo.» Se houver outro modelo instalado, selecioná-lo e registar o identificador real. Caso contrário, usar o mesmo modelo numa sessão nova e declarar isso. O checkpoint/03-complete é a referência final. Uma revisão sem falhas encontradas não prova ausência de defeitos. Para o handoff usar prompts/04-handoff.md. Na primeira passagem, a sessão nova confirma o estado e verifica o teste indicado sem editar código."
+    "notes": "Laboratório, revisão e handoff (9 min). Dos 48 aos 53 minutos, trocar o aluno que conduz. Abrir uma sessão nova com o papel de revisor e fornecer spec, diff e resultados necessários. O prompt é: «Revê o diff contra a spec sem alterar ficheiros. Indica ficheiro, problema e reprodução. Se não encontrares falhas, diz o que verificaste.» Reproduzir uma observação antes de corrigir. Dos 53 aos 57, preencher HANDOFF.md com decisão, ficheiros, testes executados, pendência, modelo usado e próximo passo. Fechar a sessão e pedir a outra: «Lê HANDOFF.md e os ficheiros indicados. Resume o estado em 5 linhas e executa apenas o próximo passo.» Se houver outro modelo instalado, selecioná-lo e registar o identificador real. Caso contrário, usar o mesmo modelo numa sessão nova e declarar isso. O checkpoint/03-complete é a referência final. Uma revisão sem falhas encontradas não prova ausência de defeitos. Para o handoff usar prompts/04-handoff.md. Na primeira passagem, a sessão nova confirma o estado e verifica o teste indicado sem editar código.",
+    "block": "Prática guiada"
   },
   {
     "kind": "closing",
@@ -286,6 +1783,7 @@
       ]
     ],
     "bottom": "github.com/claudio-aa/OpenSpec-Demo",
-    "notes": "Fecho (3 min). Cada par responde a uma questão em 30 segundos. Entrega mínima: decisão da fronteira, caminho da spec, teste correspondente e uma observação da revisão. Pedir também o modelo efetivamente utilizado. O objetivo pedagógico é controlar a transformação do requisito em evidência, não produzir o maior volume de código. Repositório: https://github.com/claudio-aa/OpenSpec-Demo . O docente deve garantir acesso antes da aula, pois o repositório pode estar privado. A branch main guarda a referência final. Não publicar credenciais nem outputs com dados pessoais."
+    "notes": "Fecho (3 min). Cada par responde a uma questão em 30 segundos. Entrega mínima: decisão da fronteira, caminho da spec, teste correspondente e uma observação da revisão. Pedir também o modelo efetivamente utilizado. O objetivo pedagógico é controlar a transformação do requisito em evidência, não produzir o maior volume de código. Repositório: https://github.com/claudio-aa/OpenSpec-Demo . O docente deve garantir acesso antes da aula, pois o repositório pode estar privado. A branch main guarda a referência final. Não publicar credenciais nem outputs com dados pessoais.",
+    "block": "Prática guiada"
   }
 ]
