@@ -83,10 +83,12 @@ orca terminal create --title "Analista local" \
 orca terminal create --title "Implementador local" \
   --command "node scripts/run-agent.mjs builder" --json
 orca terminal create --title "Revisor local" \
-  --command "node scripts/run-agent.mjs reviewer" --json
+  --command "node scripts/local-packet.mjs reviewer" --json
 ```
 
 Estes três comandos mostram a sequência. Não os iniciar simultaneamente: a implementação espera pela aprovação e a revisão espera pelo diff. Para outras pastas, acrescentar `--worktree path:<caminho-absoluto>`. O script usa `--pure` e desativa descoberta de skills externas, downloads LSP e atualização remota do catálogo. Isto evita carregar instruções pessoais irrelevantes. [Variáveis de ambiente OpenCode](https://opencode.ai/docs/cli/).
+
+O percurso recomendado para o revisor Qwen3 é o pacote JSON, sem ferramentas. O perfil completo `run-agent.mjs reviewer` fica disponível para ensaios, mas excedeu a janela prática nesta máquina e não faz parte do percurso cronometrado. A pessoa executa os testes e confronta a crítica com a evidência. Esta distinção entre agente com ferramentas e pedido de revisão a um modelo deve ficar explícita na aula.
 
 O ensaio inicial bloqueou na API compatível. Desativar thinking com `reasoningEffort: none` nas opções de cada modelo em `opencode.json` resolveu esse caso: OpenCode leu um ficheiro com a ferramenta `read` e concluiu o pedido em cerca de19 segundos. A API nativa usa `think: false`. Não basta escrever `/no_think` no texto do pedido. A configuração de fornecedor traduz a opção para `reasoning_effort: none`, suportada pela API compatível. [Controlo de thinking Ollama](https://docs.ollama.com/api/openai-compatibility).
 
