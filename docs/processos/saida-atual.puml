@@ -1,0 +1,30 @@
+@startuml
+title Saída do parque no processo atual
+|Condutor|
+start
+:Dirigir-se à caixa ou ao vigilante;
+if (Caixa disponível e operacional?) then (sim)
+  |Caixa automática|
+  :Receber pagamento em numerário;
+else (não)
+  |Vigilante|
+  :Receber pagamento em numerário;
+endif
+|Sistema do parque|
+:Registar bilhete como pago;
+|Condutor|
+:Dirigir-se à saída no prazo de 15 minutos;
+|Cancela|
+if (Bilhete dado como pago?) then (sim)
+  :Validar bilhete;
+  :Permitir saída;
+else (não)
+  :Não autorizar saída;
+endif
+stop
+note right
+Recorte do enunciado.
+O tratamento após expirar o prazo
+e a fronteira exata não estão definidos.
+end note
+@enduml

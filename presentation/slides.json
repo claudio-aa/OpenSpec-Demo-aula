@@ -1,0 +1,257 @@
+[
+  {
+    "kind": "cover",
+    "title": "Workflows com agentes",
+    "subtitle": "Análise de Sistemas\nOpenSpec, ORCA e modelos locais",
+    "time": "00–01 min",
+    "minutes": 1,
+    "notes": "Abertura (1 min). Público: 3.º ano de Engenharia Informática. Objetivo: transformar uma regra de negócio ambígua numa alteração pequena, testada e revista. A imagem é uma ilustração do enunciado fornecido, não uma fotografia do parque de Gafanhápolis. Fonte da imagem: CE4-Estacionamento em Gafanhapolis.docx, imagem extraída do documento fornecido."
+  },
+  {
+    "kind": "split",
+    "title": "Uma hora, uma regra de negócio",
+    "time": "01–03 min",
+    "minutes": 2,
+    "leftTitle": "30 min",
+    "left": "Conceitos e demonstrações\n\nCiclo do agente\nDecisões e especificação\nPapéis e custo de contexto",
+    "rightTitle": "30 min",
+    "right": "Laboratório guiado\n\nEspecificar a regra de saída\nImplementar e testar\nRever com evidência",
+    "notes": "Plano (2 min). As instalações e downloads fazem parte da preparação anterior à aula. Nesta primeira metade mostrar exemplos curtos, com os prompts visíveis. Na segunda metade os pares trabalham no repositório. Um aluno conduz o agente e o outro verifica requisitos e testes. Trocar os papéis a meio. Resultado esperado: decisão explícita para os 15 minutos, implementação no servidor, testes de fronteira e revisão.",
+    "bottom": "Fluxo local sem API paga, subscrição ou cartão."
+  },
+  {
+    "kind": "split",
+    "title": "Conversa e execução com ferramentas",
+    "time": "03–06 min",
+    "minutes": 3,
+    "leftTitle": "Chat",
+    "left": "Recebe uma pergunta\nProduz uma resposta\n\nO aluno executa os passos\ne confirma o resultado.",
+    "rightTitle": "Agente",
+    "right": "Recebe um objetivo\nConsulta ficheiros e usa ferramentas\n\nObserva resultados e ajusta\no passo seguinte.",
+    "notes": "Conceito (3 min). Um agente combina modelo, contexto, ferramentas e um ciclo de controlo. O modelo propõe ações, mas a aplicação controla as ferramentas e as permissões. Dizer ‘corri os testes’ é apenas texto até existir uma chamada de ferramenta e uma saída observável. Mini demonstração: pedir apenas ‘explica esta função’ e contrastar com ‘lê a função, executa npm test e relata a saída’. Mostrar uma leitura e o resultado de uma ferramenta. O aluno continua responsável por avaliar a resposta e autorizar o âmbito."
+  },
+  {
+    "kind": "sequence",
+    "title": "O ciclo de trabalho do agente",
+    "time": "06–09 min",
+    "minutes": 3,
+    "items": [
+      [
+        "01",
+        "Observar",
+        "Ler a regra, o código e os testes."
+      ],
+      [
+        "02",
+        "Planear",
+        "Escolher a próxima ação limitada."
+      ],
+      [
+        "03",
+        "Agir",
+        "Editar ou executar uma ferramenta."
+      ],
+      [
+        "04",
+        "Verificar",
+        "Comparar o resultado com o requisito."
+      ]
+    ],
+    "bottom": "Um erro no teste alimenta a próxima observação.",
+    "notes": "Ciclo (3 min). Percorrer os quatro passos com o exemplo do parque. Observação: encontrar a função de decisão. Plano: acrescentar um teste de fronteira. Ação: executar o teste. Verificação: ler a falha real. Repetir apenas quando a falha ou nova evidência o justificar. O agente deve parar perante uma decisão de negócio por esclarecer. O ciclo não garante correção e a passagem no teste só cobre os casos que o teste representa."
+  },
+  {
+    "kind": "statement",
+    "title": "Gafanhápolis: a regra de saída",
+    "time": "09–12 min",
+    "minutes": 3,
+    "big": "15 minutos",
+    "body": "O condutor tem 15 minutos para sair\napós o pagamento.",
+    "bottom": "O que acontece exatamente aos 15:00?",
+    "notes": "Caso e ambiguidade (3 min). Fonte: CE4-Estacionamento em Gafanhapolis.docx, fornecido pelo docente. Isolar uma pequena parte do caso original: a decisão de saída depois do pagamento. Fora de âmbito: faturação, tarifários, sensores, barreiras reais, autenticação e persistência. O texto natural não fixa sozinho a inclusão do instante exato. Solicitar duas interpretações: ‘até 15 min inclusive’ e ‘menos de 15 min’. Mostrar que ambas produzem código plausível. Registar a escolha humana antes de gerar código. O workshop adota <= 15 minutos como decisão explícita, sujeita à especificação do repositório."
+  },
+  {
+    "kind": "table",
+    "title": "A decisão humana torna-se verificável",
+    "time": "12–15 min",
+    "minutes": 3,
+    "headers": [
+      "Situação",
+      "Decisão esperada"
+    ],
+    "rows": [
+      [
+        "Pagamento confirmado, 14:59",
+        "Autorizar saída"
+      ],
+      [
+        "Pagamento confirmado, 15:00",
+        "Autorizar saída*"
+      ],
+      [
+        "Pagamento confirmado, 15:00 + 1 ms",
+        "Recusar saída"
+      ],
+      [
+        "Sem pagamento ou dados inválidos",
+        "Recusar saída"
+      ]
+    ],
+    "bottom": "* Convenção explícita do workshop: limite inclusivo.",
+    "notes": "Critérios (3 min). Comparar o comportamento nos dois lados da fronteira. Tratar a linha 15:00 como decisão do grupo, não como conclusão do modelo. Outras decisões: timestamps válidos, saída nunca anterior ao pagamento, cálculo no servidor. O aluno escolhe e aprova a política. O agente pode identificar conflitos e sugerir cenários. Demonstrar prompt: ‘Lê o enunciado. Enumera só as ambiguidades que mudam a decisão de saída. Não alteres código.’ Não deixar uma resposta eloquente substituir um critério testável. O teste técnico mais próximo da fronteira usa 900 001 ms, um milissegundo depois do limite. As decisões D1 a D6 constam de docs/BRIEF.md."
+  },
+  {
+    "kind": "files",
+    "title": "OpenSpec guarda a decisão no projeto",
+    "time": "15–18 min",
+    "minutes": 3,
+    "items": [
+      [
+        "proposal.md",
+        "Porquê e âmbito da alteração"
+      ],
+      [
+        "specs/…/spec.md",
+        "Requisitos e cenários observáveis"
+      ],
+      [
+        "design.md",
+        "Decisões técnicas relevantes"
+      ],
+      [
+        "tasks.md",
+        "Trabalho e estado de execução"
+      ]
+    ],
+    "bottom": "Uma sessão nova lê os artefactos relevantes e o diff.",
+    "notes": "OpenSpec (3 min). OpenSpec organiza o trabalho em ficheiros persistentes. O schema spec-driven usa proposal, specs, design e tasks. Nem todos os schemas ou alterações exigem os mesmos artefactos. Fonte local: openspec/config.yaml e .opencode/commands/opsx-propose.md. Referência: https://github.com/Fission-AI/OpenSpec . Mostrar uma spec e um cenário. Estes ficheiros evitam depender da memória de uma conversa, mas o agente ainda precisa de os ler. Um estado ‘done’ de artefacto não demonstra correção do seu conteúdo. O aluno revê a fronteira e o âmbito antes de aprovar."
+  },
+  {
+    "kind": "prompt",
+    "title": "Uma proposta curta, com uma paragem clara",
+    "time": "18–21 min",
+    "minutes": 3,
+    "code": "ORCA: tarefa do analista",
+    "prompt": "Lê docs/BRIEF.md e a regra de saída.\nRegista ambiguidades e cenários de fronteira.\nNão alteres código.\nApresenta a proposta para aprovação.",
+    "bottom": "Alternativa OpenCode: /opsx-propose validate-garage-exit",
+    "notes": "Mini demonstração (3 min). Em ORCA, apresentar o pedido limitado do slide ou prompts/01-analysis.md. O agente lê a fonte e propõe cenários, sem código. Para produzir artefactos OpenSpec, consultar a CLI: openspec status --change validate-garage-exit --json e openspec instructions proposal --change validate-garage-exit --json. Se a alteração ainda não existir, criar o scaffold com openspec new change validate-garage-exit e seguir as instruções dos artefactos. Mostrar uma spec já preparada, para não depender da velocidade do modelo. A aprovação humana precede uma nova tarefa de implementação. Alternativa em OpenCode: /opsx-propose validate-garage-exit. O comando gera planeamento e para. Só depois da aprovação iniciar /opsx-apply. Os slash commands não são comandos de terminal nem pressupostos do ORCA. Fontes: docs/WORKFLOW.md, prompts/ e .opencode/commands/. Guia: docs/orca-setup.md."
+  },
+  {
+    "kind": "table",
+    "title": "Papéis e modelos são escolhas diferentes",
+    "time": "21–24 min",
+    "minutes": 3,
+    "headers": [
+      "Papel",
+      "Trabalho",
+      "Modelo local de base"
+    ],
+    "rows": [
+      [
+        "Analista",
+        "Ambiguidades e cenários",
+        "qwen3.5:4b-orca"
+      ],
+      [
+        "Implementador",
+        "Alteração pequena e testes",
+        "qwen3.5:4b-orca"
+      ],
+      [
+        "Revisor",
+        "Diff, falhas e omissões",
+        "qwen3.5:4b-orca"
+      ]
+    ],
+    "bottom": "Mudar o prompt muda o papel. Mudar o modelo exige seleção explícita.",
+    "notes": "Papéis e modelos (3 min). A configuração mínima usa um único modelo local e sessões separadas para mudar de papel. Isto torna a aula executável sem API paga. Para comparar modelos, selecionar efetivamente outro identificador instalado e registar qual o modelo usado em cada tarefa. Variantes Qwen pertencem à mesma família e não constituem validação independente. Uma família diferente pode trazer outra perspetiva, mas não substitui critérios e testes. Modelos locais maiores exigem mais memória e podem ser lentos. Nuvem gratuita é uma extensão opcional com quotas e disponibilidade variáveis, nunca requisito da aula. Fonte para o alias: configuração Ollama/OpenCode do repositório. Observação local em 02-11-2026: ollama list mostra qwen3.5:4b-orca e qwen3.5:4b, além de qwen3.5:4b-q4_K_M. Os dois últimos têm o mesmo ID. O alias -orca ajusta parâmetros e não representa uma família independente."
+  },
+  {
+    "kind": "split",
+    "title": "ORCA coordena o trabalho no repositório",
+    "time": "24–27 min",
+    "minutes": 3,
+    "leftTitle": "Ambiente",
+    "left": "ORCA coordena tarefas e sessões\nOpenCode oferece comandos /opsx\nOllama serve o modelo local",
+    "rightTitle": "Coordenação",
+    "right": "Uma tarefa por papel\nÂmbito e ficheiros explícitos\nResultado verificável na passagem",
+    "notes": "ORCA (3 min). Mostrar o repositório aberto e uma tarefa limitada. Modelo e esforço são opções do lançamento do agente, quando suportados pela integração. Confirmar o modelo efetivamente selecionado no agente. O fluxo mínimo do workshop usa papéis sequenciais e ficheiros OpenSpec para passagem de contexto. Explicar que trabalho simultâneo precisa de ficheiros separados ou worktrees e de integração posterior. Não atribuir o mesmo ficheiro a dois agentes em paralelo. Os comandos exatos e as limitações da versão local estão no guia ORCA do repositório. A seleção de provider/model depende da configuração instalada. ORCA e OpenCode são percursos alternativos para o trabalho com o agente. Não pressupor que ORCA executa OpenCode como componente interno. Fonte: docs/WORKFLOW.md e docs/orca-setup.md."
+  },
+  {
+    "kind": "split",
+    "title": "Tokens incluem mais do que o prompt",
+    "time": "27–30 min",
+    "minutes": 3,
+    "leftTitle": "Entrada",
+    "left": "Instruções do sistema\nDefinições de ferramentas\nHistórico e ficheiros lidos\nResultados das ferramentas",
+    "rightTitle": "Saída",
+    "right": "Resposta e ações do modelo\n\nMenos contexto irrelevante\nreduz trabalho repetido.",
+    "notes": "Custo (3 min). Nem todos os tokens visíveis são os únicos que o sistema processa. A medição depende do modelo e do fornecedor. No fluxo local não há cobrança de tokens por uma API paga, mas há custo de hardware, energia, memória e tempo. A janela de contexto é finita. Técnicas: restringir ficheiros, pesquisar antes de ler, evitar logs completos, guardar decisões curtas em ficheiros, pedir uma saída breve e reutilizar testes. Não prometer percentagens de poupança. OpenSpec torna o contexto selecionável e persistente, não reduz automaticamente o total. Se um modelo pequeno não cumprir o protocolo de ferramentas, usar o checkpoint e analisar a limitação."
+  },
+  {
+    "kind": "exercise",
+    "title": "Laboratório: ambiente e ponto de partida",
+    "time": "30–34 min",
+    "minutes": 4,
+    "code": "git switch -c grupo-01 checkpoint/00-starter\nnpm test\nnpm run dev",
+    "body": "Dependências e modelo preparados antes da aula.\nORCA abre a pasta do projeto.\nO par confirma a interface e os testes iniciais.",
+    "bottom": "Checkpoints são referências. O trabalho fica numa branch do grupo.",
+    "notes": "Laboratório, preparação (4 min). Antes da aula, preparar Node, ORCA, OpenCode, Ollama e o modelo. Usar os guias do repositório para instalação. Clonar o repositório enquanto ainda há acesso de rede. Ao iniciar, criar uma branch de trabalho a partir de checkpoint/00-starter: git switch -c grupo-01 checkpoint/00-starter. O comando do slide serve para inspecionar o checkpoint, não para acumular trabalho na branch de referência. Executar npm install, npm test e npm run dev. Mostrar a limitação esperada da função inicial. Manter o terminal do servidor aberto. Se o modelo falhar ou for demasiado lento, ler o artefacto do checkpoint seguinte e continuar o exercício de análise."
+  },
+  {
+    "kind": "exercise",
+    "title": "Laboratório: especificação e aprovação",
+    "time": "34–40 min",
+    "minutes": 6,
+    "code": "ORCA: prompts/01-analysis.md",
+    "body": "Lê docs/BRIEF.md e server/exit-decision.js.\nPropõe cenários para 14:59, 15:00 e 15:01.\nRegista o limite inclusivo como decisão humana.\nPara antes de implementar.",
+    "bottom": "Checkpoint: checkpoint/01-spec-approved",
+    "notes": "Laboratório, especificação (6 min). 2 min: localizar a regra no resumo e relacioná-la com o enunciado. 2 min: observar a proposta do agente ou ler a versão preparada. 2 min: o par verifica se todos os cenários têm resultado observável, se a decisão dos 15 minutos está explícita e se não entrou âmbito extra. A aprovação é do aluno. Se a alteração já existir no checkpoint, rever e melhorar o artefacto em vez de duplicar. O checkpoint contém uma proposta aprovada de referência. Registar a aprovação num comentário de tarefa ou no diário do grupo, sem fingir que o modelo é o cliente. Usar prompts/01-analysis.md como pedido de leitura e análise limitado. A alteração do repositório chama-se validate-garage-exit. Em ORCA usar a tarefa do analista e instruções CLI de OpenSpec. Em OpenCode, a alternativa é /opsx-propose validate-garage-exit. Os slash commands são específicos da integração."
+  },
+  {
+    "kind": "exercise",
+    "title": "Laboratório: implementação e evidência",
+    "time": "40–48 min",
+    "minutes": 8,
+    "code": "ORCA: prompts/02-build.md",
+    "body": "Edita server/exit-decision.js e testes de negócio.\nMantém o contrato da API e a spec aprovada.\nExecuta npm test.\nRelata ficheiros alterados e resultado observado.",
+    "bottom": "Checkpoint: checkpoint/02-implemented",
+    "notes": "Laboratório, implementação (8 min). 1 min: instrução explícita para apply depois da aprovação. 4 min: acompanhar a alteração do agente e o teste. 3 min: ler o diff e correr a interface. Exigir que o servidor tome a decisão, pois o cliente não é fonte de autoridade. Confirmar timestamps válidos e ordem temporal. Não aceitar ‘testes passaram’ sem saída de ferramenta. Se o agente alargar o âmbito, pedir um diff menor. O checkpoint 02 guarda a implementação para grupos que precisem de recuperar. Uma implementação preparada serve de objeto de análise mesmo quando a geração local exceder o tempo. O pedido completo e os limites de edição encontram-se em prompts/02-build.md. Em ORCA consultar openspec instructions apply --change validate-garage-exit --json e os contextFiles devolvidos. Em OpenCode, a alternativa é /opsx-apply validate-garage-exit. Não executar /opsx no terminal."
+  },
+  {
+    "kind": "exercise",
+    "title": "Laboratório: revisão e passagem de contexto",
+    "time": "48–57 min",
+    "minutes": 9,
+    "code": "npm test\nnpm run build\ngit diff",
+    "body": "48–53: rever spec, diff e testes numa nova sessão.\n53–57: atualizar HANDOFF.md e trocar de modelo.\nRegistar decisão, evidência, pendência e próximo passo.\nA nova sessão retoma só pelos ficheiros relevantes.",
+    "bottom": "HANDOFF.md acompanha a passagem entre sessões.",
+    "notes": "Laboratório, revisão e handoff (9 min). Dos 48 aos 53 minutos, trocar o aluno que conduz. Abrir uma sessão nova com o papel de revisor e fornecer spec, diff e resultados necessários. O prompt é: «Revê o diff contra a spec sem alterar ficheiros. Indica ficheiro, problema e reprodução. Se não encontrares falhas, diz o que verificaste.» Reproduzir uma observação antes de corrigir. Dos 53 aos 57, preencher HANDOFF.md com decisão, ficheiros, testes executados, pendência, modelo usado e próximo passo. Fechar a sessão e pedir a outra: «Lê HANDOFF.md e os ficheiros indicados. Resume o estado em 5 linhas e executa apenas o próximo passo.» Se houver outro modelo instalado, selecioná-lo e registar o identificador real. Caso contrário, usar o mesmo modelo numa sessão nova e declarar isso. O checkpoint/03-complete é a referência final. Uma revisão sem falhas encontradas não prova ausência de defeitos. Para o handoff usar prompts/04-handoff.md. Na primeira passagem, a sessão nova confirma o estado e verifica o teste indicado sem editar código."
+  },
+  {
+    "kind": "closing",
+    "title": "O que o grupo consegue justificar",
+    "time": "57–60 min",
+    "minutes": 3,
+    "items": [
+      [
+        "Decisão",
+        "Qual a interpretação dos 15 minutos?"
+      ],
+      [
+        "Rastreabilidade",
+        "Onde fica o requisito que originou o teste?"
+      ],
+      [
+        "Evidência",
+        "Que resultado observámos realmente?"
+      ],
+      [
+        "Responsabilidade",
+        "Que decisão continuou a ser nossa?"
+      ]
+    ],
+    "bottom": "github.com/claudio-aa/OpenSpec-Demo",
+    "notes": "Fecho (3 min). Cada par responde a uma questão em 30 segundos. Entrega mínima: decisão da fronteira, caminho da spec, teste correspondente e uma observação da revisão. Pedir também o modelo efetivamente utilizado. O objetivo pedagógico é controlar a transformação do requisito em evidência, não produzir o maior volume de código. Repositório: https://github.com/claudio-aa/OpenSpec-Demo . O docente deve garantir acesso antes da aula, pois o repositório pode estar privado. A branch main guarda a referência final. Não publicar credenciais nem outputs com dados pessoais."
+  }
+]

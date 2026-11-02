@@ -1,0 +1,32 @@
+schema: spec-driven
+
+context: |
+  Language: pt-PT
+  All artifacts must be written in pt-PT.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+  Workshop de Análise de Sistemas, React e Node. Orçamento zero, sem billing.
+  Fonte e decisões: docs/BRIEF.md. O humano aprova decisões de negócio.
+  Simulador sem pagamentos reais, hardware ou persistência.
+  Uma alteração pequena de cada vez. Não omitir cenários para poupar contexto.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing

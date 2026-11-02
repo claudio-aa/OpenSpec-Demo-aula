@@ -1,0 +1,38 @@
+@startuml
+title Proposta didática de autorização digital de saída
+|Condutor|
+start
+:Pedir avaliação da saída;
+|Serviço de autorização|
+:Obter estado de pagamento e instantes;
+if (Dados válidos?) then (sim)
+  if (Pagamento confirmado?) then (sim)
+    if (Decorreram até 15 minutos inclusive?) then (sim)
+      :Devolver VALID;
+      |Interface de simulação|
+      :Mostrar autorização;
+    else (não)
+      |Serviço de autorização|
+      :Devolver EXPIRED;
+      |Interface de simulação|
+      :Mostrar prazo ultrapassado;
+    endif
+  else (não)
+    |Serviço de autorização|
+    :Devolver UNPAID;
+    |Interface de simulação|
+    :Mostrar ausência de pagamento;
+  endif
+else (não)
+  |Serviço de autorização|
+  :Devolver INVALID_INPUT;
+  |Interface de simulação|
+  :Pedir correção dos dados;
+endif
+stop
+note right
+Proposta limitada ao simulador.
+D1 aprova exatamente 15 minutos.
+Autorizar não confirma passagem física.
+end note
+@enduml
