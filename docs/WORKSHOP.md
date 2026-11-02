@@ -14,12 +14,15 @@ Usar o PPTX em `presentation/` na primeira meia hora. Ter uma cópia local, as b
 | --- | --- | --- |
 | 0–3 | Objetivo, orçamento zero e plano da aula | Resultado esperado e preparação |
 | 3–9 | Conversa e agente: objetivo, ferramentas, observação, ação e verificação | Um pedido delimitado e evidência do terminal |
-| 9–15 | Caso de estudo e decisão na fronteira de 15 minutos | Cenários e decisão humana |
-| 15–21 | OpenSpec como memória persistente | Proposal, spec, design e tasks da mesma alteração |
-| 21–27 | ORCA e divisão de trabalho por modelos | Analista propõe, humano decide, implementador executa, revisor verifica |
-| 27–30 | Contexto, limite de quota e handoff | Nova sessão retoma a partir dos ficheiros |
+| 9–13 | Caso de estudo e decisão na fronteira de 15 minutos | Cenários e decisão humana |
+| 13–17 | OpenSpec como memória persistente | Proposal, spec, design e tasks da mesma alteração |
+| 17–22 | ORCA e divisão de trabalho por modelos | Analista propõe, humano decide, implementador executa, revisor verifica |
+| 22–24 | Contexto, limite de quota e handoff | Nova sessão retoma a partir dos ficheiros |
+| 24–30 | Estado do protótipo e contributos reais dos modelos | Código integrado, tentativa rejeitada e falso positivo reproduzido |
 
 A demonstração dos papéis usa pedidos sequenciais quando há dependências. Só o trabalho independente corre em paralelo. A análise de ambiguidades e a preparação de uma lista de testes podem correr ao mesmo tempo, em ficheiros distintos. O implementador aguarda as decisões aprovadas. O revisor recebe a spec e o diff depois da implementação.
+
+Na discussão dos contributos, distinguir a preparação pelo assistente principal da pequena função gerada localmente. Mostrar que Qwen3.5 falhou a função completa e que Qwen3 produziu uma crítica incorreta. Executar um teste existente é um contributo diferente de o escrever. Usar [CONTRIBUTIONS.md](CONTRIBUTIONS.md) para a atribuição e as medições. Os pedidos de código têm âmbitos diferentes e não constituem um benchmark equivalente.
 
 ## Últimos 30 minutos de prática guiada
 

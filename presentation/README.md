@@ -2,9 +2,11 @@
 
 [Abrir a apresentação PowerPoint](output/workshop-agentes-openspec.pptx)
 
-16 slides editáveis, em português europeu, para uma sessão de 60 minutos com estudantes do 3.º ano de Análise de Sistemas. Os slides 1 a 11 apoiam os primeiros 30 minutos de explicação e demonstrações. Os slides 12 a 16 orientam a prática nos últimos 30 minutos.
+19 slides editáveis, em português europeu, para uma sessão de 60 minutos com estudantes do 3.º ano de Análise de Sistemas. Os slides 1 a 14 apoiam os primeiros 30 minutos de explicação e demonstrações. Os slides 15 a 19 orientam a prática nos últimos 30 minutos.
 
 As notas do apresentador incluem a duração, o guião de condução, exemplos de prompts e as fontes. A fonte do caso é o documento fornecido no repositório. As escolhas didáticas D1 a D6 encontram-se em [BRIEF.md](../docs/BRIEF.md).
+
+Os slides 12 a 14 apresentam o estado do protótipo, a autoria da preparação e os contributos observados dos modelos locais. Incluem a função pequena integrada, a tentativa completa rejeitada e o falso positivo do revisor. O [registo de contributos](../docs/CONTRIBUTIONS.md) distingue geração de código, execução de ferramentas e preparação dos testes.
 
 ## Utilização na aula
 
@@ -16,15 +18,16 @@ Os comandos `/opsx-propose` e `/opsx-apply` pertencem à integração OpenCode d
 | --- | --- | --- |
 | 1–2 | 00–03 | Objetivo e plano da sessão |
 | 3–4 | 03–09 | Chat, ferramentas e ciclo de trabalho |
-| 5–6 | 09–15 | Caso, fronteira temporal e decisão humana |
-| 7–8 | 15–21 | Artefactos OpenSpec e proposta limitada |
-| 9–10 | 21–27 | Papéis, modelos e coordenação com ORCA |
-| 11 | 27–30 | Tokens e seleção de contexto |
-| 12 | 30–34 | Branch de trabalho e ambiente |
-| 13 | 34–40 | Especificação e aprovação |
-| 14 | 40–48 | Implementação e testes |
-| 15 | 48–57 | Revisão e handoff |
-| 16 | 57–60 | Evidência e consolidação |
+| 5–6 | 09–13 | Caso, fronteira temporal e decisão humana |
+| 7–8 | 13–17 | Artefactos OpenSpec e proposta limitada |
+| 9–10 | 17–22 | Papéis, modelos e coordenação com ORCA |
+| 11 | 22–24 | Tokens e seleção de contexto |
+| 12–14 | 24–30 | Estado do demo, contributos locais e falso positivo |
+| 15 | 30–34 | Branch de trabalho e ambiente |
+| 16 | 34–40 | Especificação e aprovação |
+| 17 | 40–48 | Implementação e testes |
+| 18 | 48–57 | Revisão e handoff |
+| 19 | 57–60 | Evidência e consolidação |
 
 ## Edição e reconstrução
 
@@ -41,4 +44,4 @@ O gerador usa o runtime de apresentações fornecido pelo ambiente Codex. Não i
 PPTX_FILENAME=workshop-agentes-openspec-rev2.pptx node presentation/build.mjs
 ```
 
-Para alterar a sequência, confirmar que o total continua a ser 60 minutos e que a transição para o laboratório permanece no minuto 30. O gerador exige exatamente 16 slides e tabelas nativas nos slides 6 e 9.
+Para alterar a sequência, confirmar que o total continua a ser 60 minutos e que a transição para o laboratório permanece no minuto 30. O gerador deriva a contagem de slides de `slides.json` e verifica as tabelas nativas nos slides 6 e 9.

@@ -6,7 +6,7 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const runtime = process.env.RUNTIME_ROOT || path.join(os.homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies');
 process.env.RUNTIME_NODE_MODULES ||= path.join(runtime, 'node/node_modules');
-const skill = process.env.PRESENTATIONS_SKILL || path.join(os.homedir(), '.codex/plugins/cache/openai-primary-runtime/presentations/26.1025.11240/skills/presentations');
+const skill = process.env.PRESENTATIONS_SKILL || path.join(os.homedir(), '.codex/plugins/cache/openai-primary-runtime/presentations/26.1026.10807/skills/presentations');
 const { Presentation, PresentationFile } = await import(pathToFileURL(path.join(process.env.RUNTIME_NODE_MODULES, '@oai/artifact-tool/dist/artifact_tool.mjs')).href).catch(async () => {
   const { createRequire } = await import('node:module');
   const require = createRequire(path.join(process.env.RUNTIME_NODE_MODULES, '__runtime__.cjs'));
@@ -104,6 +104,6 @@ for(const [i,s] of deck.slides.items.entries()){
 const candidate=path.join(build,'candidate.pptx');
 await(await PresentationFile.exportPptx(deck)).save(candidate);
 const final=path.join(here,'output',process.env.PPTX_FILENAME||'workshop-agentes-openspec.pptx');
-const result=await finalizePresentation({workspaceDir:here,candidatePath:candidate,finalPath:final,pythonExecutable:path.join(runtime,'python/bin/python3'),integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit','--require-native-table-slide','6','--require-native-table-slide','9'],explicitTotalSlideCount:16,requiredNativeTableOwnerSlides:[6,9],fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(final)}.validation.json`)});
+const result=await finalizePresentation({workspaceDir:here,candidatePath:candidate,finalPath:final,pythonExecutable:path.join(runtime,'python/bin/python3'),integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit','--require-native-table-slide','6','--require-native-table-slide','9'],explicitTotalSlideCount:data.length,requiredNativeTableOwnerSlides:[6,9],fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(final)}.validation.json`)});
 await fs.writeFile(path.join(build,'result.json'),JSON.stringify(result,null,2));
 console.log(JSON.stringify({final,slides:data.length,font}));

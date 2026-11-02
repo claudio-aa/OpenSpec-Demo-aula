@@ -16,6 +16,7 @@ O ambiente usa ORCA, OpenSpec e modelos locais através de Ollama. OpenCode fica
 - [Estado para retomar o trabalho](HANDOFF.md)
 - [Ensaio local e exemplo de uma tarefa demasiado ampla](docs/LOCAL-TRIAL.md)
 - [Revisão, falsos positivos e evidência dos testes](docs/REVIEW.md)
+- [Estado do demo e contributos reais dos modelos](docs/CONTRIBUTIONS.md)
 
 ## Exercício
 
