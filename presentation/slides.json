@@ -63,18 +63,18 @@
   {
     "kind": "statement",
     "title": "Gafanhápolis: a regra de saída",
-    "time": "09–12 min",
-    "minutes": 3,
+    "time": "09–11 min",
+    "minutes": 2,
     "big": "15 minutos",
     "body": "O condutor tem 15 minutos para sair\napós o pagamento.",
     "bottom": "O que acontece exatamente aos 15:00?",
-    "notes": "Caso e ambiguidade (3 min). Fonte: CE4-Estacionamento em Gafanhapolis.docx, fornecido pelo docente. Isolar uma pequena parte do caso original: a decisão de saída depois do pagamento. Fora de âmbito: faturação, tarifários, sensores, barreiras reais, autenticação e persistência. O texto natural não fixa sozinho a inclusão do instante exato. Solicitar duas interpretações: ‘até 15 min inclusive’ e ‘menos de 15 min’. Mostrar que ambas produzem código plausível. Registar a escolha humana antes de gerar código. O workshop adota <= 15 minutos como decisão explícita, sujeita à especificação do repositório."
+    "notes": "Caso e ambiguidade (2 min). Fonte: CE4-Estacionamento em Gafanhapolis.docx, fornecido pelo docente. Isolar uma pequena parte do caso original: a decisão de saída depois do pagamento. Fora de âmbito: faturação, tarifários, sensores, barreiras reais, autenticação e persistência. O texto natural não fixa sozinho a inclusão do instante exato. Solicitar duas interpretações: ‘até 15 min inclusive’ e ‘menos de 15 min’. Mostrar que ambas produzem código plausível. Registar a escolha humana antes de gerar código. O workshop adota <= 15 minutos como decisão explícita, sujeita à especificação do repositório."
   },
   {
     "kind": "table",
     "title": "A decisão humana torna-se verificável",
-    "time": "12–15 min",
-    "minutes": 3,
+    "time": "11–13 min",
+    "minutes": 2,
     "headers": [
       "Situação",
       "Decisão esperada"
@@ -98,13 +98,13 @@
       ]
     ],
     "bottom": "* Convenção explícita do workshop: limite inclusivo.",
-    "notes": "Critérios (3 min). Comparar o comportamento nos dois lados da fronteira. Tratar a linha 15:00 como decisão do grupo, não como conclusão do modelo. Outras decisões: timestamps válidos, saída nunca anterior ao pagamento, cálculo no servidor. O aluno escolhe e aprova a política. O agente pode identificar conflitos e sugerir cenários. Demonstrar prompt: ‘Lê o enunciado. Enumera só as ambiguidades que mudam a decisão de saída. Não alteres código.’ Não deixar uma resposta eloquente substituir um critério testável. O teste técnico mais próximo da fronteira usa 900 001 ms, um milissegundo depois do limite. As decisões D1 a D6 constam de docs/BRIEF.md."
+    "notes": "Critérios (2 min). Comparar o comportamento nos dois lados da fronteira. Tratar a linha 15:00 como decisão do grupo, não como conclusão do modelo. Outras decisões: timestamps válidos, saída nunca anterior ao pagamento, cálculo no servidor. O aluno escolhe e aprova a política. O agente pode identificar conflitos e sugerir cenários. Demonstrar prompt: ‘Lê o enunciado. Enumera só as ambiguidades que mudam a decisão de saída. Não alteres código.’ Não deixar uma resposta eloquente substituir um critério testável. O teste técnico mais próximo da fronteira usa 900 001 ms, um milissegundo depois do limite. As decisões D1 a D6 constam de docs/BRIEF.md."
   },
   {
     "kind": "files",
     "title": "OpenSpec guarda a decisão no projeto",
-    "time": "15–18 min",
-    "minutes": 3,
+    "time": "13–15 min",
+    "minutes": 2,
     "items": [
       [
         "proposal.md",
@@ -124,23 +124,23 @@
       ]
     ],
     "bottom": "Uma sessão nova lê os artefactos relevantes e o diff.",
-    "notes": "OpenSpec (3 min). OpenSpec organiza o trabalho em ficheiros persistentes. O schema spec-driven usa proposal, specs, design e tasks. Nem todos os schemas ou alterações exigem os mesmos artefactos. Fonte local: openspec/config.yaml e .opencode/commands/opsx-propose.md. Referência: https://github.com/Fission-AI/OpenSpec . Mostrar uma spec e um cenário. Estes ficheiros evitam depender da memória de uma conversa, mas o agente ainda precisa de os ler. Um estado ‘done’ de artefacto não demonstra correção do seu conteúdo. O aluno revê a fronteira e o âmbito antes de aprovar."
+    "notes": "OpenSpec (2 min). OpenSpec organiza o trabalho em ficheiros persistentes. O schema spec-driven usa proposal, specs, design e tasks. Nem todos os schemas ou alterações exigem os mesmos artefactos. Fonte local: openspec/config.yaml e .opencode/commands/opsx-propose.md. Referência: https://github.com/Fission-AI/OpenSpec . Mostrar uma spec e um cenário. Estes ficheiros evitam depender da memória de uma conversa, mas o agente ainda precisa de os ler. Um estado ‘done’ de artefacto não demonstra correção do seu conteúdo. O aluno revê a fronteira e o âmbito antes de aprovar."
   },
   {
     "kind": "prompt",
     "title": "Uma proposta curta, com uma paragem clara",
-    "time": "18–21 min",
-    "minutes": 3,
+    "time": "15–17 min",
+    "minutes": 2,
     "code": "ORCA: tarefa do analista",
     "prompt": "Lê docs/BRIEF.md e a regra de saída.\nRegista ambiguidades e cenários de fronteira.\nNão alteres código.\nApresenta a proposta para aprovação.",
     "bottom": "Alternativa OpenCode: /opsx-propose validate-garage-exit",
-    "notes": "Mini demonstração (3 min). Em ORCA, apresentar o pedido limitado do slide ou prompts/01-analysis.md. O agente lê a fonte e propõe cenários, sem código. Para produzir artefactos OpenSpec, consultar a CLI: openspec status --change validate-garage-exit --json e openspec instructions proposal --change validate-garage-exit --json. Se a alteração ainda não existir, criar o scaffold com openspec new change validate-garage-exit e seguir as instruções dos artefactos. Mostrar uma spec já preparada, para não depender da velocidade do modelo. A aprovação humana precede uma nova tarefa de implementação. Alternativa em OpenCode: /opsx-propose validate-garage-exit. O comando gera planeamento e para. Só depois da aprovação iniciar /opsx-apply. Os slash commands não são comandos de terminal nem pressupostos do ORCA. Fontes: docs/WORKFLOW.md, prompts/ e .opencode/commands/. Guia: docs/orca-setup.md."
+    "notes": "Mini demonstração (2 min). Em ORCA, apresentar o pedido limitado do slide ou prompts/01-analysis.md. O agente lê a fonte e propõe cenários, sem código. Para produzir artefactos OpenSpec, consultar a CLI: openspec status --change validate-garage-exit --json e openspec instructions proposal --change validate-garage-exit --json. Se a alteração ainda não existir, criar o scaffold com openspec new change validate-garage-exit e seguir as instruções dos artefactos. Mostrar uma spec já preparada, para não depender da velocidade do modelo. A aprovação humana precede uma nova tarefa de implementação. Alternativa em OpenCode: /opsx-propose validate-garage-exit. O comando gera planeamento e para. Só depois da aprovação iniciar /opsx-apply. Os slash commands não são comandos de terminal nem pressupostos do ORCA. Fontes: docs/WORKFLOW.md, prompts/ e .opencode/commands/. Guia: docs/orca-setup.md."
   },
   {
     "kind": "table",
     "title": "Papéis e modelos são escolhas diferentes",
-    "time": "21–24 min",
-    "minutes": 3,
+    "time": "17–19 min",
+    "minutes": 2,
     "headers": [
       "Papel",
       "Trabalho",
@@ -164,12 +164,12 @@
       ]
     ],
     "bottom": "Mudar o prompt muda o papel. Mudar o modelo exige seleção explícita.",
-    "notes": "Papéis e modelos (3 min). O analista e o implementador usam Qwen 3.5 4B. O revisor usa Qwen 3 4B, preparado com o alias qwen3:4b-reviewer. São gerações e pesos distintos, ainda da família Qwen. A diversidade de modelos não prova independência dos erros nem substitui os testes. O alias qwen3.5:4b-orca ajusta o modelo Qwen 3.5 para o ambiente e não constitui outra família. Os nomes qwen3.5:4b e qwen3.5:4b-q4_K_M têm o mesmo ID local. Selecionar explicitamente o modelo e registar o identificador utilizado. Executar os modelos em sequência numa máquina com memória limitada. A cloud gratuita é uma extensão opcional e pode acabar por quota. Fontes: docs/orca-setup.md, opencode.json, workshop-config/Modelfile.reviewer, https://ollama.com/library/qwen3:4b."
+    "notes": "Papéis e modelos (2 min). O analista e o implementador usam Qwen 3.5 4B. O revisor usa Qwen 3 4B, preparado com o alias qwen3:4b-reviewer. São gerações e pesos distintos, ainda da família Qwen. A diversidade de modelos não prova independência dos erros nem substitui os testes. O alias qwen3.5:4b-orca ajusta o modelo Qwen 3.5 para o ambiente e não constitui outra família. Os nomes qwen3.5:4b e qwen3.5:4b-q4_K_M têm o mesmo ID local. Selecionar explicitamente o modelo e registar o identificador utilizado. Executar os modelos em sequência numa máquina com memória limitada. A cloud gratuita é uma extensão opcional e pode acabar por quota. Fontes: docs/orca-setup.md, opencode.json, workshop-config/Modelfile.reviewer, https://ollama.com/library/qwen3:4b."
   },
   {
     "kind": "split",
     "title": "ORCA coordena o trabalho no repositório",
-    "time": "24–27 min",
+    "time": "19–22 min",
     "minutes": 3,
     "leftTitle": "Ambiente",
     "left": "ORCA organiza sessões e worktrees\nOpenCode executa o agente\nOllama serve os modelos locais",
@@ -180,23 +180,57 @@
   {
     "kind": "split",
     "title": "Tokens incluem mais do que o prompt",
-    "time": "27–30 min",
-    "minutes": 3,
+    "time": "22–24 min",
+    "minutes": 2,
     "leftTitle": "Entrada",
     "left": "Instruções do sistema\nDefinições de ferramentas\nHistórico e ficheiros lidos\nResultados das ferramentas",
     "rightTitle": "Saída",
     "right": "Resposta e ações do modelo\n\nMenos contexto irrelevante\nreduz trabalho repetido.",
-    "notes": "Custo (3 min). Nem todos os tokens visíveis são os únicos que o sistema processa. A medição depende do modelo e do fornecedor. No fluxo local não há cobrança de tokens por uma API paga, mas há custo de hardware, energia, memória e tempo. A janela de contexto é finita. Técnicas: restringir ficheiros, pesquisar antes de ler, evitar logs completos, guardar decisões curtas em ficheiros, pedir uma saída breve e reutilizar testes. Não prometer percentagens de poupança. OpenSpec torna o contexto selecionável e persistente, não reduz automaticamente o total. Se um modelo pequeno não cumprir o protocolo de ferramentas, usar o checkpoint e analisar a limitação. O ensaio local em docs/LOCAL-TRIAL.md mostra uma resposta extensa incorreta para a função completa e uma resposta correta para uma função de decisão muito menor. São tarefas diferentes, pelo que os números não são um benchmark equivalente. A pessoa inspeciona e integra a resposta reduzida, e os testes confirmam os cenários."
+    "notes": "Custo (2 min). Nem todos os tokens visíveis são os únicos que o sistema processa. A medição depende do modelo e do fornecedor. No fluxo local não há cobrança de tokens por uma API paga, mas há custo de hardware, energia, memória e tempo. A janela de contexto é finita. Técnicas: restringir ficheiros, pesquisar antes de ler, evitar logs completos, guardar decisões curtas em ficheiros, pedir uma saída breve e reutilizar testes. Não prometer percentagens de poupança. OpenSpec torna o contexto selecionável e persistente, não reduz automaticamente o total. Se um modelo pequeno não cumprir o protocolo de ferramentas, usar o checkpoint e analisar a limitação. O ensaio local em docs/LOCAL-TRIAL.md mostra uma resposta extensa incorreta para a função completa e uma resposta correta para uma função de decisão muito menor. São tarefas diferentes, pelo que os números não são um benchmark equivalente. A pessoa inspeciona e integra a resposta reduzida, e os testes confirmam os cenários."
+  },
+  {
+    "kind": "split",
+    "title": "Estado do protótipo e autoria",
+    "minutes": 2,
+    "leftTitle": "Concluído",
+    "left": "App React e Node\n26 testes passam\nOpenSpec validado e arquivado\nQuatro checkpoints Git",
+    "rightTitle": "Contributos",
+    "right": "App, validação e testes:\nassistente principal na cloud.\n\nFunção de decisão pequena:\nQwen 3.5 local.",
+    "bottom": "Recorte simulado. Falta ensaiar os 60 minutos em contexto de aula.",
+    "notes": "Estado e autoria (2 min). A preparação produziu o simulador de autorização de saída, os quatro checkpoints, specs, prompts, handoff e materiais. O build e os26 testes passaram, e a alteração OpenSpec foi arquivada. O projeto cobre apenas este recorte do caso, sem pagamentos reais ou controlo de cancela. O assistente principal e os agentes cloud prepararam a estrutura React/Node, a validação de entradas, testes, artefactos OpenSpec e materiais. A função decide(paid, elapsedMs) veio de uma resposta local Qwen3.5 4B, inspecionada e integrada pelo assistente principal. Não atribuir a aplicação inteira aos modelos locais. As decisões didáticas continuam a exigir confirmação do docente responsável pelo processo. A preparação ainda não constitui um ensaio cronometrado com alunos. Fontes: README.md, HANDOFF.md, server/exit-decision.js e docs/CONTRIBUTIONS.md.",
+    "time": "24–26 min"
+  },
+  {
+    "kind": "split",
+    "title": "Contributo de Qwen 3.5 4B no código",
+    "minutes": 2,
+    "leftTitle": "Função completa",
+    "left": "1 052 tokens de entrada\n1 607 tokens de saída\n64,6 segundos\n\nFalhou casos básicos.",
+    "rightTitle": "Apenas a decisão",
+    "right": "100 tokens de entrada\n87 tokens de saída\n6,35 segundos\n\nFunção decide integrada.",
+    "bottom": "Tarefas diferentes. A validação de entradas ficou fora do pedido reduzido.",
+    "notes": "Contributo no código (2 min). O primeiro pedido incluiu a spec e pediu uma função completa com validação de datas. O resultado rejeitou um caso válido de15 minutos, rejeitou um caso sem pagamento com o motivo errado e lançou TypeError para null. Não foi integrado. O segundo pedido assumiu entradas já validadas e pediu apenas decide(paid, elapsedMs). O modelo devolveu os ramos UNPAID, EXPIRED e VALID com o limite inclusivo de900000ms. Esse código integra a referência. A validação de datas e a integração ficaram a cargo do assistente principal. Os números são contagens e durações reportadas pela API local numa execução, não médias nem uma comparação equivalente do problema completo. Não calcular uma percentagem de aceleração para o mesmo trabalho, pois o âmbito mudou. Qwen3.5 também usou uma ferramenta read em OpenCode, mas a explicação que deu confundiu ausência de pagamento com prazo expirado. A chamada de ferramenta funcionar não prova interpretação correta. Fontes: docs/LOCAL-TRIAL.md e server/exit-decision.js.",
+    "time": "26–28 min"
+  },
+  {
+    "kind": "exercise",
+    "title": "Falso positivo na revisão local",
+    "minutes": 2,
+    "code": "900000 ms   VALID\n900001 ms   EXPIRED",
+    "body": "Qwen 3 4B alegou que 900001 ms era aceite.\nA execução refutou essa crítica.\nO código manteve a regra aprovada.",
+    "bottom": "Uma crítica é uma hipótese. A reprodução confirma ou refuta.",
+    "notes": "Revisão e reprodução (2 min). O revisor Qwen3 4B, uma geração diferente ainda da família Qwen, recebeu a spec e o código num pedido JSON curto. Reportou em duas entradas o mesmo alegado erro de aceitar900001ms. O cenário executado devolveu EXPIRED, como previsto. Não se alterou código correto para satisfazer o modelo. Esta revisão textual demorou cerca de9,85s, com1805 tokens de entrada e173 de saída, e não executou testes. Noutro ensaio separado em ORCA/OpenCode, Qwen3 chamou bash com npm test e reportou26 testes, zero falhas e exit0. Executar os testes preparados por outro assistente é um contributo diferente de escrever os testes ou demonstrar a correção de todos os requisitos. Os pedidos de revisão extensos atingiram limites e não foram aceites como conclusões. Pedir aos alunos que relacionem a decisão D1, a spec e o teste que refuta a suspeita. Fontes: docs/REVIEW.md, docs/CONTRIBUTIONS.md, examples/qwen3-review.json e test/exit-decision.test.js.",
+    "time": "28–30 min"
   },
   {
     "kind": "exercise",
     "title": "Laboratório: ambiente e ponto de partida",
     "time": "30–34 min",
     "minutes": 4,
-    "code": "git switch -c grupo-01 checkpoint/00-starter\nnpm test\nnpm run dev",
+    "code": "git switch -c grupo-01 origin/checkpoint/00-starter\nnpm test\nnpm run build && npm start",
     "body": "Dependências e modelo preparados antes da aula.\nORCA abre a pasta do projeto.\nO par confirma a interface e os testes iniciais.",
     "bottom": "Checkpoints são referências. O trabalho fica numa branch do grupo.",
-    "notes": "Laboratório, preparação (4 min). Antes da aula, preparar Node, ORCA, OpenCode, Ollama e o modelo. Usar os guias do repositório para instalação. Clonar o repositório enquanto ainda há acesso de rede. Ao iniciar, criar uma branch de trabalho a partir de checkpoint/00-starter: git switch -c grupo-01 checkpoint/00-starter. O comando do slide serve para inspecionar o checkpoint, não para acumular trabalho na branch de referência. Executar npm install, npm test e npm run dev. Mostrar a limitação esperada da função inicial. Manter o terminal do servidor aberto. Se o modelo falhar ou for demasiado lento, ler o artefacto do checkpoint seguinte e continuar o exercício de análise."
+    "notes": "Laboratório, preparação (4 min). Antes da aula, preparar Node, ORCA, OpenCode, Ollama e o modelo. Usar os guias do repositório para instalação. Clonar o repositório enquanto ainda há acesso de rede. Ao iniciar, criar uma branch de trabalho a partir de checkpoint/00-starter: git switch -c grupo-01 checkpoint/00-starter. O comando do slide serve para inspecionar o checkpoint, não para acumular trabalho na branch de referência. Executar npm install, npm test e npm run dev. Mostrar a limitação esperada da função inicial. Manter o terminal do servidor aberto. Se o modelo falhar ou for demasiado lento, ler o artefacto do checkpoint seguinte e continuar o exercício de análise. Num clone novo, a branch de referência existe como origin/checkpoint/00-starter. O servidor Node serve a UI compilada e a API em localhost:3000. npm run build prepara essa UI e npm start inicia o servidor. npm run dev inicia apenas Vite e necessita do servidor Node separado para a API."
   },
   {
     "kind": "exercise",
