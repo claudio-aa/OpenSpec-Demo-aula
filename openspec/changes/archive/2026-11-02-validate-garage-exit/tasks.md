@@ -5,5 +5,5 @@
 
 ## 2. Revisão e retoma
 
-- [ ] 2.1 Rever a correspondência entre spec, diff e testes, registando problemas ou cenários verificados em `docs/REVIEW.md`.
-- [ ] 2.2 Atualizar `HANDOFF.md` com a decisão, os comandos executados e a próxima tarefa, e confirmar `openspec validate validate-garage-exit --strict --no-interactive` antes de arquivar.
+- [x] 2.1 Rever a correspondência entre spec, diff e testes, registando problemas ou cenários verificados em `docs/REVIEW.md`.
+- [x] 2.2 Atualizar `HANDOFF.md` com a decisão, os comandos executados e a próxima tarefa, e confirmar `openspec validate validate-garage-exit --strict --no-interactive` antes de arquivar.
