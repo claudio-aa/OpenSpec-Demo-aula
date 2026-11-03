@@ -12,7 +12,7 @@ O enunciado CE4 diz: «Após pagamento, o condutor tem 15 minutos para sair; a c
 
 ### New Capabilities
 
-- `exit-validation`: Validação de autorização de saída baseada em estado de pagamento e tempo decorrido desde o pagamento. Permite que o simulador decida se uma tentativa individual é autorizada sem consulta externa.
+- `exit-validation`: Validação de autorização de saída baseada em estado de pagamento e tempo decorrido desde o pagamento. Permite que o simulador decida se uma tentativa individual é autorizada.
 
 ### Modified Capabilities
 
@@ -22,4 +22,3 @@ Sem alterações nestas capacidades, pois não há especificações existentes a
 
 - Código do simulador actual: Adição da lógica temporal para autorização de saída.
 - Comportamento testado: Cenários de tempo excedido resultam em recusa automática com `EXPIRED`.
-- Integração externa: Reduz dependência a sistemas externos através de validação local.
