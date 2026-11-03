@@ -1,51 +1,44 @@
-# Guião do workshop de 60 minutos
+# Guião de 60 minutos — versão auto contida
 
-Público: estudantes do 3.º ano de Análise de Sistemas. Resultado: uma regra de negócio especificada e demonstrada num simulador, com evidência de testes e um handoff entre agentes/modelos.
+Público: 3.º ano de Análise de Sistemas. Os slides contêm os conceitos, comandos essenciais, responsáveis, resultados esperados e condições para avançar. As notas são apoio opcional ao docente.
 
-## Preparação anterior à aula
+## Preparação
 
-O formador instala e ensaia ORCA, OpenSpec, Node e Ollama. Todos descarregam o repositório e as dependências antes da sessão. Confirmar o modelo local e executar um pedido com uma ferramenta, uma pequena edição e um teste. O ensaio inclui a máquina menos potente da turma. Um modelo que apenas conversa ainda não está validado para este workflow.
+Preparar clone e acesso às branches, dependências, ORCA/OpenCode/Ollama e os dois modelos antes da aula. O percurso base é local, sem cartão, API paga ou subscrição. Se só houver um modelo preparado, usar outra sessão do mesmo modelo e declarar isso. Instalações não fazem parte dos 60 minutos.
 
-Usar o PPTX em `presentation/` na primeira meia hora. Ter uma cópia local, as branches de referência e o simulador compilado. Se a cloud falhar, continuar localmente. Se o agente local falhar, usar o checkpoint e discutir o resultado sem esperar por novas instalações.
+A aplicação é um simulador: não cobra, não abre cancelas nem confirma passagem física. D1–D6 são decisões didáticas, identificadas em BRIEF.md, sujeitas à aprovação do responsável representado na aula.
 
-## Primeiros 30 minutos com demonstrações curtas
+## Introdução e demonstração: 30 minutos
 
-| Minutos | Atividade | Evidência visível |
-| --- | --- | --- |
-| 0–2 | Visão geral do exemplo e das três peças | Pessoa, agentes, OpenSpec e resultado verificado |
-| 2–10 | Ciclo de desenvolvimento, cinco slides | Análise, decisão, rastreabilidade, iteração e propagação de mudanças |
-| 10–20 | Agentes, cinco slides | Ciclo de ferramentas, entregas por papel, dependências, contexto e revisão |
-| 20–30 | OpenSpec, cinco slides | Estado vigente, proposta, cenários, apply e arquivo |
+| Minutos | Conteúdo |
+| --- | --- |
+| 00–08 | Objetivo, entrega, microprocesso, stakeholders e previsão antes de revelar D1 |
+| 08–13 | O que é OpenSpec; regra, contrato e desenho; quatro artefactos |
+| 13–23 | Modelo/cliente/agente; tools; command de chat/CLI; skill/perfil; pedido delimitado |
+| 23–30 | Percurso completo, contexto pequeno, contributos observados, verificações e preparação |
 
-O [mapa pedagógico](TEACHING-FLOW.md) detalha o que explicar em cada esquema. A estrutura segue o mesmo caso durante os três blocos, permitindo relacionar cada decisão com o artefacto que a conserva e com a tarefa que o agente executa.
+Commands e skills fornecem instruções; perfis configuram papéis/permissões; o cliente executa ferramentas autorizadas. Não pressupor que um command chama automaticamente uma skill. O percurso com ferramentas é explicado separadamente do pacote curto, que só devolve texto.
 
-A demonstração dos papéis usa pedidos sequenciais quando há dependências. Só o trabalho independente corre em paralelo. A análise de ambiguidades e a preparação de uma lista de testes podem correr ao mesmo tempo, em ficheiros distintos. O implementador aguarda as decisões aprovadas. O revisor recebe a spec e o diff depois da implementação.
+## Prática guiada: 30 minutos
 
-Na discussão dos contributos, distinguir a preparação pelo assistente principal da pequena função gerada localmente. Mostrar que Qwen3.5 falhou a função completa e que Qwen3 produziu uma crítica incorreta. Executar um teste existente é um contributo diferente de o escrever. Usar [CONTRIBUTIONS.md](CONTRIBUTIONS.md) para a atribuição e as medições. Os pedidos de código têm âmbitos diferentes e não constituem um benchmark equivalente.
+| Minutos | Ação e condição para avançar |
+| --- | --- |
+| 30–34 | Branch própria do starter, baseline de infraestrutura, UI/API preparadas |
+| 34–40 | Análise textual, decisão registada, artefactos de referência01 carregados e revistos, aprovação explícita |
+| 40–48 | Wrapper e testes preparados de referência02, geração local só de decide, integração humana, testes/build e reinício do servidor |
+| 48–52 | Revisão textual de spec/código pelo modelo; diff/testes e reprodução pela pessoa |
+| 52–54 | Inspecionar spec e arquivo de referência03; declarar que a alteração do grupo continua ativa |
+| 54–58 | HANDOFF fiel ao estado e retoma por sessão nova, sem edição automática |
+| 58–60 | Entrega de todos os pares; duas respostas orais amostradas |
 
-## Últimos 30 minutos de prática guiada
+Carregar referência não equivale a criar os artefactos do zero. O par deve distinguir o que recebeu, o que aprovou, o que o modelo gerou e o que verificou. A pessoa executa a CLI e integra a função; o perfil builder completo não é necessário nesta rota.
 
-| Minutos | Atividade dos estudantes | Ponto de recuperação |
-| --- | --- | --- |
-| 30–34 | Criar branch de trabalho e executar o starter | `checkpoint/00-starter` |
-| 34–40 | Analisar a regra, aprovar a fronteira de 15 minutos e produzir a spec | `checkpoint/01-spec-approved` |
-| 40–48 | Pedir uma implementação pequena ao agente local | Mesma spec, ficheiros limitados |
-| 48–53 | Executar testes e pedir revisão a outro modelo disponível | `checkpoint/02-implemented` |
-| 53–57 | Trocar de sessão/modelo e retomar pelo handoff | `HANDOFF.md` |
-| 57–60 | Consolidar a spec e explicar uma decisão e a sua evidência | `checkpoint/03-complete` |
+Depois da integração ou recuperação, parar o servidor no Terminal A com Ctrl+C, executar novamente `npm start`, atualizar a interface e confirmar uma tentativa paga aos 15:00 como VALID. O servidor Node não recarrega o módulo automaticamente.
 
-## Condução da análise
+A recuperação preserva a branch do grupo. O PPTX mostra os comandos concretos e as condições temporais. Não usar reset destrutivo nem desenvolver nas branches de referência. Não arquivar uma alteração incompleta por pressão do relógio: a atividade de arquivo é inspeção da referência, e o handoff deve declarar o estado ativo do grupo.
 
-Antes de mostrar a solução, perguntar verbalmente o que significa «15 minutos». Recolher os exemplos 14:59, 15:00 e 15:01. O agente pode identificar a ambiguidade, mas o responsável pelo processo escolhe a interpretação. Registar a decisão D1 e só depois aprovar os cenários.
+## Avaliação e evidência
 
-No diagrama de atividades, distinguir «autorizar a saída» de «confirmar que o veículo saiu». A implementação avalia apenas a autorização. Não acrescentar sensores, multas ou tarifários para tornar a solução mais completa.
+Cada par entrega decisão/aprovador, cenário completo, caminho da spec e teste, saída observada, revisão/limites, modelo e checkpoint usado, e próximo passo. Testes verdes não validam a decisão de negócio; validate verifica estrutura documental. Uma crítica do modelo só justifica correção depois de reproduzida e confrontada com o contrato.
 
-## Papéis de cada grupo
-
-Um estudante representa o responsável pelo processo e valida decisões. Outro controla o agente e verifica os comandos. Trocar estes papéis depois da implementação. Cada grupo regista qual o modelo usado em cada tarefa. Se só houver um modelo disponível, declarar a revisão como uma segunda passagem, sem a apresentar como revisão por um modelo independente.
-
-## Encerramento da prática
-
-Uma tarefa está concluída quando a spec representa a decisão aprovada, os testes relevantes passam, o resultado da interface corresponde aos cenários e o revisor identifica a evidência. Um relatório do agente a dizer «feito» não substitui estes elementos.
-
-Cada grupo entrega a branch e uma nota curta: decisão tomada, teste demonstrado, modelo usado e próxima tarefa. O docente pode avaliar a qualidade da análise mesmo que o grupo recorra a um checkpoint para recuperar tempo.
+O ensaio técnico em [runtime-evidence.md](reviews/cycle-02/runtime-evidence.md) verificou geração local, integração, 26 testes, build e arquivo temporário. Descobriu e registou uma falha inicial por teste HTTP obsoleto do starter. Não foi um ensaio com alunos, nem prova de viabilidade da turma em 30 minutos. O percurso do PPTX termina por inspecionar o arquivo de referência; o ensaio técnico foi além e testou arquivo numa worktree descartável.

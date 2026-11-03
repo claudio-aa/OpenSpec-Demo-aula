@@ -1,17 +1,13 @@
 # Estado para retoma
 
-## Código e materiais de referência
+A apresentação final está em `presentation/output/workshop-agentes-openspec-autocontido.pptx`: 34 slides, 30 minutos de conceitos e 30 de prática, conteúdo essencial visível sem depender das notas. SHA-256: `10efdf45139c16b71194575e075c4a4868a431f74f481e10174de847b4a14d73`. Versões anteriores preservadas.
 
-`main` contém a solução do simulador de autorização de saída, arquivada em `openspec/changes/archive/2026-11-02-validate-garage-exit/`; spec vigente em `openspec/specs/garage-exit/spec.md`. D1 aceita 900 000 ms inclusive; 900 001 ms devolve EXPIRED. D1–D6 são decisões didáticas a confirmar pelo responsável, não factos adicionais do enunciado.
+Três ciclos concluídos com três revisores independentes e um escritor/coordenação. Aluno, docente e metodologista ficaram satisfeitos no âmbito documental; ler `docs/reviews/cycle-03/README.md`. Todos os achados anteriores foram resolvidos no percurso declarado ou retirados explicitamente da rota base. O builder completo continua excluído; a sua configuração não foi certificada.
 
-Evidência anterior registada: 26 testes, build e validação OpenSpec passaram. Não foram repetidos neste ciclo documental. Qwen3 apresentou uma crítica falsa, refutada por reprodução; ver `docs/REVIEW.md` e `docs/CONTRIBUTIONS.md`.
+O percurso reduzido usa artefactos preparados, geração local apenas de decide, integração/testes pela pessoa e inspeção do arquivo de referência. O grupo conserva alteração ativa e declara as pendências no handoff. Após editar ou recuperar a regra, reiniciar o servidor e verificar o caso pago aos 15:00 na interface.
 
-O PPTX atual tem 22 slides e permanece inalterado: `presentation/output/workshop-agentes-openspec-reestruturado.pptx`. SHA-256: `cbc150a08224f3f1b32f68c7f30ec6e46b7aec3a1c0ac87e316c34c5361d5efd`.
+Evidência em `docs/reviews/cycle-02/runtime-evidence.md`: geração local, 26 testes/build/validação/arquivo temporário e API antes/depois de reiniciar. A falha inicial do teste HTTP obsoleto ficou registada. Não foi ensaio com alunos nem medição de 30 minutos; UI não foi clicada. Código e configuração principais não mudaram neste trabalho.
 
-## Primeiro ciclo de revisão concluído
+A solução canónica mantém D1 inclusiva de 900000 ms; 900001 é EXPIRED. D1–D6 são decisões didáticas a confirmar, não factos adicionais do enunciado. O simulador não cobra nem controla hardware.
 
-Ler `docs/reviews/cycle-01/README.md` e os três pareceres independentes com suplementos: aluno sem contexto, docente de Análise de Sistemas e metodologista. O agente principal assume o papel de escritor. São perspetivas simuladas por IA; falta ensaio com pessoas reais.
-
-Requisito explícito do utilizador: slides auto contidos; notas do docente secundárias. Faltam definição/propósito de OpenSpec, commands/skills/agents e exemplo completo com interfaces, permissões e evidência. A prática tem uma lacuna análise textual → artefactos OpenSpec. Há também um risco estático nas permissões bash do builder, ainda sem reprodução. Este ciclo não alterou PPTX, código, configuração ou checkpoints.
-
-Próxima tarefa: escritor criar storyboard que resolva as correções consolidadas, com tamanho livre e 30+30 minutos; produzir nova versão sem esconder passos essenciais nas notas. Depois repetir as três revisões e ensaiar o percurso. Preservar o trabalho do utilizador e a versão anterior. O protocolo de revisores/escritor está em `docs/reviews/cycle-01/PROTOCOL.md`.
+Próxima tarefa: ensaiar 60 minutos com uma dupla e uma falha de modelo; registar tempos/dúvidas. Novas alterações ao PPTX mantêm o modelo três revisores (aluno/docente/metodologista) e um escritor, com pareceres separados e versão identificada.
