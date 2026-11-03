@@ -31,4 +31,4 @@ D1 a D6 são opções didáticas. O enunciado não define todas estas condiçõe
 
 ## Evidência de aprendizagem
 
-Cada grupo explica uma ambiguidade, relaciona uma decisão com um cenário de aceitação e mostra o teste correspondente. O diagrama de atividades deve evidenciar responsável, decisão de pagamento, decisão temporal e caminho de exceção. O código complementa a análise do processo.
+Na demonstração, o docente relaciona cada ambiguidade com uma decisão, um cenário de aceitação e o teste correspondente. O diagrama de atividades deve evidenciar responsável, decisão de pagamento, decisão temporal e caminho de exceção. O código complementa a análise do processo.

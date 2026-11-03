@@ -1,47 +1,9 @@
-# Exit After Payment: Tasks
+## 1. Regra e evidência
 
-**Schema:** spec-driven
-**Status:** Ready to implement
+- [ ] 1.1 Implementar a decisão em `server/exit-decision.js` e acrescentar testes de limite, pagamento e entradas inválidas, confirmando `npm test`.
+- [ ] 1.2 Confirmar o contrato HTTP e compilar a interface com `npm test` e `npm run build`, demonstrando 14:59, 15:00, 15:01 e ausência de pagamento.
 
-## Task List
+## 2. Revisão e retoma
 
-| # | Status | Description | Priority |
-|---|--------|-------------|----------|
-| 1 | TODO | Implement timer module with 900ms precision window | High |
-| 2 | TODO | Create external payment verification service endpoint | Medium |
-| 3 | TODO | Build state manager for VALID/EXPIRED/UNPAID transitions | Medium |
-| 4 | TODO | Add input validation with HTTP 400 responses | High |
-| 5 | TODO | Integration test: exit at exactly 900ms = VALID | Low |
-
-## Implementation Steps
-
-1. **Timer module**: Track elapsed milliseconds since simulated payment timestamp. Use high-resolution timer to achieve millisecond precision.
-
-2. **External service**: Create HTTP endpoint that accepts payment ID and completion timestamp, returns verified status from external system.
-
-3. **State manager**: Evaluate timing conditions:
-   - Exit < 900ms: VALID (payment success)
-   - Exit == 900ms exactly: ALLOWED (boundary case)
-   - Exit > 900ms + 1ms: EXPIRED (timeout)
-
-4. **Input validation**: Parse and validate all inputs before processing. Return HTTP 400 with appropriate error messages:
-   - Missing payment ID → "INVALID_INPUT"
-   - Invalid timestamp format → "INVALID_INPUT"
-   - Unexecuted payment → "UNPAID"
-
-## Expected Behavior Matrix
-
-```
-| Exit Time After Payment | State Output | HTTP Status |
-|-------------------------|--------------|-------------|
-| 900,000 ms              | VALID        | 200         |
-| 900,001+ ms             | EXPIRED      | 400/422     |
-| No payment executed     | UNPAID       | 400         |
-| Invalid input           | INVALID_INPUT| 400         |
-```
-
-## Notes
-
-- All timing calculations use integer milliseconds.
-- External service verification is mandatory before any state decision.
-- Default assumption (on timeout) must be UNPAID status, not NOT_IMPLEMENTED.
+- [ ] 2.1 Rever a correspondência entre spec, diff e testes, registando problemas ou cenários verificados em `docs/REVIEW.md`.
+- [ ] 2.2 Atualizar `HANDOFF.md` com a decisão, os comandos executados e a próxima tarefa, e confirmar `openspec validate validate-garage-exit --strict --no-interactive` antes de arquivar.
