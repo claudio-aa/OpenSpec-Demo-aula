@@ -34,17 +34,17 @@ function header(s,d,i,dark=false){
   text(s,String(i+1).padStart(2,'0'),70,664,70,22,17,dark?C.light:C.muted);
   text(s,d.time,1050,664,170,24,17,dark?C.light:C.muted);
 }
-function bottom(s,value,dark=false){text(s,value,70,586,1120,66,25,dark?C.light:C.teal,true);}
+function bottom(s,value,dark=false){if(value)text(s,value,70,600,1140,55,23,dark?C.light:C.teal,true);}
 function nativeTable(s,d){
   const rows=[d.headers,...d.rows];
-  const widths=d.headers.length===2?[680,460]:[245,430,465];
-  const t=s.tables.add({rows:rows.length,columns:d.headers.length,left:70,top:212,width:1140,height:300,columnWidths:widths,values:rows});
+  const widths=d.widths || (d.headers.length===2?[680,460]:[245,430,465]);
+  const t=s.tables.add({rows:rows.length,columns:d.headers.length,left:70,top:190,width:1140,height:340,columnWidths:widths,values:rows});
   t.borders.assign({fill:'#C7D2D1',width:0.7,style:'solid'});
   for(let r=0;r<rows.length;r++){
-    t.rows[r].height=r===0?60:66;
+    t.rows[r].height=r===0?54:78;
     for(let c=0;c<d.headers.length;c++){
       const cell=t.getCell(r,c);cell.fill=r===0?C.ink:C.paper;
-      cell.text.style={typeface:font,fontSize:r===0?25:26,color:r===0?C.white:C.ink,bold:r===0,insets:{left:16,right:12,top:12,bottom:10}};
+      cell.text.style={typeface:font,fontSize:r===0?25:25,color:r===0?C.white:C.ink,bold:r===0,insets:{left:16,right:12,top:12,bottom:10}};
     }
   }
 }
@@ -61,7 +61,41 @@ for(const [i,d] of data.entries()){
     text(s,'Workshop guiado de 60 minutos',70,650,600,28,22,C.light);
   }else{
     header(s,d,i,dark);
-    if(d.kind==='diagram'){
+    if(d.kind==='content'){
+      if(d.lead)text(s,d.lead,70,183,1140,84,30,C.ink);
+      d.items.forEach((a,k)=>{
+        const y=(d.lead?282:205)+k*(d.items.length>3?75:96);
+        text(s,a[0],70,y,300,70,27,C.teal,true);
+        text(s,a[1],395,y,815,77,27,C.ink);
+      });bottom(s,d.bottom);
+    }else if(d.kind==='dual'){
+      for(const side of ['left','right']){
+        const x=side==='left'?70:670;
+        text(s,d[side+'Title'],x,185,540,55,32,C.teal,true);
+        let y=252;
+        const code=d[side+'Code'];
+        if(code){
+          const h=code.split('\n').length*29+10;
+          text(s,code,x,y,540,h,24,C.ink,true);y+=h+24;
+        }
+        if(d[side])text(s,d[side],x,y,540,580-y,26,C.ink);
+      }bottom(s,d.bottom);
+    }else if(d.kind==='command'){
+      text(s,d.label,70,177,1140,43,25,C.teal,true);
+      const lines=d.code.split('\n').length;
+      const size=lines>6?24:26;
+      const h=lines*(size+4)+16;
+      text(s,d.code,70,237,1140,h,size,C.ink,true);
+      text(s,d.after,70,237+h+22,1140,575-(237+h+22),25,C.ink);
+      bottom(s,d.bottom);
+    }else if(d.kind==='flow'){
+      d.steps.forEach((a,k)=>{
+        const y=186+k*77;
+        text(s,String(k+1).padStart(2,'0'),70,y,80,60,33,C.teal,true);
+        text(s,a[0],180,y,340,60,27,C.teal,true);
+        text(s,a[1],540,y,670,70,26,C.ink);
+      });bottom(s,d.bottom);
+    }else if(d.kind==='diagram'){
       drawDiagram(s,d.diagram,{font,text,colors:C});bottom(s,d.bottom);
     }else if(d.kind==='trial-chart'){
       drawTrialChart(s,d,{font,text,colors:C,applyChartFont:applyPresentationChartFont});bottom(s,d.bottom);
@@ -109,7 +143,9 @@ for(const [i,s] of deck.slides.items.entries()){
 }
 const candidate=path.join(build,'candidate.pptx');
 await(await PresentationFile.exportPptx(deck)).save(candidate);
-const final=path.join(here,'output',process.env.PPTX_FILENAME||'workshop-agentes-openspec-reestruturado.pptx');
-const result=await finalizePresentation({workspaceDir:here,candidatePath:candidate,finalPath:final,pythonExecutable:path.join(runtime,'python/bin/python3'),integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit'],explicitTotalSlideCount:data.length,requiredNativeChartOwnerSlides:[11],materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(final)}.validation.json`)});
+const final=path.join(here,'output',process.env.PPTX_FILENAME||'workshop-agentes-openspec-autocontido.pptx');
+const tables=data.flatMap((s,i)=>s.kind==='table'?[i+1]:[]);
+const charts=data.flatMap((s,i)=>s.kind==='trial-chart'?[i+1]:[]);
+const result=await finalizePresentation({workspaceDir:here,candidatePath:candidate,finalPath:final,pythonExecutable:path.join(runtime,'python/bin/python3'),integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...tables.flatMap(n=>['--require-native-table-slide',String(n)])],explicitTotalSlideCount:data.length,requiredNativeTableOwnerSlides:tables,...(charts.length?{requiredNativeChartOwnerSlides:charts,materializeLiteralChartWorkbooks:true}:{}),fontPolicy:{basis:'design',families:[font]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(final)}.validation.json`)});
 await fs.writeFile(path.join(build,'result.json'),JSON.stringify(result,null,2));
 console.log(JSON.stringify({final,slides:data.length,font}));
