@@ -1,11 +1,11 @@
 ## Why
 
-O simulador actual verifica apenas o estado de pagamento, sem considerar o tempo decorrido para autorização de saída. Actualmente é necessário consultar o sistema externo em cada tentativa, violando princípios de desacoplamento. Esta alteração permite validação local com decisão automática após a expiração do período autorizado (15 minutos).
+O enunciado CE4 diz: «Após pagamento, o condutor tem 15 minutos para sair; a cancela valida o bilhete se estiver dado como pago no sistema.» O simulador atual ainda não decide: devolve sempre `NOT_IMPLEMENTED`. Esta alteração especifica a decisão de saída com as decisões D1–D6 aprovadas pelo docente, no papel de responsável pelo processo.
 
 ## What Changes
 
 - **Novo comportamento de validação**: O simulador avalia condições temporais e decide se uma tentativa de saída pode ser autorizada.
-- **Comportamento actual**: Tentativa de saída é sempre aceita se o bilhete estiver pago, sem verificação temporal.
+- **Comportamento atual**: o simulador devolve `NOT_IMPLEMENTED` para qualquer tentativa.
 - Nova decisão: Recusar com status `EXPIRED` quando tempo exceder 15 minutos após pagamento.
 
 ## Capabilities
