@@ -1,47 +1,71 @@
-## Context
+# Exit After Payment: Design Document
 
-O simulador actual realiza apenas validação de estado ao aceitar tentativas de saída. A decisão temporal pode ser verificada em tempo real a partir do timestamp de pagamento armazenado no simulador, sem comunicação inter-sistema. O contexto é local e estático, com persistência em memória (sem armazenamento externo ou hardware).
+**Status:** In Review
 
-## Goals / Non-Goals
+This document defines the technical approach for implementing exit logic during payment simulation, including timing constraints and validation handling.
 
-**Goals:**
-- Implementar lógica de validação temporal que decida autorização de saída com base no tempo decorrido desde o pagamento
-- Decidir automaticamente com status `EXPIRED` quando tempo exceder 15 minutos após pagamento
-- Manter consistência com decisão de negócio (D1 em docs/BRIEF.md)
+## Architecture Overview
 
-**Non-Goals:**
-- Implementar persistência de dados ou hardware no simulador
-- Processar pagamentos reais ou inter-comunicar com sistemas externos
-- Registrar eventos completos de ocupação em folhas de cálculo
+The system uses precise millisecond-level timing to determine state transitions after simulated payment completion. An external verification service must be consulted to confirm payment status before any expiration checks occur.
 
-## Decisions
+## Key Components
 
-### D7 - Validação Local sem Consulta Externa
-**Decision**: A autorização será decidiva no simulador baseada no estado interno do bilhete e timestamp de pagamento.
-**Rationale**: Minimiza dependência externa e simplifica a validação de cenários isolados.
-**Alternatives considerados**: Consulta inter-sistema (mais complexo, maior latência).
+| Component | Responsibility |
+|-----------|-----------------|
+| Payment Processor | Executes simulated payment and returns completion timestamp |
+| Timer Module | Monitors 900ms window for exit decisions |
+| External Service | Confirms external system's state query results |
+| State Manager | Updates balance status (VALID, EXPIRED, UNPAID) |
 
-### D8 - Tempo em milissegundos ISO 8601
-**Decision**: Timestamps são armazenados e processados em milissegundos ISO 8601 com timezone explícita.
-**Rationale**: Permite cálculo preciso de intervalo entre eventos; alinhado com Decisão D5 do briefing.
-**Alternatives considerados**: Horas formatadas, segundos Unix (perde informação sub-hora).
+## Flow Diagram
 
-### D9 - Recusa sem Nova Cobrança
-**Decision**: Tentativas após 15 minutos resultam em recusa com `EXPIRED`, sem tentar cobrar novamente.
-**Rationale**: Respeita Decisão D2 do briefing; evitaria cobranças indevidas por sistema antigo.
-**Alternatives considerados**: Nova cobrança automática (violaria princípio de não inventar comportamentos).
+```mermaid
+sequenceDiagram
+    participant Client as Client Application
+    participant PS as Payment Service
+    participant ES as External System
+    participant TM as Timer Module
+    participant SM as State Manager
+    
+    Client->>PS: Execute payment\nReturns: timestamp T
+    PS-->>Client: 200 OK\nStatus: PAID
+    
+    Note over Client,TM,ES: Simulate exit at time T + delay
+    
+    alt delay = 900ms (exact)
+        Client->>ES: Query payment status(T)
+        Note over ES: Verify from external system
+        EM-->>Client: Confirmed as PAID
+        
+        TM-->SM: setState(VALID, EXPIRED)\nStatus: ALLOWED
+    else delay > 900ms
+        ES-->>Client: Timeout or failure
+        SM->>SM: setState(EXPIRED)
+        
+        Note over Client,TM: No valid state available
+        TM-->SM: setState(EXPIRED)
+    end
+    
+    Alternative: Payment not executed
+    PS-->>Client: NOT_IMPLEMENTED\nStatus: UNPAID
+```
 
-## Risks / Trade-offs
+## Validation Rules
 
-- **R1**: Simples não permite rastreamento complexo → Mitigação: escopo limitado a regra de saída única.
-- **R2**: Teste manual requer cálculo preciso de tempo → Mitigação: casos de teste com timestamps calculados exatos.
+| Condition | Output |
+|-----------|--------|
+| Exit at 900,000 ms exactly after payment | HTTP 200 WITH ALLOWED\nVALID status |
+| Exit at > 900,001 ms after payment | HTTP 400/422 WITH EXPIRED status |
+| Payment not executed | HTTP 400/422 WITH UNPAID status |
+| Invalid input (wrong timestamp/pid) | HTTP 400 INVALID_INPUT |
 
-## Migration Plan
+## External Dependencies
 
-1. Adicionar timestamp de pagamento ao simulador (exige alteração no esquema de entrada de dados).
-2. Implementar lógica de validação temporal no processador de saída.
-3. Manter compatibilidade total com cenário não-expirado para migração sem interrupção.
+The simulator requires connectivity to an external payment verification service. This service must respond with a confirmed payment state for timestamps within ±1ms of the recorded payment completion. Without this external check, all states incorrectly report `NOT_IMPLEMENTED`.
 
-## Open Questions
+## Performance Considerations
 
-Nenhuma questão aberta; todas as decisões técnicas alinhadas com Decisões D1-D6 do briefing foram tomadas.
+- Timer resolution: millisecond accuracy
+- Network latency threshold: < 50ms for external service queries
+- Batch processing: single timestamp per request
+- Fail-safe default: UNPAID on any timeout
