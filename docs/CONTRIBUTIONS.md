@@ -31,3 +31,7 @@ São valores de execuções individuais. Os dois pedidos de código têm âmbito
 Preparar o contexto e o contrato antes de pedir código. Atribuir aos modelos pequenos tarefas delimitadas, inspecionar a resposta e verificar os cenários aprovados. Reproduzir cada crítica antes de alterar o código. Os checkpoints permitem continuar a aula quando uma tarefa excede o tempo disponível.
 
 Detalhes: [ensaio local](LOCAL-TRIAL.md), [revisão e reprodução](REVIEW.md), [relatório JSON do revisor](../examples/qwen3-review.json) e [função integrada](../server/exit-decision.js).
+
+## Repetição técnica durante a revisão dos slides — 3 de novembro
+
+O [ensaio do percurso curto](reviews/cycle-02/runtime-evidence.md) repetiu o pedido local de `decide`: 104 tokens de entrada, 91 de saída e 7,43 s. A pessoa coordenadora integrou a função no wrapper preparado. A primeira composição expôs um teste HTTP obsoleto do starter (24/25 passaram); carregar também o teste HTTP da etapa implementada tornou o conjunto coerente e 26/26 passaram, assim como build e validação. O arquivo foi testado apenas numa worktree temporária, depois removida. Não foi ensaio com alunos nem execução multiagente na interface ORCA. Os números anteriores permanecem como execuções históricas distintas.
