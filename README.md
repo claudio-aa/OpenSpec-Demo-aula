@@ -50,6 +50,9 @@ Abrir `http://127.0.0.1:3000`. O servidor serve a interface compilada e a API. A
 | `checkpoint/01-spec-approved` | Spec e decisões aprovadas | Recuperar a fase de análise |
 | `checkpoint/02-implemented` | Implementação e testes | Comparar uma solução |
 | `checkpoint/03-complete` | Specs consolidadas e handoff | Rever o ciclo completo |
+| `checkpoint/04-change-proposed` | Change `validate-attendant-payment` proposta, sem aplicar | Ver uma alteração a uma spec arquivada |
+| `checkpoint/05-change-applied` | Change `validate-attendant-payment` aplicada e por arquivar | Comparar a aplicação da alteração |
+| `checkpoint/06-new-capability-proposed` | Change `add-park-occupancy` proposta, capability nova `park-occupancy` | Ver uma spec nova com `ADDED` |
 | `main` | Material final do formador | Preparação e consulta |
 
 Criar uma branch própria a partir do starter. Não desenvolver diretamente nas branches de referência. Ver os comandos em [CHECKPOINTS.md](docs/CHECKPOINTS.md).

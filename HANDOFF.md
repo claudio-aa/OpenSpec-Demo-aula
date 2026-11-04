@@ -15,3 +15,7 @@ Novas alterações ao PPTX mantêm o modelo três revisores (aluno/docente/metod
 ## Checkpoint 05: change aplicada (`validate-attendant-payment`)
 
 `evaluateExit` aplica a janela por `paymentPoint` (`MACHINE` 900 000 ms, `ATTENDANT` 3 600 000 ms, inclusivas). D8 aprovada; D7, D9 e D10 implementadas como propostas, ainda por aprovar formalmente, e fora de `docs/BRIEF.md` (tarefas 1.1 e 1.2 em aberto). Evidência: `npm test`, `npm run build`, `npm run demo` (`scripts/demo-api.mjs`) e `openspec validate validate-attendant-payment --strict --no-interactive`. Próxima tarefa: aprovar D7, D9 e D10, atualizar `docs/BRIEF.md` e arquivar; depois ensaiar 60 minutos com uma dupla e uma falha de modelo, registando tempos e dúvidas.
+
+## Checkpoint 06: nova capability proposta (`add-park-occupancy`)
+
+Change `add-park-occupancy` proposta e não aplicada: cria a capability `park-occupancy` (só `## ADDED Requirements`) para registar entradas e saídas por parque e consultar lugares livres. É independente de `garage-exit` e não toca em `validate-attendant-payment`, que continua ativa. A divisão dos 850 lugares (300, 300 e 250 em `P1`, `P2` e `P3`) é inventada. D11 a D18 são propostas por aprovar pelo responsável pelo processo e ainda não constam de `docs/BRIEF.md` (tarefas 1.1 e 1.2 em aberto). Sem código nem testes novos. Próxima tarefa: aprovar D11 a D18, atualizar `docs/BRIEF.md` e só depois aplicar.

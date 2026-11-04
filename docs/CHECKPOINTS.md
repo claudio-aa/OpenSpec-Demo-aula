@@ -1,6 +1,6 @@
 # Checkpoints e recuperação
 
-Cada checkpoint tem uma branch de referência. Os commits principais 00 a03 seguem a evolução do exercício. As branches podem incluir commits adicionais de manutenção dos materiais e da configuração, preservando o estado funcional de cada etapa. O trabalho de cada estudante fica numa branch própria.
+Cada checkpoint tem uma branch de referência. Os commits principais 00 a 03 seguem a evolução do exercício. As branches podem incluir commits adicionais de manutenção dos materiais e da configuração, preservando o estado funcional de cada etapa. O trabalho de cada estudante fica numa branch própria.
 
 ## Início da prática
 
@@ -25,6 +25,8 @@ O repositório é inicialmente privado. O formador prepara os acessos ou distrib
 | `checkpoint/02-implemented` | Regra e testes de negócio | Testes e build passam |
 | `checkpoint/03-complete` | Spec consolidada, arquivo e handoff | Estado persistido para nova sessão |
 | `checkpoint/04-change-proposed` | Change `validate-attendant-payment` proposta e não aplicada, que modifica a spec `garage-exit` já arquivada; só D8 aprovada, D7, D9 e D10 por aprovar | Validação OpenSpec passa e `npm test` continua igual ao checkpoint 03 |
+| `checkpoint/05-change-applied` | Change `validate-attendant-payment` aplicada e por arquivar: janela por ponto de pagamento, interface, 42 testes, `npm run demo` | `npm test` 42/42, `npm run build`, `npm run demo` 13/13 e `openspec validate --strict` passam |
+| `checkpoint/06-new-capability-proposed` | Change `add-park-occupancy` proposta e não aplicada: cria a capability nova `park-occupancy` com `## ADDED Requirements`, independente de `garage-exit`; D11 a D18 por aprovar. A change `validate-attendant-payment` continua ativa e intocada | Validação OpenSpec passa e `npm test` continua igual ao checkpoint 05 |
 
 ## Recuperação sem perder o trabalho
 
