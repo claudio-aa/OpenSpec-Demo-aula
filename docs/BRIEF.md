@@ -26,8 +26,9 @@ O recorte demonstra uma regra do processo. Não implementa toda a transformaçã
 | D4 | Dados incoerentes | Recusar entrada com `INVALID_INPUT` e HTTP 400 |
 | D5 | Tempo | Instantes ISO com timezone explícito, cálculo de tempo decorrido |
 | D6 | Âmbito | Avaliação simulada sem persistência, sem consumo do bilhete e sem hardware |
+| D8 | Janela do vigilante | Pagamento registado pelo vigilante: saída até 3 600 000 ms (60 min), inclusive por interpretação seguindo D1. Aprovada pelo docente em 4 nov 2026 (change `validate-attendant-payment`) |
 
-D1 a D6 são opções didáticas. O enunciado não define todas estas condições. Na aula, o docente representa o responsável pelo processo e aprova as escolhas antes da implementação.
+D1 a D6 e D8 são opções didáticas aprovadas. D7, D9 e D10 da change `validate-attendant-payment` são propostas e só entram nesta tabela quando aprovadas. O enunciado não define todas estas condições. Na aula, o docente representa o responsável pelo processo e aprova as escolhas antes da implementação.
 
 ## Evidência de aprendizagem
 

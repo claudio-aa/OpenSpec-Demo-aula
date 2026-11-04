@@ -24,6 +24,7 @@ O repositório é inicialmente privado. O formador prepara os acessos ou distrib
 | `checkpoint/01-spec-approved` | Proposal, spec, design e tasks | Decisões e cenários aprovados, validação OpenSpec passa |
 | `checkpoint/02-implemented` | Regra e testes de negócio | Testes e build passam |
 | `checkpoint/03-complete` | Spec consolidada, arquivo e handoff | Estado persistido para nova sessão |
+| `checkpoint/04-change-proposed` | Change `validate-attendant-payment` proposta e não aplicada, que modifica a spec `garage-exit` já arquivada; só D8 aprovada, D7, D9 e D10 por aprovar | Validação OpenSpec passa e `npm test` continua igual ao checkpoint 03 |
 
 ## Recuperação sem perder o trabalho
 
