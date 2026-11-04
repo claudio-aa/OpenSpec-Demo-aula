@@ -31,3 +31,25 @@ test('malformed JSON is rejected', () => withServer(async base => {
   assert.equal(response.status, 400);
   assert.deepEqual(await response.json(), { allowed: false, reason: 'INVALID_INPUT' });
 }));
+const post = (base, body) => fetch(`${base}/api/exit-decisions`, { method: 'POST', body: JSON.stringify(body) });
+const at30 = { paid: true, paidAt: '2026-11-02T10:00:00Z', exitAt: '2026-11-02T10:30:00Z' };
+test('API vigilante aos 30 minutos: 200 e VALID', () => withServer(async base => {
+  const response = await post(base, { ...at30, paymentPoint: 'ATTENDANT' });
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { allowed: true, reason: 'VALID' });
+}));
+test('API caixa automática aos 30 minutos: 200 e EXPIRED', () => withServer(async base => {
+  const response = await post(base, { ...at30, paymentPoint: 'MACHINE' });
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { allowed: false, reason: 'EXPIRED' });
+}));
+test('API paymentPoint inválido: 400 e INVALID_INPUT', () => withServer(async base => {
+  const response = await post(base, { ...at30, paymentPoint: 'ATM' });
+  assert.equal(response.status, 400);
+  assert.deepEqual(await response.json(), { allowed: false, reason: 'INVALID_INPUT' });
+}));
+test('API paymentPoint array ["ATTENDANT"]: 400 e INVALID_INPUT', () => withServer(async base => {
+  const response = await post(base, { ...at30, paymentPoint: ['ATTENDANT'] });
+  assert.equal(response.status, 400);
+  assert.deepEqual(await response.json(), { allowed: false, reason: 'INVALID_INPUT' });
+}));

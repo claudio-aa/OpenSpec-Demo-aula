@@ -34,6 +34,7 @@ Requisito: Node 22.12+ ou 24+. Instalar antes da aula:
 npm ci
 npm test
 npm run build
+npm run demo   # envia casos à API e compara com o esperado, sem curl
 npm start
 ```
 

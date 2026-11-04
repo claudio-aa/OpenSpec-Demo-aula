@@ -46,3 +46,46 @@ test('aceita 29 de fevereiro num ano bissexto', () => {
 test('calcula a janela entre dias diferentes', () => {
   assert.deepEqual(evaluateExit({ paid: true, paidAt: '2026-11-02T23:55:00Z', exitAt: '2026-11-03T00:10:00Z' }), valid);
 });
+
+// Change validate-attendant-payment: janela por ponto de pagamento (D7 a D10, D8 aprovada).
+const attendant = { ...paid, paymentPoint: 'ATTENDANT' };
+const machine = { ...paid, paymentPoint: 'MACHINE' };
+const at30 = '2026-11-02T10:30:00Z';
+const expired = { allowed: false, reason: 'EXPIRED' };
+
+test('vigilante: autoriza exatamente aos 60:00', () => {
+  assert.deepEqual(evaluateExit({ ...attendant, exitAt: '2026-11-02T11:00:00Z' }), valid);
+});
+test('vigilante: autoriza aos 30:00', () => {
+  assert.deepEqual(evaluateExit({ ...attendant, exitAt: at30 }), valid);
+});
+test('vigilante: recusa EXPIRED aos 3 600 001 ms', () => {
+  assert.deepEqual(evaluateExit({ ...attendant, exitAt: '2026-11-02T11:00:00.001Z' }), expired);
+});
+test('caixa automática: autoriza exatamente aos 15:00', () => {
+  assert.deepEqual(evaluateExit({ ...machine, exitAt: '2026-11-02T10:15:00Z' }), valid);
+});
+test('caixa automática: recusa EXPIRED aos 30:00', () => {
+  assert.deepEqual(evaluateExit({ ...machine, exitAt: at30 }), expired);
+});
+test('sem paymentPoint: recusa EXPIRED aos 30:00', () => {
+  assert.deepEqual(evaluateExit({ ...paid, exitAt: at30 }), expired);
+});
+test('paymentPoint null: recusa EXPIRED aos 30:00', () => {
+  assert.deepEqual(evaluateExit({ ...paid, paymentPoint: null, exitAt: at30 }), expired);
+});
+test('vigilante com paid false: UNPAID', () => {
+  assert.deepEqual(evaluateExit({ paid: false, paidAt: null, paymentPoint: 'ATTENDANT', exitAt: at30 }), { allowed: false, reason: 'UNPAID' });
+});
+test('paymentPoint desconhecido "ATM": INVALID_INPUT', () => {
+  assert.deepEqual(evaluateExit({ ...paid, paymentPoint: 'ATM' }), invalid);
+});
+test('paymentPoint com tipo incorreto (número 1): INVALID_INPUT', () => {
+  assert.deepEqual(evaluateExit({ ...paid, paymentPoint: 1 }), invalid);
+});
+test('paymentPoint "ATM" com paid false: INVALID_INPUT', () => {
+  assert.deepEqual(evaluateExit({ paid: false, paidAt: null, paymentPoint: 'ATM', exitAt: paid.exitAt }), invalid);
+});
+test('paymentPoint com tipo incorreto (array ["ATTENDANT"]): INVALID_INPUT', () => {
+  assert.deepEqual(evaluateExit({ ...paid, paymentPoint: ['ATTENDANT'], exitAt: at30 }), invalid);
+});

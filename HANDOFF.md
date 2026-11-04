@@ -10,4 +10,8 @@ Evidência em `docs/reviews/cycle-02/runtime-evidence.md`: geração local, 26 t
 
 A solução canónica mantém D1 inclusiva de 900000 ms; 900001 é EXPIRED. D1–D6 são decisões didáticas a confirmar, não factos adicionais do enunciado. O simulador não cobra nem controla hardware.
 
-Próxima tarefa: ensaiar 60 minutos com uma dupla e uma falha de modelo; registar tempos/dúvidas. Novas alterações ao PPTX mantêm o modelo três revisores (aluno/docente/metodologista) e um escritor, com pareceres separados e versão identificada.
+Novas alterações ao PPTX mantêm o modelo três revisores (aluno/docente/metodologista) e um escritor, com pareceres separados e versão identificada.
+
+## Checkpoint 05: change aplicada (`validate-attendant-payment`)
+
+`evaluateExit` aplica a janela por `paymentPoint` (`MACHINE` 900 000 ms, `ATTENDANT` 3 600 000 ms, inclusivas). D8 aprovada; D7, D9 e D10 implementadas como propostas, ainda por aprovar formalmente, e fora de `docs/BRIEF.md` (tarefas 1.1 e 1.2 em aberto). Evidência: `npm test`, `npm run build`, `npm run demo` (`scripts/demo-api.mjs`) e `openspec validate validate-attendant-payment --strict --no-interactive`. Próxima tarefa: aprovar D7, D9 e D10, atualizar `docs/BRIEF.md` e arquivar; depois ensaiar 60 minutos com uma dupla e uma falha de modelo, registando tempos e dúvidas.

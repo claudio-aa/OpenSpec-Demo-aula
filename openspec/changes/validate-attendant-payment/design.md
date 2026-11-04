@@ -1,6 +1,6 @@
 ## Context
 
-Ver `proposal.md` para a motivação. Estado atual, verificado no código:
+Ver `proposal.md` para a motivação. Estado antes da alteração, verificado no código:
 
 - `evaluateExit` em `server/exit-decision.js` valida `paid` (booleano), `exitAt` e `paidAt` e decide por tempo decorrido (`> 900000` ms é `EXPIRED`). Não lê nenhum outro campo.
 - `paidAt: null` significa "sem valor" e é aceite; `paidAt` ausente é rejeitado.
@@ -24,6 +24,10 @@ O enunciado diz apenas que se paga na caixa automática ou ao vigilante e que a 
 
 Consequência: o ponto de pagamento passa a alterar a decisão (D8), mas a resposta continua a ser `{ allowed, reason }` sem devolver o ponto, como em `validate-garage-exit`.
 
+## Estado da implementação
+
+D7, D9 e D10 foram implementadas tal como propostas, para o código poder correr neste checkpoint, e continuam pendentes de aprovação formal do responsável pelo processo; por isso não constam de `docs/BRIEF.md`. D8 está aprovada e implementada. Se alguma proposta for recusada, rever a spec delta, `evaluateExit` e os testes correspondentes.
+
 ## Goals / Non-Goals
 
 **Goals:** aplicar a janela de cada ponto de pagamento no pedido existente, preservando os pedidos atuais.
@@ -38,6 +42,6 @@ Consequência: o ponto de pagamento passa a alterar a decisão (D8), mas a respo
 
 ## Risks / Trade-offs
 
-- [As propostas D7, D9 e D10 podem ser recusadas] → rever a spec delta e as tarefas antes de `/opsx-apply`.
+- [As propostas D7, D9 e D10 podem ser recusadas] → rever a spec delta, as tarefas, `evaluateExit` e os testes correspondentes (já implementadas como propostas; ver «Estado da implementação»).
 - [O campo é declarado pelo cliente do simulador e não prova onde o pagamento ocorreu; um cliente pode escolher `ATTENDANT` para obter 60 minutos] → aceitável no simulador (D6); não serve de controlo em produção.
 - [Ler «até 60 minutos» como inclusivo pode divergir da intenção] → está assinalado como interpretação em D8.

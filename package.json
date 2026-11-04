@@ -8,7 +8,8 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "start": "node server/index.js",
-    "test": "node --test"
+    "test": "node --test",
+    "demo": "node scripts/demo-api.mjs"
   },
   "dependencies": { "react": "^19.2.0", "react-dom": "^19.2.0" },
   "devDependencies": { "vite": "^7.1.0" }

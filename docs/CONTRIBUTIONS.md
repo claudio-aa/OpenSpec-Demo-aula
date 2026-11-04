@@ -1,10 +1,10 @@
 # Estado do demo e contributos dos modelos
 
-O protótipo da autorização de saída está implementado e verificado, com 26 testes a passar, build concluído e alteração OpenSpec arquivada. Existem quatro checkpoints, guiões, prompts e uma apresentação para os 60 minutos. Falta ensaiar a sessão completa com o docente e os alunos. O protótipo simula apenas um recorte do caso de estudo.
+O protótipo da autorização de saída está implementado e verificado, com 42 testes a passar, build concluído, a alteração `validate-garage-exit` arquivada e `validate-attendant-payment` aplicada (por arquivar). Existem cinco checkpoints, guiões, prompts e uma apresentação para os 60 minutos. Falta ensaiar a sessão completa com o docente e os alunos. O protótipo simula apenas um recorte do caso de estudo.
 
 ## Autoria da preparação
 
-O assistente principal e os agentes cloud prepararam a estrutura React/Node, a validação de entradas, os testes, os artefactos OpenSpec e os materiais. Os modelos locais receberam tarefas menores. A pessoa responsável pelo processo deve confirmar as decisões didáticas antes de as adotar no exercício.
+O assistente principal e os agentes cloud prepararam a estrutura React/Node, a validação de entradas, os testes, os artefactos OpenSpec e os materiais. Os modelos locais receberam tarefas menores. A alteração `validate-attendant-payment` foi proposta e aplicada por subagentes Claude Sonnet e revisada por Claude Fable; `decide` mantém a origem Qwen, com o parâmetro `windowMs` acrescentado por Sonnet. A pessoa responsável pelo processo deve confirmar as decisões didáticas antes de as adotar no exercício.
 
 | Modelo e tarefa | Resultado observado | Aproveitamento |
 | --- | --- | --- |

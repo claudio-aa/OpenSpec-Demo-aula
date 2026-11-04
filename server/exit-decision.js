@@ -16,15 +16,19 @@ function instant(value) {
 }
 
 // Gerado por Qwen 3.5 4B numa tarefa reduzida e validado pelos testes do contrato.
-function decide(paid, elapsedMs) {
+// O parâmetro windowMs foi acrescentado na change validate-attendant-payment (Claude Sonnet).
+function decide(paid, elapsedMs, windowMs = 900000) {
   if (!paid) {
     return { allowed: false, reason: 'UNPAID' };
   }
-  if (elapsedMs > 900000) {
+  if (elapsedMs > windowMs) {
     return { allowed: false, reason: 'EXPIRED' };
   }
   return { allowed: true, reason: 'VALID' };
 }
+
+// Janela por ponto de pagamento: D1 (caixa automática) e D8 (vigilante), ambas inclusivas.
+const windows = { MACHINE: 900000, ATTENDANT: 3600000 };
 
 export function evaluateExit(input) {
   if (input === null || typeof input !== 'object' || Array.isArray(input) || typeof input.paid !== 'boolean') return invalid();
@@ -32,5 +36,8 @@ export function evaluateExit(input) {
   const paidAt = input.paidAt === null ? null : instant(input.paidAt);
   if (!Number.isFinite(exitAt) || (paidAt !== null && !Number.isFinite(paidAt))) return invalid();
   if (input.paid && (paidAt === null || exitAt < paidAt)) return invalid();
-  return decide(input.paid, paidAt === null ? 0 : exitAt - paidAt);
+  // D7/D10: paymentPoint opcional, null equivale a ausente e é validado mesmo com paid: false.
+  const point = input.paymentPoint ?? 'MACHINE';
+  if (typeof point !== 'string' || !Object.hasOwn(windows, point)) return invalid();
+  return decide(input.paid, paidAt === null ? 0 : exitAt - paidAt, windows[point]);
 }
